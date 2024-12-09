@@ -65,53 +65,127 @@ function Loader() {
   }, []);
 
   return (
-    <div className="contain">
-      <div className="loadings" ref={loading}>
-        <div className="loader">
-          <div className="bar loader1"></div>
-          <div className="bar loader2"></div>
+    <div className="contain relative h-screen w-screen bg-black">
+      <div
+        className="loadings bg-red-700 h-screen w-screen absolute text-white pointer-events-none top-0 left-0 right-0 bottom-0 opacity-[1]"
+        ref={loading}
+      >
+        <div className="loader absolute flex top-1/2 left-1/2 bg-white w-[250px] h-[35px] transform translate-x-[-50%] translate-y-[-50%]">
+          <div className="bar h-[35px] overflow-hidden loader1 relative bg-black w-[170px]"></div>
+          <div className="bar  h-[35px] overflow-hidden loader2  relative bg-black w-[80px]"></div>
         </div>
 
-        <div className="counter" ref={counter}>
-          <div className="counter1 digit">
-            <span className="number view">0</span>
-            <span className="number view">1</span>
+        <div
+          className="counter fixed bottom-[1%] left-[1%] text-white flex h-[110px] border-none overflow-hidden items-end"
+          ref={counter}
+        >
+          <div className="counter1 relative digit flex flex-col max-h-[130px] box-content items-center justify-between">
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              0
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              1
+            </span>
           </div>
-          <div className="counter2 digit">
-            <span className="number view">0</span>
-            <span className="number view">1</span>
-            <span className="number view">2</span>
-            <span className="number view">3</span>
-            <span className="number view">4</span>
-            <span className="number view">5</span>
-            <span className="number view">6</span>
-            <span className="number view">7</span>
-            <span className="number view">8</span>
-            <span className="number view">9</span>
-            <span className="number view">0</span>
+          <div className="counter2 relative digit flex flex-col max-h-[130px] box-content items-center justify-between">
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              0
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              1
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              2
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              3
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              4
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              5
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              6
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              7
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              8
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              9
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              0
+            </span>
           </div>
-          <div className="counter3 digit">
-            <span className="number view">0</span>
-            <span className="number view">1</span>
-            <span className="number view">2</span>
-            <span className="number view">3</span>
-            <span className="number view">4</span>
-            <span className="number view">5</span>
-            <span className="number view">6</span>
-            <span className="number view">7</span>
-            <span className="number view">8</span>
-            <span className="number view">9</span>
-            <span className="number view">0</span>
-            <span className="number view">1</span>
-            <span className="number view">2</span>
-            <span className="number view">3</span>
-            <span className="number view">4</span>
-            <span className="number view">5</span>
-            <span className="number view">6</span>
-            <span className="number view">7</span>
-            <span className="number view">8</span>
-            <span className="number view">9</span>
-            <span className="number view">0</span>
+          <div className="counter3 relative digit flex flex-col max-h-[130px] box-content items-center justify-between">
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              0
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              1
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              2
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              3
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              4
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              5
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              6
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              7
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              8
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              9
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              0
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              1
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              2
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              3
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              4
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              5
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              6
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              7
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              8
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              9
+            </span>
+            <span className="number text-[7rem] -webkit-text-stroke-[3px_white] max-h-[130px]">
+              0
+            </span>
           </div>
         </div>
       </div>
