@@ -1,15 +1,27 @@
+import { useState, useEffect } from "react";
 import Loader from "@/components/Loader";
 import Head from "next/head";
-
-console.log("karim selim");
+import LandingPage from "./LandingPage";
 
 export default function Home() {
+  // State to control the loader visibility
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoading(false);
+    }, 7800);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <>
       <Head>
-        <title>Phoenix Nation</title>
+        <title>Karim | Phoenix Nation</title>
       </Head>
-      <Loader />
+      {loading ? <Loader /> : <LandingPage />}
+      {/* <LandingPage /> */}
     </>
   );
 }

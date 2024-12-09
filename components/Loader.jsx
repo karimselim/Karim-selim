@@ -65,14 +65,14 @@ function Loader() {
   }, []);
 
   return (
-    <div className="contain relative h-screen w-screen bg-black">
+    <div className="contain relative h-screen w-screen bg-[#020001]">
       <div
         className="loadings bg-red-700 h-screen w-screen absolute text-white pointer-events-none top-0 left-0 right-0 bottom-0 opacity-[1]"
         ref={loading}
       >
         <div className="loader absolute flex top-1/2 left-1/2 bg-white w-[250px] h-[35px] transform translate-x-[-50%] translate-y-[-50%]">
-          <div className="bar h-[35px] overflow-hidden loader1 relative bg-black w-[170px]"></div>
-          <div className="bar  h-[35px] overflow-hidden loader2  relative bg-black w-[80px]"></div>
+          <div className="bar h-[35px] overflow-hidden loader1 relative bg-[#020001] w-[170px]"></div>
+          <div className="bar  h-[35px] overflow-hidden loader2  relative bg-[#020001] w-[80px]"></div>
         </div>
 
         <div
