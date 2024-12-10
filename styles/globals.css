@@ -18,6 +18,7 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+  /* font-size: calc(100vw / 1920 * 10); */
 }
 
 *::-webkit-scrollbar {
@@ -66,5 +67,7 @@ a:-webkit-any-link {
 }
 
 h2 {
-  font-family: math;
+  font-family: SaolDisplay;
+  text-transform: uppercase;
+  color: #ffe9db;
 }

@@ -20,8 +20,8 @@ export default function Home() {
       <Head>
         <title>Karim | Phoenix Nation</title>
       </Head>
-      {loading ? <Loader /> : <LandingPage />}
-      {/* <LandingPage /> */}
+      {/* {loading ? <Loader /> : <LandingPage />} */}
+      <LandingPage />
     </>
   );
 }
