@@ -1,0 +1,152 @@
+.LoaderContainer {
+  background-color: black;
+  color: white;
+  padding: 0;
+  margin: 0;
+  box-sizing: content-box;
+  font-family: 'Aeonik', sans-serif;
+  font-weight: normal;
+  position: relative;
+  max-height: 100vh;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.loaderContainer a:-webkit-any-link {
+  color: #000;
+  text-decoration: none;
+  font-weight: 700;
+}
+
+.loaderContainer h2 {
+  font-family: SaolDisplay;
+  text-transform: uppercase;
+  color: #ffe9db;
+}
+
+.contain {
+  position: relative;
+  height: 100vh;
+  width: 100vw;
+  background-color: black;
+}
+
+.reveal {
+  display: flex;
+  font-size: 3.5rem;
+  max-width: 50rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.wrapper {
+  background-color: black;
+  height: 100vh;
+  width: 100vw;
+  color: black;
+  position: absolute;
+  opacity: 1;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.header {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 10px 0;
+}
+
+.menu {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.logo {
+  font-size: 2.25em;
+  text-decoration: none;
+}
+
+.loadings {
+  background-color: #a20021;
+  height: 100vh;
+  width: 100vw;
+  position: absolute;
+  color: white;
+  pointer-events: none;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  opacity: 1;
+  overflow: hidden;
+}
+
+.loader {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  top: 50%;
+  left: 50%;
+  background-color: white;
+  width: 250px;
+  height: 35px;
+  display: flex;
+}
+
+.bar {
+  height: 35px;
+  overflow: hidden;
+}
+.loader1 {
+  position: relative;
+  background-color: black;
+  width: 170px;
+}
+.loader2 {
+  position: relative;
+  background-color: black;
+  width: 80px;
+}
+
+.counter {
+  position: fixed;
+  bottom: 0;
+  left: 1%;
+  color: white;
+  display: flex;
+  height: 130px;
+  border: none;
+  overflow: hidden;
+  align-items: flex-end;
+}
+
+.counter1,
+.counter2,
+.counter3 {
+  position: relative;
+}
+
+.digit {
+  display: flex;
+  flex-direction: column;
+  max-height: 130px;
+  position: relative;
+  box-sizing: content-box;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.number {
+  font-size: 8em;
+  -webkit-text-stroke: 3px white;
+  max-height: 130px;
+}
