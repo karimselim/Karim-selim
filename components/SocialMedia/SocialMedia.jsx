@@ -1,13 +1,11 @@
 import React from 'react';
 import useCursorStyle from '../../hooks/useCursorStyle';
-import { Instagram, Facebook, Vimeo, Linkedin, Github } from '../Icons';
+import { Facebook, Linkedin, Github } from '../Icons';
 import StickyCursor from '../StickyCursor';
 import { Container, Link } from './styles';
 
 const medias = [
-  // { component: Instagram, url: 'https://www.instagram.com/furrowstudio/' },
-  { component: Facebook, url: 'https://www.facebook.com/furrowstudio/' },
-  // { component: Vimeo, url: 'https://vimeo.com/furrow' },
+  { component: Facebook, url: 'https://www.facebook.com/kemo.elza.3' },
   { component: Github, url: 'https://github.com/karimselim' },
   {
     component: Linkedin,
