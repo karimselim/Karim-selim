@@ -72,17 +72,17 @@ const App = ({ Component, pageProps }) => {
         <MenuContextProvider>
           <CursorContextProvider>
             <ThemedApp>
-              {loading ? (
+              {/* {loading ? (
                 <>
                   <Loader />
                 </>
               ) : (
-                <>
-                  <Header />
-                  <Menu />
-                  <Component {...pageProps} />
-                </>
-              )}
+                <> */}
+              <Header />
+              <Menu />
+              <Component {...pageProps} />
+              {/* </>
+              )} */}
               <Cursor />
             </ThemedApp>
           </CursorContextProvider>

@@ -21,11 +21,6 @@ export const Link = styled.a`
   height: 21px;
   line-height: 24px;
 
-  &:nth-of-type(2) {
-    width: 31px;
-    height: 24px;
-  }
-
   &:hover svg path {
     fill: ${({ theme }) => theme.text};
   }

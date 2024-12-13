@@ -74,12 +74,12 @@ const AppBar = props => {
     >
       <Container>
         <Link href="/" passHref>
-          <StyledLink title="Furrow">
+          <StyledLink title="Karim">
             <Logo {...logoProps} />
           </StyledLink>
         </Link>
         <MenuWrapper>
-          <MenuButton title="Menu" />
+          <MenuButton title="Projects" />
         </MenuWrapper>
       </Container>
     </Slider>

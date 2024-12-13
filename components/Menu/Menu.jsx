@@ -146,27 +146,25 @@ const Menu = () => {
               <FooterText
                 className="link"
                 as="a"
-                href="mailto:info@furrow.studio"
+                href="mailto:kareemsleem7@gmail.com"
                 onMouseEnter={addCursorBorder}
                 onMouseLeave={removeCursorBorder}
               >
-                info@furrow.studio
+                kareemsleem7@gmail.com
               </FooterText>
               <FooterText
                 className="link"
                 as="a"
-                href="tel:+1.902.417.0634"
+                href="tel:+201068679457"
                 onMouseEnter={addCursorBorder}
                 onMouseLeave={removeCursorBorder}
               >
-                +1.902.417.0634
+                201068679457
               </FooterText>
-              <FooterText className="copyright">© Furrow 2024</FooterText>
+              <FooterText className="copyright">© Karim Selim 2024</FooterText>
               {isMobile && (
                 <Address>
-                  <FooterText>
-                    15 Camburhill Ct Unit C<br /> Charlottetown, PE C1E 0E2
-                  </FooterText>
+                  <FooterText>Egypt, Damietta, Ras-Elbar</FooterText>
                 </Address>
               )}
               <SocialMedia />
