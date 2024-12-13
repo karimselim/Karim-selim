@@ -62,9 +62,6 @@ function Loader() {
       duration: 0.2,
       ease: 'power3.inOut',
     });
-    gsap.to('.wrapper', { opacity: 1 }, '<');
-    gsap.from('.menu', { y: -80, ease: 'power3', duration: 1 }, '<');
-    gsap.from('.reveal', { y: 80, ease: 'power4', duration: 1 }, '<');
   }, []);
 
   return (
