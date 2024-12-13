@@ -45,7 +45,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Furrow Studio</title>
+        <title>Karim | Phoenix nation</title>
         <link rel="icon" href="/favicon.png" />
         <link rel="stylesheet" href="https://use.typekit.net/yzi3byl.css" />
       </Head>
