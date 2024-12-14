@@ -45,7 +45,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Karim Selim</title>
+        <title>Karim Nation</title>
         <link rel="icon" href="/favicon.png" />
         <link rel="stylesheet" href="https://use.typekit.net/yzi3byl.css" />
       </Head>
