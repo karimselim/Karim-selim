@@ -9,7 +9,7 @@ export default [
     id: 'message-nation',
     title: 'Message Nation',
     path: 'https://reliable-taffy-f4a46a.netlify.app/',
-    video: 'second.mp4',
+    video: 'home.mp4',
   },
   {
     id: 'learning-nation',
@@ -21,6 +21,6 @@ export default [
     id: 'weater-nation',
     title: 'Weather Nation',
     path: 'https://weather-watch-nine.vercel.app/',
-    video: 'fourth.mp4',
+    video: 'fifth.mp4',
   },
 ];

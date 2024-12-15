@@ -39,7 +39,7 @@ const Logo = props => {
       onClick={handleToggleTheme}
       style={{ fontSize: 42, fontWeight: 'bold' }}
     >
-      Karim
+      KARIM
     </p>
   );
 };

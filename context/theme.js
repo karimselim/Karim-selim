@@ -1,7 +1,7 @@
 /* eslint-disable react/jsx-filename-extension */
 import React from 'react';
 
-const storageKey = '@AwwwardsRebuilt:Theme';
+const storageKey = 'karim:theme';
 
 const INITIAL_STATE = {
   theme: 'dark',
