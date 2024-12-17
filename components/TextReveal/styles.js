@@ -10,6 +10,9 @@ export const H1 = styled.h1`
   width: 100%;
   height: 35vh;
   text-align: center;
+  @media (max-width: 576px) {
+    font-size: 80px;
+  }
 `;
 
 export const Container = styled.div`
