@@ -23,40 +23,35 @@ const TextReveal = () => {
       p.innerHTML = '';
 
       // Loop through each sentence
-      sentences.forEach((sentence, sentenceIndex) => {
+      sentences.forEach(sentence => {
         // Create a container for each sentence to apply padding or margin
         const sentenceContainer = document.createElement('div');
 
         // Split each sentence into words
-        const words = sentence.split(' ').map((word, i) => {
+        const words = sentence.split(' ').map((word, i, arr) => {
           const wordSpan = document.createElement('span');
           wordSpan.textContent = word;
           wordSpan.style.display = 'inline-block'; // Keeps the word together
           wordSpan.style.opacity = '0';
           wordSpan.style.transform = 'translateY(20px)';
-
-          // Create a space after each word to ensure proper spacing between words
-          if (i < sentence.split(' ').length - 1) {
-            const spaceSpan = document.createElement('span');
-            spaceSpan.textContent = '\u00A0'; // Non-breaking space
-            wordSpan.appendChild(spaceSpan); // Append the space span after each word
-          }
+          wordSpan.style.whiteSpace = 'normal';
 
           return wordSpan;
         });
 
         // Append the words for the current sentence to the sentence container
-        words.forEach(word => sentenceContainer.appendChild(word));
+        words.forEach((word, i) => {
+          sentenceContainer.appendChild(word);
+          // After each word (except the last one), add a single space
+          if (i < words.length - 1) {
+            sentenceContainer.appendChild(document.createTextNode(' ')); // Single space between words
+          }
+        });
 
-        // Add a period for the current sentence
+        // Add the period (now treated like any other character)
         const periodSpan = document.createElement('span');
-        periodSpan.textContent = '.';
+        periodSpan.textContent = '.'; // Period is treated as a normal character
         sentenceContainer.appendChild(periodSpan);
-
-        // Add extra space after the period
-        const extraSpace = document.createElement('span');
-        extraSpace.textContent = '\u00A0\u00A0'; // Non-breaking spaces (adjust as needed)
-        sentenceContainer.appendChild(extraSpace);
 
         // Append the sentence container to the paragraph
         p.appendChild(sentenceContainer);
@@ -82,7 +77,8 @@ const TextReveal = () => {
           // Animate each letter within the word
           const letters = word.textContent.split('').map(letter => {
             const letterSpan = document.createElement('span');
-            letterSpan.textContent = letter === ' ' ? '\u00A0' : letter; // Handle spaces
+            letterSpan.textContent =
+              letter === ' ' || letter === '\u00A0' ? '' : letter; // Remove spaces or non-breaking spaces
             letterSpan.style.display = 'inline-block';
             return letterSpan;
           });
@@ -112,7 +108,7 @@ const TextReveal = () => {
     const h1 = document.querySelector('.h1-title');
     const h1Letters = h1.textContent.split('').map(letter => {
       const span = document.createElement('span');
-      span.textContent = letter === ' ' ? '\u00A0' : letter; // Handle spaces
+      span.textContent = letter === ' ' || letter === '\u00A0' ? '' : letter; // Remove spaces or non-breaking spaces
       span.style.display = 'inline-block';
       span.style.opacity = '0';
       span.style.transform = 'translateY(20px)';
@@ -146,6 +142,7 @@ const TextReveal = () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [theme]);
+  /** */
 
   return (
     <>
