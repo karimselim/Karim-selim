@@ -17,11 +17,38 @@ export const Container = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   width: 100%;
+  justify-content: flex-end;
 `;
 
 export const Text = styled.div`
   font-size: 200px;
   font-family: 'Ogg';
+  width: 70%;
+
+  /* Adjust for smaller screens */
+  @media (max-width: 1200px) {
+    font-size: 150px; /* Reduce font size for large tablets or smaller desktops */
+  }
+
+  @media (max-width: 992px) {
+    font-size: 120px; /* Medium tablets or small desktops */
+  }
+
+  @media (max-width: 768px) {
+    font-size: 80px; /* Tablets or larger phones */
+  }
+
+  @media (max-width: 576px) {
+    font-size: 60px; /* Small phones */
+    width: 100%;
+    margin-inline: 5%;
+  }
+
+  @media (max-width: 360px) {
+    font-size: 40px; /* Very small phones */
+    width: 100%;
+    margin-inline: 5%;
+  }
 `;
 
 export const P = styled.p`
@@ -32,7 +59,6 @@ export const P = styled.p`
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  margin-left: 50px;
   white-space: normal; /* Allow line breaks */
   word-wrap: break-word; /* Break words when necessary */
   overflow-wrap: break-word;
@@ -43,7 +69,7 @@ export const P = styled.p`
 `;
 
 export const Space = styled.div`
-  height: 15vh;
+  height: 29vh;
 `;
 
 export const SmallSpace = styled.div`

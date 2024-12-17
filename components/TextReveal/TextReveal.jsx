@@ -14,120 +14,69 @@ const TextReveal = () => {
 
     // Animate paragraphs
     paragraphs.forEach(p => {
-      // Split the paragraph text into sentences by finding periods
-      const sentences = p.textContent
-        .split('.')
-        .map(sentence => sentence.trim());
+      // Split the paragraph text into words
+      const words = p.textContent.split(' ').map(word => word.trim());
 
-      // Clear the paragraph content to append processed sentences
+      // Clear the paragraph content to append processed words
       p.innerHTML = '';
 
-      // Loop through each sentence
-      sentences.forEach(sentence => {
-        // Create a container for each sentence to apply padding or margin
-        const sentenceContainer = document.createElement('div');
+      // Loop through each word
+      words.forEach((word, i) => {
+        const wordSpan = document.createElement('span');
+        wordSpan.textContent = word;
+        wordSpan.style.display = 'inline-block'; // Keeps the word together
+        wordSpan.style.opacity = '0';
+        wordSpan.style.transform = 'translateY(20px)';
+        wordSpan.style.whiteSpace = 'normal';
 
-        // Split each sentence into words
-        const words = sentence.split(' ').map((word, i, arr) => {
-          const wordSpan = document.createElement('span');
-          wordSpan.textContent = word;
-          wordSpan.style.display = 'inline-block'; // Keeps the word together
-          wordSpan.style.opacity = '0';
-          wordSpan.style.transform = 'translateY(20px)';
-          wordSpan.style.whiteSpace = 'normal';
+        // Append the word span to the paragraph
+        p.appendChild(wordSpan);
 
-          return wordSpan;
-        });
+        // Add a space after each word except the last one
+        if (i < words.length - 1) {
+          p.appendChild(document.createTextNode(' '));
+        }
 
-        // Append the words for the current sentence to the sentence container
-        words.forEach((word, i) => {
-          sentenceContainer.appendChild(word);
-          // After each word (except the last one), add a single space
-          if (i < words.length - 1) {
-            sentenceContainer.appendChild(document.createTextNode(' ')); // Single space between words
-          }
-        });
-
-        // Add the period (now treated like any other character)
-        const periodSpan = document.createElement('span');
-        periodSpan.textContent = '.'; // Period is treated as a normal character
-        sentenceContainer.appendChild(periodSpan);
-
-        // Append the sentence container to the paragraph
-        p.appendChild(sentenceContainer);
-
-        // Use the text color from the current theme
-        const themeColor = theme.text;
-
-        // Animate each word individually based on its position
-        words.forEach((word, i) => {
-          gsap.to(word, {
-            opacity: 1,
-            y: 0,
-            color: themeColor, // Apply dynamic theme-based color
-            scrollTrigger: {
-              trigger: word,
-              start: 'top 60%',
-              end: 'top 25%',
-              scrub: true,
-            },
-            delay: i * 0.05, // Adds stagger effect
-          });
-
-          // Animate each letter within the word
-          const letters = word.textContent.split('').map(letter => {
-            const letterSpan = document.createElement('span');
-            letterSpan.textContent =
-              letter === ' ' || letter === '\u00A0' ? '' : letter; // Remove spaces or non-breaking spaces
-            letterSpan.style.display = 'inline-block';
-            return letterSpan;
-          });
-
-          word.innerHTML = ''; // Clear the word and append the letters
-          letters.forEach(letter => word.appendChild(letter));
-
-          letters.forEach((letter, i) => {
-            gsap.to(letter, {
-              opacity: 1,
-              y: 0,
-              color: themeColor, // Apply dynamic theme-based color
-              scrollTrigger: {
-                trigger: letter,
-                start: 'top 60%',
-                end: 'top 25%',
-                scrub: true,
-              },
-              delay: i * 0.05, // Adds stagger effect to each letter
-            });
-          });
+        // Animate each word
+        gsap.to(wordSpan, {
+          opacity: 1,
+          y: 0,
+          color: theme.text, // Apply dynamic theme-based color
+          scrollTrigger: {
+            trigger: wordSpan,
+            start: 'top 60%',
+            end: 'top 25%',
+            scrub: true,
+          },
+          delay: i * 0.05, // Adds stagger effect
         });
       });
     });
 
     // Animate H1 element
     const h1 = document.querySelector('.h1-title');
-    const h1Letters = h1.textContent.split('').map(letter => {
+    const h1Words = h1.textContent.split(' ').map(word => word.trim());
+
+    // Clear the original text and append the words as spans
+    h1.innerHTML = '';
+    h1Words.forEach((word, i) => {
       const span = document.createElement('span');
-      span.textContent = letter === ' ' || letter === '\u00A0' ? '' : letter; // Remove spaces or non-breaking spaces
+      span.textContent = word;
       span.style.display = 'inline-block';
       span.style.opacity = '0';
       span.style.transform = 'translateY(20px)';
-      return span;
-    });
+      h1.appendChild(span);
 
-    // Clear the original text and append the letters as spans
-    h1.innerHTML = '';
-    h1Letters.forEach(span => h1.appendChild(span));
+      // Add a space after each word except the last one
+      if (i < h1Words.length - 1) {
+        h1.appendChild(document.createTextNode(' '));
+      }
 
-    // Use the text color from the current theme
-    const themeColor = theme.text;
-
-    // Animate each letter individually based on its position
-    h1Letters.forEach((span, i) => {
+      // Animate each word
       gsap.to(span, {
         opacity: 1,
         y: 0,
-        color: themeColor, // Apply dynamic theme-based color
+        color: theme.text, // Apply dynamic theme-based color
         scrollTrigger: {
           trigger: h1,
           start: 'top 75%',
@@ -142,7 +91,6 @@ const TextReveal = () => {
       ScrollTrigger.getAll().forEach(trigger => trigger.kill());
     };
   }, [theme]);
-  /** */
 
   return (
     <>
