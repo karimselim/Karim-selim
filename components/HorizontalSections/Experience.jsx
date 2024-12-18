@@ -1,7 +1,12 @@
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
-import styles from './styles.module.css';
+import {
+  ScrollSectionOuter,
+  ScrollSectionInner,
+  ScrollSection,
+  ScrollH3,
+} from './styles';
 
 function Experience() {
   const sectionRef = useRef(null);
@@ -36,21 +41,21 @@ function Experience() {
   }, []);
 
   return (
-    <section className={styles.scrollSectionOuter}>
+    <ScrollSectionOuter>
       <div ref={triggerRef}>
-        <div ref={sectionRef} className={styles.scrollSectionInner}>
-          <div className={styles.scrollSection}>
-            <h3 className={styles.h3}>Section 1</h3>
-          </div>
-          <div className={styles.scrollSection}>
-            <h3 className={styles.h3}>Section 2</h3>
-          </div>
-          <div className={styles.scrollSection}>
-            <h3 className={styles.h3}>Section 3</h3>
-          </div>
-        </div>
+        <ScrollSectionInner ref={sectionRef}>
+          <ScrollSection>
+            <ScrollH3>Section 1</ScrollH3>
+          </ScrollSection>
+          <ScrollSection>
+            <ScrollH3>Section 2</ScrollH3>
+          </ScrollSection>
+          <ScrollSection>
+            <ScrollH3>Section 3</ScrollH3>
+          </ScrollSection>
+        </ScrollSectionInner>
       </div>
-    </section>
+    </ScrollSectionOuter>
   );
 }
 

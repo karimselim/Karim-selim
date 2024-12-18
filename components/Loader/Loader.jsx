@@ -1,8 +1,20 @@
 /* eslint-disable react/no-unescaped-entities */
 import { useRef } from 'react';
-import styles from './styles.module.css';
 import gsap from 'gsap';
 import { useEffect } from 'react';
+import {
+  LoaderContainer,
+  Contain,
+  Loadings,
+  LoaderWrapper,
+  Loader1,
+  Loader2,
+  Counter,
+  Counter1,
+  Counter2,
+  Counter3,
+  Number,
+} from './styles';
 
 function Loader() {
   const loading = useRef(null);
@@ -65,69 +77,59 @@ function Loader() {
   }, []);
 
   return (
-    <div className={`${styles.LoaderContainer}`}>
-      <div className={`${styles.contain} contain`}>
-        <div className={`${styles.loadings} loadings`} ref={loading}>
-          <div className={`${styles.loader} loader`}>
-            <div
-              className={`${styles.bar} ${styles.loader1} bar loader1`}
-            ></div>
-            <div
-              className={`${styles.bar} ${styles.loader2} bar loader2`}
-            ></div>
-          </div>
+    <LoaderContainer>
+      <Contain className={`contain`}>
+        <Loadings className={`loadings`} ref={loading}>
+          <LoaderWrapper className={`loader`}>
+            <Loader1 className={`bar loader1`}></Loader1>
+            <Loader2 className={` bar loader2`}></Loader2>
+          </LoaderWrapper>
 
-          <div className={styles.counter} ref={counter}>
-            <div
-              className={`${styles.counter1} ${styles.digit} counter1 digit`}
-            >
-              <span className={styles.number}>0</span>
-              <span className={styles.number}>1</span>
-            </div>
-            <div
-              className={`${styles.digit} ${styles.counter2} counter2 digit`}
-            >
-              <span className={styles.number}>0</span>
-              <span className={styles.number}>1</span>
-              <span className={styles.number}>2</span>
-              <span className={styles.number}>3</span>
-              <span className={styles.number}>4</span>
-              <span className={styles.number}>5</span>
-              <span className={styles.number}>6</span>
-              <span className={styles.number}>7</span>
-              <span className={styles.number}>8</span>
-              <span className={styles.number}>9</span>
-              <span className={styles.number}>0</span>
-            </div>
-            <div
-              className={`${styles.counter3} ${styles.digit} counter3 digit`}
-            >
-              <span className={styles.number}>0</span>
-              <span className={styles.number}>1</span>
-              <span className={styles.number}>2</span>
-              <span className={styles.number}>3</span>
-              <span className={styles.number}>4</span>
-              <span className={styles.number}>5</span>
-              <span className={styles.number}>6</span>
-              <span className={styles.number}>7</span>
-              <span className={styles.number}>8</span>
-              <span className={styles.number}>9</span>
-              <span className={styles.number}>0</span>
-              <span className={styles.number}>1</span>
-              <span className={styles.number}>2</span>
-              <span className={styles.number}>3</span>
-              <span className={styles.number}>4</span>
-              <span className={styles.number}>5</span>
-              <span className={styles.number}>6</span>
-              <span className={styles.number}>7</span>
-              <span className={styles.number}>8</span>
-              <span className={styles.number}>9</span>
-              <span className={styles.number}>0</span>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
+          <Counter ref={counter}>
+            <Counter1 className={`counter1 digit`}>
+              <Number>0</Number>
+              <Number>1</Number>
+            </Counter1>
+            <Counter2 className={`counter2 digit`}>
+              <Number>0</Number>
+              <Number>1</Number>
+              <Number>2</Number>
+              <Number>3</Number>
+              <Number>4</Number>
+              <Number>5</Number>
+              <Number>6</Number>
+              <Number>7</Number>
+              <Number>8</Number>
+              <Number>9</Number>
+              <Number>0</Number>
+            </Counter2>
+            <Counter3 className={`counter3 digit`}>
+              <Number>0</Number>
+              <Number>1</Number>
+              <Number>2</Number>
+              <Number>3</Number>
+              <Number>4</Number>
+              <Number>5</Number>
+              <Number>6</Number>
+              <Number>7</Number>
+              <Number>8</Number>
+              <Number>9</Number>
+              <Number>0</Number>
+              <Number>1</Number>
+              <Number>2</Number>
+              <Number>3</Number>
+              <Number>4</Number>
+              <Number>5</Number>
+              <Number>6</Number>
+              <Number>7</Number>
+              <Number>8</Number>
+              <Number>9</Number>
+              <Number>0</Number>
+            </Counter3>
+          </Counter>
+        </Loadings>
+      </Contain>
+    </LoaderContainer>
   );
 }
 

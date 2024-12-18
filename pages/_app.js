@@ -35,24 +35,19 @@ const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
-  // Show loader first, then start loading resources
   useEffect(() => {
-    // Show loader for at least 1 second
     const initialTimer = setTimeout(() => {
-      // Now start loading resources after 1 second of the loader being shown
       const preloadResources = async () => {
-        // Simulate a delay (e.g., loading images, scripts, etc.)
-        await new Promise(resolve => setTimeout(resolve, 4000)); // Simulate 4 seconds of resource loading
-        setIsLoaded(true); // Once resources are loaded, set isLoaded to true
+        await new Promise(resolve => setTimeout(resolve, 4000));
+        setIsLoaded(true);
       };
 
-      preloadResources(); // Begin preloading resources
+      preloadResources();
 
-      // After 7.8 seconds, hide the loader and show the page content
       setTimeout(() => {
         setLoading(false);
-      }, 7800); // 7.8 seconds total for the loader
-    }, 1000); // Initial delay for loader (1 second to make sure the loader is visible)
+      }, 7000);
+    }, 1000);
 
     // Cleanup on component unmount
     return () => clearTimeout(initialTimer);
@@ -89,15 +84,15 @@ const App = ({ Component, pageProps }) => {
         <MenuContextProvider>
           <CursorContextProvider>
             <ThemedApp>
-              {loading ? (
+              {/* {loading ? (
                 <Loader /> // Show the loader immediately
               ) : (
-                <>
-                  <Header />
-                  <Menu />
-                  <Component {...pageProps} />
-                </>
-              )}
+                <> */}
+              <Header />
+              <Menu />
+              <Component {...pageProps} />
+              {/* </>
+              )} */}
               <Cursor />
             </ThemedApp>
           </CursorContextProvider>
