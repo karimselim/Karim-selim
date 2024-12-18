@@ -1,20 +1,4 @@
 import styled from 'styled-components';
-
-export const H1 = styled.h1`
-  font-family: 'Ogg';
-  text-transform: uppercase;
-  font-size: 120px;
-  color: ${({ theme }) => theme.textColor};
-  font-weight: lighter;
-  font-style: italic;
-  width: 100%;
-  height: 35vh;
-  text-align: center;
-  @media (max-width: 576px) {
-    font-size: 80px;
-  }
-`;
-
 export const Container = styled.div`
   display: flex;
   justify-content: space-between;
@@ -69,10 +53,6 @@ export const P = styled.p`
   & span {
     display: inline-block;
   }
-`;
-
-export const Space = styled.div`
-  height: 29vh;
 `;
 
 export const SmallSpace = styled.div`

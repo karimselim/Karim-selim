@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import ScrollTrigger from 'gsap/dist/ScrollTrigger';
 import gsap from 'gsap/dist/gsap';
-import { H1, Container, P, Space, Text, SmallSpace } from './styles';
+import { Container, P, Text, SmallSpace } from './styles';
 import { useTheme } from 'styled-components';
 
 gsap.registerPlugin(ScrollTrigger);
@@ -52,53 +52,13 @@ const TextReveal = () => {
         });
       });
     });
-
-    // Animate H1 element
-    const h1 = document.querySelector('.h1-title');
-    const h1Words = h1.textContent.split(' ').map(word => word.trim());
-
-    // Clear the original text and append the words as spans
-    h1.innerHTML = '';
-    h1Words.forEach((word, i) => {
-      const span = document.createElement('span');
-      span.textContent = word;
-      span.style.display = 'inline-block';
-      span.style.opacity = '0';
-      span.style.transform = 'translateY(20px)';
-      h1.appendChild(span);
-
-      // Add a space after each word except the last one
-      if (i < h1Words.length - 1) {
-        h1.appendChild(document.createTextNode(' '));
-      }
-
-      // Animate each word
-      gsap.to(span, {
-        opacity: 1,
-        y: 0,
-        color: theme.text, // Apply dynamic theme-based color
-        scrollTrigger: {
-          trigger: h1,
-          start: 'top 75%',
-        },
-        delay: i * 0.1, // Adds stagger effect
-        duration: 1,
-      });
-    });
-
-    // Cleanup on component unmount
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
   }, [theme]);
 
   return (
     <>
       <SmallSpace />
       <div>
-        <div className="img">
-          <H1 className="h1-title">About me</H1>
-        </div>
+        <div className="img"></div>
         <Container className="container">
           <Text className="text">
             <P>
@@ -107,7 +67,6 @@ const TextReveal = () => {
             </P>
           </Text>
         </Container>
-        <Space />
       </div>
     </>
   );
