@@ -60,7 +60,7 @@ const Banner = () => {
       <VideoContainer>
         <video
           ref={videoRef}
-          src="/videos/second.mp4"
+          src="/videos/second(2).mp4"
           height="100%"
           width="100%"
           loop

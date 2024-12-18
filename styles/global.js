@@ -41,6 +41,7 @@ export default createGlobalStyle`
     overflow-y: visible;
     background: ${({ theme }) => theme.background};
     color: ${({ theme }) => theme.text};
+    scroll:smooth;
   }
   ol, ul {
     list-style: none;
