@@ -7,6 +7,7 @@ import {
   ScrollSection,
   ScrollH3,
 } from './styles';
+import { Skills } from './';
 
 function Experience() {
   const sectionRef = useRef(null);
@@ -44,9 +45,7 @@ function Experience() {
     <ScrollSectionOuter>
       <div ref={triggerRef}>
         <ScrollSectionInner ref={sectionRef}>
-          <ScrollSection>
-            <ScrollH3>Section 1</ScrollH3>
-          </ScrollSection>
+          <Skills />
           <ScrollSection>
             <ScrollH3>Section 2</ScrollH3>
           </ScrollSection>

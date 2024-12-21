@@ -31,7 +31,7 @@ export const ScrollSectionOuter = styled.div`
 
 export const ScrollSectionInner = styled.div`
   height: 100vh;
-  width: 400vw;
+  width: 300vw;
   display: flex;
   flex-direction: row;
   position: relative;
