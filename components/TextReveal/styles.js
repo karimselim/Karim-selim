@@ -8,9 +8,8 @@ export const Container = styled.div`
 `;
 
 export const Text = styled.div`
-  font-size: 200px;
+  font-size: 120px;
   font-family: 'Ogg';
-  width: 70%;
 
   /* Adjust for smaller screens */
   @media (max-width: 1200px) {
