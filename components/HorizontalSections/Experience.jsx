@@ -1,6 +1,4 @@
 import React, { useRef, useEffect } from 'react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger';
 import {
   ScrollSectionOuter,
   ScrollSectionInner,
@@ -13,32 +11,43 @@ function Experience() {
   const sectionRef = useRef(null);
   const triggerRef = useRef(null);
 
-  gsap.registerPlugin(ScrollTrigger);
-
   useEffect(() => {
-    const pin = gsap.fromTo(
-      sectionRef.current,
-      {
-        translateX: 0,
-      },
-      {
-        translateX: '-200vw',
-        ease: 'none',
-        duration: 1,
-        scrollTrigger: {
-          trigger: triggerRef.current,
-          start: 'top top',
-          end: '2000 top',
-          scrub: 0.6,
-          pin: true,
-        },
-      }
-    );
-    return () => {
-      {
-      }
-      pin.kill();
-    };
+    // Ensure the code only runs on the client side
+    if (typeof window !== 'undefined') {
+      // Dynamically import GSAP and ScrollTrigger
+      Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
+        ([gsapModule, ScrollTriggerModule]) => {
+          const gsap = gsapModule.default;
+          const ScrollTrigger = ScrollTriggerModule.default;
+
+          // Register the plugin
+          gsap.registerPlugin(ScrollTrigger);
+
+          // Set up the animation
+          const pin = gsap.fromTo(
+            sectionRef.current,
+            { translateX: 0 },
+            {
+              translateX: '-200vw',
+              ease: 'none',
+              duration: 1,
+              scrollTrigger: {
+                trigger: triggerRef.current,
+                start: 'top top',
+                end: '2000 top',
+                scrub: 0.6,
+                pin: true,
+              },
+            }
+          );
+
+          // Cleanup on component unmount
+          return () => {
+            pin.kill();
+          };
+        }
+      );
+    }
   }, []);
 
   return (
@@ -50,7 +59,7 @@ function Experience() {
             <ScrollH3>Section 2</ScrollH3>
           </ScrollSection>
           <ScrollSection>
-            <ScrollH3>Section 3</ScrollH3>
+            <ScrollH3>Section 3 updated</ScrollH3>
           </ScrollSection>
         </ScrollSectionInner>
       </div>
