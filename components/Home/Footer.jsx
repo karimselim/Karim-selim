@@ -23,7 +23,7 @@ const Footer = () => {
   return (
     <motion.div
       style={{
-        position: 'relative',
+        position: 'absolute',
         height: isMobileView ? '60px' : isTabletView ? '81px' : '131px',
         display: 'flex',
         justifyContent: 'center',
