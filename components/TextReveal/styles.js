@@ -10,6 +10,7 @@ export const Container = styled.div`
 export const Text = styled.div`
   font-size: 120px;
   font-family: 'Ogg';
+  padding-inline: 80px;
 
   /* Adjust for smaller screens */
   @media (max-width: 1200px) {

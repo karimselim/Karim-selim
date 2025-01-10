@@ -62,8 +62,15 @@ const TextReveal = () => {
         <Container className="container">
           <Text className="text">
             <P>
-              Front-end development is what I do so you don’t have to do it. The
-              goal is simple: code it until it works, then make it look cool.
+              Hey there! I’m Karim Selim, the guy who turns blank screens into
+              experiences that click, swipe, and wow. Crafting front-end magic
+              is my passion, and I’m proud to do it right from the heart of
+              Silicon Valley, where innovation thrives and coffee never runs
+              out. When I’m not busy bringing ideas to life with code, you’ll
+              find me chasing inspiration in the latest web trends or perfecting
+              designs that don’t just look good—they feel alive. My mantra? If
+              it’s not sleek, smooth, and stunning, it’s not done yet. Let’s
+              build the future, one pixel at a time.
             </P>
           </Text>
         </Container>
