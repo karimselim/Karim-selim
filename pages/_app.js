@@ -62,6 +62,14 @@ const App = ({ Component, pageProps }) => {
       </Head>
       <style jsx global>{`
         @font-face {
+          font-family: 'Rouge Script';
+          src: url('/fonts/MrDeHaviland-Regular.woff2') format('woff2');
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
           font-family: calibre;
           font-weight: 400;
           font-style: normal;
@@ -84,15 +92,15 @@ const App = ({ Component, pageProps }) => {
         <MenuContextProvider>
           <CursorContextProvider>
             <ThemedApp>
-              {/* {loading ? (
+              {loading ? (
                 <Loader /> // Show the loader immediately
               ) : (
-                <> */}
-              <Header />
-              <Menu />
-              <Component {...pageProps} />
-              {/* </>
-              )} */}
+                <>
+                  <Header />
+                  <Menu />
+                  <Component {...pageProps} />
+                </>
+              )}
               <Cursor />
             </ThemedApp>
           </CursorContextProvider>

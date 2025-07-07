@@ -1,81 +1,149 @@
-import React, { useEffect } from 'react';
-import ScrollTrigger from 'gsap/dist/ScrollTrigger';
-import gsap from 'gsap/dist/gsap';
-import { Container, P, Text, SmallSpace } from './styles';
-import { useTheme } from 'styled-components';
-
-gsap.registerPlugin(ScrollTrigger);
+'use client';
+import React, { useRef, useEffect } from 'react';
+import { gsap } from 'gsap';
 
 const TextReveal = () => {
-  const theme = useTheme(); // Access the current theme (lightTheme or darkTheme)
+  const lines = [
+    'Humans feel before they think.',
+    'So I’m designing emotions in motion.',
+    'That’s why your brand doesn’t just show — it shines.',
+  ];
+
+  const sectionRef = useRef(null);
+  const linesRef = useRef(null);
+  const clipRect = useRef(null);
+  const textElRef = useRef(null);
 
   useEffect(() => {
-    const paragraphs = document.querySelectorAll('.text p');
+    const init = async () => {
+      const { ScrollTrigger } = await import('gsap/ScrollTrigger');
+      gsap.registerPlugin(ScrollTrigger);
 
-    // Animate paragraphs
-    paragraphs.forEach(p => {
-      // Split the paragraph text into words
-      const words = p.textContent.split(' ').map(word => word.trim());
+      const ctx = gsap.context(() => {
+        const words = linesRef.current.querySelectorAll('.word');
+        gsap.set(words, { yPercent: 100, opacity: 0, skewY: 10 });
 
-      // Clear the paragraph content to append processed words
-      p.innerHTML = '';
+        gsap.set(clipRect.current, { width: 0 });
 
-      // Loop through each word
-      words.forEach((word, i) => {
-        const wordSpan = document.createElement('span');
-        wordSpan.textContent = word;
-        wordSpan.style.display = 'inline-block'; // Keeps the word together
-        wordSpan.style.opacity = '0';
-        wordSpan.style.transform = 'translateY(20px)';
-        wordSpan.style.whiteSpace = 'normal';
-
-        // Append the word span to the paragraph
-        p.appendChild(wordSpan);
-
-        // Add a space after each word except the last one
-        if (i < words.length - 1) {
-          p.appendChild(document.createTextNode(' '));
-        }
-
-        // Animate each word
-        gsap.to(wordSpan, {
-          opacity: 1,
-          y: 0,
-          color: theme.text, // Apply dynamic theme-based color
+        const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: wordSpan,
-            start: 'top 60%',
-            end: 'top 25%',
-            scrub: true,
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play reset play reset',
           },
-          delay: i * 0.05, // Adds stagger effect
         });
-      });
-    });
-  }, [theme]);
+
+        tl.to(words, {
+          yPercent: 0,
+          opacity: 1,
+          skewY: 0,
+          duration: 1.2,
+          ease: 'power3.out',
+          stagger: 0.05,
+        }).to(
+          clipRect.current,
+          {
+            width: '100%',
+            duration: 4,
+            ease: 'power2.out',
+          },
+          '+=0.4'
+        );
+      }, sectionRef);
+
+      return () => ctx.revert();
+    };
+
+    init();
+  }, []);
 
   return (
-    <>
-      <SmallSpace />
-      <div>
-        <div className="img"></div>
-        <Container className="container">
-          <Text className="text">
-            <P>
-              Hey there! I’m Karim Selim, the guy who turns blank screens into
-              experiences that click, swipe, and wow. Crafting front-end magic
-              is my passion, and I’m proud to do it right from the heart of
-              Silicon Valley, where innovation thrives and coffee never runs
-              out. When I’m not busy bringing ideas to life with code, you’ll
-              find me chasing inspiration in the latest web trends or perfecting
-              designs that don’t just look good—they feel alive. My mantra? If
-              it’s not sleek, smooth, and stunning, it’s not done yet. Let’s
-              build the future, one pixel at a time.
-            </P>
-          </Text>
-        </Container>
+    <section ref={sectionRef} className="reveal">
+      <div className="lines" ref={linesRef}>
+        {lines.map(ln => (
+          <h2 key={ln} className="line">
+            {ln.split(' ').map((w, wi) => (
+              <span key={wi} className="wordWrap">
+                <span className="word">{w}&nbsp;</span>
+              </span>
+            ))}
+          </h2>
+        ))}
       </div>
-    </>
+
+      <div className="signature">
+        <svg
+          viewBox="0 0 700 120"
+          className="sigSVG"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <defs>
+            <clipPath id="sigMask">
+              <rect ref={clipRect} x="0" y="0" width="0" height="120" />
+            </clipPath>
+          </defs>
+          <text
+            ref={textElRef}
+            x="20"
+            y="80"
+            className="sigText"
+            clipPath="url(#sigMask)"
+          >
+            Karim Selim
+          </text>
+        </svg>
+      </div>
+
+      <style jsx>{`
+        .reveal {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          min-height: 100vh;
+          background: #0d0d0d;
+          color: #fff;
+          overflow: hidden;
+          padding: 0 1.5rem;
+          text-align: center;
+          position: relative;
+        }
+
+        /* headline */
+        .line {
+          margin: 0;
+          font-size: clamp(2rem, 6vw, 4rem);
+          font-weight: 700;
+          line-height: 1.15;
+          overflow: hidden;
+        }
+        .wordWrap {
+          display: inline-block;
+          overflow: hidden;
+        }
+        .word {
+          display: inline-block;
+          transform-origin: top left;
+        }
+
+        /* signature */
+        .signature {
+          position: absolute;
+          bottom: 2rem;
+          right: 2rem;
+          width: clamp(220px, 40vw, 440px);
+        }
+        .sigSVG {
+          width: 100%;
+          height: auto;
+        }
+        .sigText {
+          font-family: 'Rouge Script', cursive;
+          font-size: 95px;
+          fill: #fff;
+        }
+      `}</style>
+    </section>
   );
 };
 
