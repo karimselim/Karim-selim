@@ -5,7 +5,7 @@ import StickyCursor from '../StickyCursor';
 import { Container, Link } from './styles';
 
 const medias = [
-  { component: Facebook, url: 'https://www.facebook.com/kemo.elza.3' },
+  { component: Facebook, url: 'https://www.facebook.com/karim.selim.27/' },
   { component: Github, url: 'https://github.com/karimselim' },
   {
     component: Linkedin,
