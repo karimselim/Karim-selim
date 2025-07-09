@@ -1,5 +1,11 @@
 export default [
   {
+    id: 'gem',
+    title: 'GEM',
+    path: 'https://gem-29pc.vercel.app/',
+    video: 'tut.mp4',
+  },
+  {
     id: 'coffee-nation',
     title: 'Coffee Nation',
     path: 'https://musical-genie-14ef50.netlify.app/',
@@ -15,12 +21,6 @@ export default [
     id: 'learning-nation',
     title: 'Learning Nation',
     path: 'https://learning-nation.vercel.app/',
-    video: 'third.mp4',
-  },
-  {
-    id: 'weater-nation',
-    title: 'Weather Nation',
-    path: 'https://weather-watch-nine.vercel.app/',
     video: 'fifth.mp4',
   },
 ];
