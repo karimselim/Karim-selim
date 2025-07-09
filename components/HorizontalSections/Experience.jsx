@@ -1,3 +1,4 @@
+// Experience.jsx
 import React, { useRef, useEffect } from 'react';
 import {
   ScrollSectionOuter,
@@ -5,46 +6,40 @@ import {
   ScrollSection,
   ScrollH3,
 } from './styles';
-import { Skills } from './';
+import WorkExperiene from './WorkExperiene';
 
 function Experience() {
   const sectionRef = useRef(null);
   const triggerRef = useRef(null);
 
   useEffect(() => {
-    // Ensure the code only runs on the client side
     if (typeof window !== 'undefined') {
-      // Dynamically import GSAP and ScrollTrigger
       Promise.all([import('gsap'), import('gsap/ScrollTrigger')]).then(
         ([gsapModule, ScrollTriggerModule]) => {
           const gsap = gsapModule.default;
           const ScrollTrigger = ScrollTriggerModule.default;
-
-          // Register the plugin
           gsap.registerPlugin(ScrollTrigger);
 
-          // Set up the animation
-          const pin = gsap.fromTo(
-            sectionRef.current,
-            { translateX: 0 },
-            {
-              translateX: '-200vw',
-              ease: 'none',
-              duration: 1,
-              scrollTrigger: {
-                trigger: triggerRef.current,
-                start: 'top top',
-                end: '2000 top',
-                scrub: 0.6,
-                pin: true,
-              },
-            }
-          );
+          const tl = gsap.timeline({
+            scrollTrigger: {
+              trigger: triggerRef.current,
+              start: 'top top',
+              end: '+=3000', // enough scroll space
+              scrub: 1,
+              pin: true,
+              anticipatePin: 1,
+              invalidateOnRefresh: true,
+            },
+          });
 
-          // Cleanup on component unmount
-          return () => {
-            pin.kill();
-          };
+          // Section 1: no scroll movement
+          tl.to(sectionRef.current, { x: '0vw', duration: 1 });
+
+          // Section 2: move after section 1 is done
+          tl.to(sectionRef.current, { x: '-100vw', duration: 1 });
+
+          // Section 3
+          tl.to(sectionRef.current, { x: '-200vw', duration: 1 });
         }
       );
     }
@@ -53,8 +48,8 @@ function Experience() {
   return (
     <ScrollSectionOuter>
       <div ref={triggerRef}>
-        <ScrollSectionInner ref={sectionRef}>
-          <Skills />
+        <ScrollSectionInner ref={sectionRef} style={{ display: 'flex' }}>
+          <WorkExperiene />
           <ScrollSection>
             <ScrollH3>Section 2</ScrollH3>
           </ScrollSection>
