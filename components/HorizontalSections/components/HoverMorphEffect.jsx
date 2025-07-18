@@ -35,10 +35,11 @@ const HoverMorphEffect = ({
       ref={hoverRef}
       className="hover-morph-container"
       style={{
-        width: `${width}px`,
-        height: `${height}px`,
+        width: `100%`,
+        height: `300px`,
         overflow: 'hidden',
         objectFit: 'cover',
+        flex: 2,
       }}
     />
   );

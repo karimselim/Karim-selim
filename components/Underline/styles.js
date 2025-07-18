@@ -3,7 +3,7 @@ import styled from 'styled-components';
 export const LineContainer = styled.div`
   width: 85%;
   position: relative;
-  min-height: 100px;
+  min-height: 60px;
   left: 0;
   svg {
     position: absolute;
@@ -13,6 +13,7 @@ export const LineContainer = styled.div`
     height: 100px;
     z-index: 1;
     pointer-events: none;
+    top: -30px;
   }
 
   .path1 {

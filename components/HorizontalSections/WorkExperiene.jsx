@@ -1,6 +1,16 @@
 import React, { useRef, useEffect } from 'react';
-import { ScrollH3, ScrollSection } from './styles';
+import {
+  ScrollH3,
+  ScrollSection,
+  ExpText,
+  ExpP,
+  ExpDetails,
+  ExpContainer,
+  ExpH2,
+} from './styles';
 import HoverMorphEffect from './components/HoverMorphEffect';
+import UnderLine from '../Underline/Underline';
+import OverlayExperience from './components/OverlayExperience';
 
 const WorkExperiene = () => {
   const sectionRef = useRef(null);
@@ -46,21 +56,35 @@ const WorkExperiene = () => {
         overflow: 'hidden',
         minWidth: '100vw',
         height: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        paddingInline: '3%',
       }}
     >
-      <ScrollH3 style={{ color: 'white' }}>karim selim</ScrollH3>
-      <HoverMorphEffect
-        image1={'/imgs/second.jpg'}
-        image2={'/imgs/first.jpg'}
-        displacementImage={'/imgs/colorful-displacemnt.png'}
-        intensity={0.7}
-        width={400}
-        height={300}
-      />
-      <div
+      <ExpH2 data-text="Experience">Experience</ExpH2>
+      <ExpContainer>
+        <ExpText>
+          <ScrollH3>SBARI – Front-End Developer Intern (Remote)</ScrollH3>
+          <ExpDetails>Gilroy, CA · May 2024 – October 2024</ExpDetails>
+          <UnderLine />
+          <ExpP>
+            At SBARI, I worked remotely as a front-end intern, building
+            responsive and accessible UI components using React and Tailwind
+            CSS. I translated Figma designs into functional interfaces,
+            integrated REST APIs, and focused on clean state management with
+            hooks like <code>useState</code> and <code>useEffect</code>. I also
+            added subtle GSAP animations to enhance the user experience and
+            collaborated weekly with the team through GitHub and video calls.
+          </ExpP>
+        </ExpText>
+        <HoverMorphEffect
+          image1={'/imgs/second.jpg'}
+          image2={'/imgs/first.jpg'}
+          displacementImage={'/imgs/colorful-displacemnt.png'}
+          intensity={0.7}
+          width={400}
+          height={300}
+        />
+      </ExpContainer>
+      {/* <div
         ref={overlayRef}
         style={{
           position: 'absolute',
@@ -71,7 +95,8 @@ const WorkExperiene = () => {
           backgroundColor: 'black',
           zIndex: 10,
         }}
-      />
+      /> */}
+      <OverlayExperience triggerRef={sectionRef} />
     </ScrollSection>
   );
 };

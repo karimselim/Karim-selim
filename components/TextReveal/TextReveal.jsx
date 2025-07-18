@@ -135,6 +135,7 @@ const TextReveal = () => {
           padding: 0 1.5rem;
           text-align: center;
           position: relative;
+          margin-bottom: 7rem;
         }
         .line {
           margin: 0;
