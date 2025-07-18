@@ -2,34 +2,22 @@ import styled from 'styled-components';
 
 export const LineContainer = styled.div`
   width: 85%;
+  height: 100px;
   position: relative;
-  min-height: 60px;
-  left: 0;
-  svg {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100px;
-    z-index: 1;
-    pointer-events: none;
-    top: -30px;
-  }
-
-  .path1 {
-    stroke-width: 1px;
-    stroke: white;
-    fill: none;
-  }
 `;
 
 export const HoverBox = styled.div`
+  position: absolute;
+  top: 0;
   height: 100px;
   width: 100%;
-  position: relative;
   z-index: 2;
-  transition: all 0.3s ease;
-  &:hover {
-    height: 120px;
-  }
+`;
+
+export const StyledPath = styled.path`
+  fill: none;
+  stroke: ${({ themeMode }) => (themeMode === 'dark' ? '#f2f2f2' : '#111111')};
+  stroke-width: 3;
+  transition: stroke 0.3s ease;
+  z-index: 1;
 `;

@@ -1,5 +1,6 @@
 // components/WorkExperience/OverlayExperience.jsx
 import React, { useRef, useEffect } from 'react';
+import { useTheme } from 'styled-components'; // <-- import theme hook
 import UnderLine from '../../Underline/Underline';
 import HoverMorphEffect from '../components/HoverMorphEffect';
 import {
@@ -14,6 +15,7 @@ import {
 
 const OverlayExperience = ({ triggerRef }) => {
   const overlayRef = useRef(null);
+  const theme = useTheme(); // <-- get current theme
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -56,17 +58,11 @@ const OverlayExperience = ({ triggerRef }) => {
         left: 0,
         width: '100vw',
         height: '100%',
-        backgroundColor: 'black',
+        backgroundColor: theme.backgroundOverlay || theme.background || 'black', // fallback
         zIndex: 10,
-        // pointerEvents: 'none',
       }}
     >
-      <ScrollSection
-        style={{
-          //   pointerEvents: 'none',
-          paddingInline: '3%',
-        }}
-      >
+      <ScrollSection style={{ paddingInline: '3%' }}>
         <ExpH2 data-text="Experience">Experience</ExpH2>
         <ExpContainer>
           <ExpText>
