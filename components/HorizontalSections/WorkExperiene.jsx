@@ -1,5 +1,6 @@
 import React, { useRef, useEffect } from 'react';
 import { ScrollH3, ScrollSection } from './styles';
+import HoverMorphEffect from './components/HoverMorphEffect';
 
 const WorkExperiene = () => {
   const sectionRef = useRef(null);
@@ -51,7 +52,14 @@ const WorkExperiene = () => {
       }}
     >
       <ScrollH3 style={{ color: 'white' }}>karim selim</ScrollH3>
-
+      <HoverMorphEffect
+        image1={'/imgs/second.jpg'}
+        image2={'/imgs/first.jpg'}
+        displacementImage={'/imgs/colorful-displacemnt.png'}
+        intensity={0.7}
+        width={400}
+        height={300}
+      />
       <div
         ref={overlayRef}
         style={{
