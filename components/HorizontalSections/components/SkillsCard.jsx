@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from 'react';
+import React, { useRef, useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { gsap } from 'gsap';
 
@@ -40,7 +40,6 @@ const CardContainer = styled.div`
   width: 120px;
   height: 180px;
   perspective: 800px;
-  cursor: pointer;
   position: absolute;
   top: 0;
   left: 0;
@@ -50,12 +49,7 @@ const CardInner = styled.div`
   width: 100%;
   height: 100%;
   transform-style: preserve-3d;
-  transform: rotateY(180deg);
   transition: transform 0.6s ease-in-out;
-
-  ${CardContainer}:hover & {
-    transform: rotateY(360deg);
-  }
 `;
 
 const CardFace = styled.div`
@@ -70,11 +64,13 @@ const CardFace = styled.div`
   justify-content: center;
   background: white;
   color: #333;
+  transform: rotateY(180deg); /* Front face hidden by default */
 `;
 
 const CardBack = styled(CardFace)`
   background: url('/imgs/cardBack.png') center/cover no-repeat;
-  transform: rotateY(180deg);
+  transform: rotateY(0deg); /* Back face visible by default */
+  background-color: #ccc; /* Fallback if image fails */
 `;
 
 const CardIcon = styled.img`
@@ -88,26 +84,95 @@ const CardTitle = styled.h4`
   margin: 0;
 `;
 
-const TarotCard = React.forwardRef(({ iconSrc, title, index }, ref) => (
-  <CardContainer ref={ref} style={{ zIndex: index }}>
-    <CardInner>
-      <CardFace>
-        <CardIcon src={iconSrc} alt={title} />
-        <CardTitle>{title}</CardTitle>
-      </CardFace>
-      <CardBack />
-    </CardInner>
-  </CardContainer>
-));
+const TarotCard = React.forwardRef(
+  ({ iconSrc, title, isSelected, zIndex, onClick }, ref) => {
+    const [isHovered, setIsHovered] = useState(false);
 
-// Config
+    const handleMouseEnter = () => {
+      if (!isSelected) {
+        setIsHovered(true);
+      }
+    };
+
+    const handleMouseLeave = () => {
+      if (!isSelected) {
+        setIsHovered(false);
+      }
+    };
+
+    return (
+      <CardContainer
+        ref={ref}
+        style={{ zIndex }}
+        onClick={onClick}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        <CardInner
+          className="card-inner"
+          style={{
+            transform:
+              isSelected || isHovered ? 'rotateY(180deg)' : 'rotateY(0deg)',
+          }}
+        >
+          <CardFace>
+            {' '}
+            {/* Front face, shown after flip */}
+            <CardIcon src={iconSrc} alt={title} />
+            <CardTitle>{title}</CardTitle>
+          </CardFace>
+          <CardBack /> {/* Back face, shown by default */}
+        </CardInner>
+      </CardContainer>
+    );
+  }
+);
+
+// Skills
 const skillCards = [
-  { title: 'React', iconSrc: '/icons/react.svg', category: 'Frameworks' },
+  // Core
   { title: 'JavaScript', iconSrc: '/icons/javascript.svg', category: 'Core' },
+  { title: 'TypeScript', iconSrc: '/icons/typescript.svg', category: 'Core' },
+  { title: 'HTML5', iconSrc: '/icons/html5.svg', category: 'Core' },
   { title: 'CSS3', iconSrc: '/icons/css3.svg', category: 'Core' },
-  { title: 'GSAP', iconSrc: '/icons/gsap.svg', category: 'Tools' },
-  { title: 'Git', iconSrc: '/icons/git.svg', category: 'Tools' },
+
+  // Frameworks
+  { title: 'React', iconSrc: '/icons/react.svg', category: 'Frameworks' },
+  { title: 'Next.js', iconSrc: '/icons/nextjs.svg', category: 'Frameworks' },
+  {
+    title: 'Tailwind CSS',
+    iconSrc: '/icons/tailwind.svg',
+    category: 'Frameworks',
+  },
+  {
+    title: 'React Hook Form',
+    iconSrc: '/icons/react-hook-form.svg',
+    category: 'Frameworks',
+  },
+  { title: 'Zod', iconSrc: '/icons/zod.svg', category: 'Frameworks' },
+  { title: 'Redux', iconSrc: '/icons/redux.svg', category: 'Frameworks' },
+
+  // Mobile
+  {
+    title: 'React Native',
+    iconSrc: '/icons/react-native.svg',
+    category: 'Mobile',
+  },
+  { title: 'Cordova', iconSrc: '/icons/cordova.svg', category: 'Mobile' },
   { title: 'Expo', iconSrc: '/icons/expo.svg', category: 'Mobile' },
+  { title: 'Firebase', iconSrc: '/icons/expo.svg', category: 'Mobile' },
+
+  // Tools
+  { title: 'Git', iconSrc: '/icons/git.svg', category: 'Tools' },
+  { title: 'Jest', iconSrc: '/icons/jest.svg', category: 'Tools' },
+  {
+    title: 'Unit Testing',
+    iconSrc: '/icons/unit-testing.svg',
+    category: 'Tools',
+  },
+  { title: 'CI/CD', iconSrc: '/icons/cicd.svg', category: 'Tools' },
+  { title: 'GSAP', iconSrc: '/icons/gsap.svg', category: 'Tools' },
+  { title: 'Yup', iconSrc: '/icons/yup.svg', category: 'Tools' },
 ];
 
 const categoryNames = ['Core', 'Mobile', 'Tools', 'Frameworks'];
@@ -116,14 +181,52 @@ export default function App() {
   const titleRefs = useRef({});
   const cardRefs = useRef([]);
   const stackRef = useRef(null);
-  cardRefs.current = [];
+  const [selectedCards, setSelectedCards] = useState([]);
 
-  const addCardRef = el => {
-    if (el) cardRefs.current.push(el);
+  const addCardRef = (el, i) => {
+    cardRefs.current[i] = el;
+  };
+
+  const animateToCenter = (index, stackOrder) => {
+    const card = cardRefs.current[index];
+    if (!card) return;
+
+    gsap.to(card, {
+      x: 0,
+      y: 0,
+      zIndex: 1000 + stackOrder,
+      duration: 0.5,
+      ease: 'power2.out',
+      onStart: () => {
+        card.style.zIndex = 1000 + stackOrder;
+        const cardInner = card.querySelector('.card-inner');
+        if (cardInner) {
+          cardInner.style.transform = 'rotateY(180deg)';
+        }
+      },
+    });
+  };
+
+  const handleCardClick = index => {
+    setSelectedCards(prev => {
+      const alreadySelected = prev.includes(index);
+      const newList = alreadySelected
+        ? [...prev.filter(i => i !== index), index]
+        : [...prev, index];
+
+      animateToCenter(index, newList.length - 1);
+      return newList;
+    });
   };
 
   useEffect(() => {
     const { innerWidth: w, innerHeight: h } = window;
+
+    const offset = 200;
+    const extendedOffset = 450;
+    const stepSize = 70;
+
+    const tl = gsap.timeline();
 
     const titlePositions = {
       Core: { x: w / 2, y: h * 0.1 },
@@ -132,9 +235,6 @@ export default function App() {
       Frameworks: { x: w - w * 0.1, y: h / 2 },
     };
 
-    const tl = gsap.timeline();
-
-    // Animate each title with longer duration
     categoryNames.forEach(name => {
       const el = titleRefs.current[name];
       if (!el) return;
@@ -149,23 +249,22 @@ export default function App() {
       );
     });
 
-    // Fade in stack earlier
     tl.to(stackRef.current, { opacity: 1, duration: 0.6 }, '-=0.6');
 
-    // Initial card states
-    skillCards.forEach((card, index) => {
-      gsap.set(cardRefs.current[index], {
-        opacity: 0,
-        scale: 0.2,
-        rotation: gsap.utils.random(-90, 90),
-        x: gsap.utils.random(-200, 200),
-        y: gsap.utils.random(-200, 200),
-        filter: 'blur(10px)',
-        transformOrigin: 'center center',
-      });
+    skillCards.forEach((_, index) => {
+      const card = cardRefs.current[index];
+      if (card) {
+        gsap.set(card, {
+          opacity: 0,
+          scale: 0.2,
+          rotation: gsap.utils.random(-90, 90),
+          x: gsap.utils.random(-200, 200),
+          y: gsap.utils.random(-200, 200),
+          filter: 'blur(10px)',
+        });
+      }
     });
 
-    // ✨ Entrance animation
     tl.to(
       cardRefs.current,
       {
@@ -175,94 +274,71 @@ export default function App() {
         x: 0,
         y: 0,
         filter: 'blur(0px)',
-        duration: 2.2,
+        duration: 1.5,
         ease: 'power4.out',
-        stagger: {
-          each: 0.08,
-          from: 'random',
-          ease: 'power2.inOut',
-        },
-        onUpdate: function () {
-          cardRefs.current.forEach((card, i) => {
-            const progress = this.targets()[i]._gsap;
-            const glowIntensity =
-              Math.sin(progress.progress * Math.PI * 2) * 15;
-            const opacityGlow = progress.progress * 0.7;
-            gsap.set(card, {
-              boxShadow: `0 0 ${glowIntensity}px rgba(255, 255, 255, ${opacityGlow})`,
-              scale: 1 + Math.sin(progress.progress * Math.PI) * 0.1,
-            });
-          });
-        },
+        stagger: 0.05,
       },
-      '-=1.4'
+      '-=1.0'
     );
 
-    // Bounce pop
-    tl.to(
-      cardRefs.current,
-      {
-        scale: 1,
-        duration: 0.4,
-        ease: 'back.out(1.4)',
-        stagger: 0.08,
-      },
-      '-=0.4'
-    );
+    // Scatter after entrance
+    const cardsByCategory = skillCards.reduce((acc, card, index) => {
+      acc[card.category] = acc[card.category] || [];
+      acc[card.category].push({ card, ref: cardRefs.current[index] });
+      return acc;
+    }, {});
 
-    // Final category flyout with positions closer to center
-    skillCards.forEach((card, index) => {
-      let x = 0;
-      let y = 0;
+    Object.entries(cardsByCategory).forEach(([category, cards]) => {
+      const isHorizontal = ['Core', 'Mobile'].includes(category);
+      const numCards = cards.length;
 
-      switch (card.category) {
-        case 'Frameworks':
-          x = w / 2 - w * 0.2; // Closer to center (10% instead of 15%)
-          break;
-        case 'Tools':
-          x = -(w / 2 - w * 0.2); // Closer to center
-          break;
-        case 'Core':
-          y = -(h / 2 - h * 0.25); // Closer to center
-          break;
-        case 'Mobile':
-          y = h / 2 - h * 0.25; // Closer to center
-          break;
-        default:
-          break;
-      }
+      let baseX = 0,
+        baseY = 0;
+      if (category === 'Core') baseY = -offset;
+      if (category === 'Mobile') baseY = offset;
+      if (category === 'Tools') baseX = -extendedOffset;
+      if (category === 'Frameworks') baseX = extendedOffset;
 
-      tl.to(
-        cardRefs.current[index],
-        {
-          x,
-          y,
-          duration: 0.9,
-          ease: 'power2.out',
-        },
-        '+=0.03'
-      );
+      cards.forEach((item, i) => {
+        let x = isHorizontal ? (i - (numCards - 1) / 2) * stepSize : baseX;
+        let y = isHorizontal ? baseY : (i - (numCards - 1) / 2) * stepSize;
+        x += w / 2 - w / 2;
+        y += h / 2 - h / 2;
+
+        tl.to(
+          item.ref,
+          {
+            x,
+            y,
+            duration: 0.6,
+            ease: 'power2.out',
+          },
+          '-=0.4'
+        );
+      });
     });
   }, []);
 
   return (
     <Container>
-      {/* Titles */}
       {categoryNames.map(name => (
         <CategorySection key={name} ref={el => (titleRefs.current[name] = el)}>
           <CategoryTitle>{name}</CategoryTitle>
         </CategorySection>
       ))}
 
-      {/* Cards stack */}
       <CardsStack ref={stackRef}>
         {skillCards.map((skill, i) => (
           <TarotCard
             key={skill.title}
             iconSrc={skill.iconSrc}
             title={skill.title}
-            index={i}
-            ref={addCardRef}
+            isSelected={selectedCards.includes(i)}
+            zIndex={
+              selectedCards.includes(i) ? 1000 + selectedCards.indexOf(i) : i
+            }
+            onClick={() => handleCardClick(i)}
+            ref={el => addCardRef(el, i)}
           />
         ))}
       </CardsStack>
