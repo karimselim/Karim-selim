@@ -11,6 +11,7 @@ import AppBar from '../components/AppBar';
 import Cursor from '../components/Cursor';
 import Menu from '../components/Menu';
 import { Loader } from '../components/Loader';
+import SkillsCard from '../components/HorizontalSections/components/SkillsCard';
 
 const themes = {
   dark: darkTheme,
@@ -96,9 +97,10 @@ const App = ({ Component, pageProps }) => {
                 <Loader /> // Show the loader immediately
               ) : (
                 <> */}
-              <Header />
+              {/* <Header />
               <Menu />
-              <Component {...pageProps} />
+              <Component {...pageProps} /> */}
+              <SkillsCard />
               {/* </>
               )} */}
               <Cursor />
