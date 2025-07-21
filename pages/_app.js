@@ -12,6 +12,7 @@ import Cursor from '../components/Cursor';
 import Menu from '../components/Menu';
 import { Loader } from '../components/Loader';
 import SkillsCard from '../components/HorizontalSections/components/SkillsCard';
+import SkillsShowcase from '../components/HorizontalSections/skills/SkillsShowCase';
 
 const themes = {
   dark: darkTheme,
@@ -100,7 +101,8 @@ const App = ({ Component, pageProps }) => {
               {/* <Header />
               <Menu />
               <Component {...pageProps} /> */}
-              <SkillsCard />
+              {/* <SkillsCard /> */}
+              <SkillsShowcase />
               {/* </>
               )} */}
               <Cursor />
