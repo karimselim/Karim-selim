@@ -6,10 +6,15 @@ import {
   CardBack,
   CardIcon,
   CardTitle,
+  SubTitle,
+  Description,
 } from './styles';
 
 const TarotCard = forwardRef(
-  ({ iconSrc, title, isSelected, zIndex, onClick }, ref) => {
+  (
+    { iconSrc, title, isSelected, zIndex, onClick, description, subtitle },
+    ref
+  ) => {
     const [isFlipped, setIsFlipped] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
@@ -47,8 +52,10 @@ const TarotCard = forwardRef(
           }}
         >
           <CardFace>
-            <CardIcon src={iconSrc} alt={title} />
+            {/* <CardIcon src={iconSrc} alt={title} /> */}
             <CardTitle>{title}</CardTitle>
+            {/* <SubTitle>{subtitle}</SubTitle>
+            <Description>{description}</Description> */}
           </CardFace>
           <CardBack />
         </CardInner>

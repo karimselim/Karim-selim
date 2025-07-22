@@ -76,15 +76,17 @@ export const CardFace = styled.div`
   position: absolute;
   width: 100%;
   height: 100%;
+  padding: 0.5rem;
   backface-visibility: hidden;
   border-radius: 8px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  background: white;
-  color: #333;
+  color: white;
   transform: rotateY(180deg);
+  background-image: url('/imgs/test.png');
+  background-size: cover;
+  background-position: bottom;
 
   @media (max-width: 768px) {
     border-radius: 2px;
@@ -106,9 +108,9 @@ export const CardBack = styled(CardFace)`
 `;
 
 export const CardIcon = styled.img`
-  width: 50px;
-  height: 50px;
+  height: 27px;
   margin-bottom: 8px;
+  object-fit: cover;
 
   @media (max-width: 768px) {
     width: 50%;
@@ -125,7 +127,32 @@ export const CardTitle = styled.h4`
 
   @media (max-width: 768px) {
     font-size: 0.65rem;
-    color: #333;
     text-align: center;
+  }
+`;
+
+export const SubTitle = styled.h5`
+  font-size: 0.85rem;
+  font-weight: 400;
+  letter-spacing: 0.8px;
+  margin: 4px 0;
+  padding: 2px 6px;
+
+  @media (max-width: 768px) {
+    font-size: 0.6rem;
+    padding: 1px 4px;
+  }
+`;
+
+export const Description = styled.p`
+  font-size: 0.7rem;
+  text-align: center;
+  line-height: 1.3;
+  padding: 0 8px;
+  margin: 4px 0;
+
+  @media (max-width: 768px) {
+    font-size: 0.55rem;
+    padding: 0 4px;
   }
 `;

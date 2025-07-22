@@ -83,6 +83,8 @@ const SkillsShowcase = () => {
             key={skill.title}
             iconSrc={skill.iconSrc}
             title={skill.title}
+            description={skill.description}
+            subtitle={skill.subtitle}
             isSelected={selectedCards.includes(i)}
             zIndex={
               selectedCards.includes(i) ? 1000 + selectedCards.indexOf(i) : i

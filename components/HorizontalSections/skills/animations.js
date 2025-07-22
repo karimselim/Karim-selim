@@ -13,9 +13,10 @@ export const animateDesktop = (
 
   const { innerWidth: w, innerHeight: h } = window;
 
-  const offset = 200;
-  const extendedOffset = 450;
-  const stepSize = 70;
+  // Increase offsets to push cards further from the center
+  const offset = 220; // Increased from 200
+  const extendedOffset = 500; // Increased from 450
+  const stepSize = 70; // Increased from 70
 
   const tl = gsap.timeline({ delay: 0.5 }); // 0.5s initial delay
 
@@ -75,8 +76,8 @@ export const animateDesktop = (
     cards.forEach((item, i) => {
       let x = isHorizontal ? (i - (numCards - 1) / 2) * stepSize : baseX;
       let y = isHorizontal ? baseY : (i - (numCards - 1) / 2) * stepSize;
-      x += w / 2 - w / 2;
-      y += h / 2 - h / 2;
+      x += w / 2 - w / 2; // This simplifies to 0, consider removing
+      y += h / 2 - h / 2; // This simplifies to 0, consider removing
 
       tl.to(
         item.ref,
