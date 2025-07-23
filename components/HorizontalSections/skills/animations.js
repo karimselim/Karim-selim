@@ -5,7 +5,8 @@ export const animateDesktop = (
   stackRef,
   skillCards,
   categoryNames,
-  isClient
+  isClient,
+  onComplete
 ) => {
   if (!isClient) return; // Skip animation during SSR
 
@@ -13,17 +14,22 @@ export const animateDesktop = (
 
   const { innerWidth: w, innerHeight: h } = window;
 
-  // Increase offsets to push cards further from the center
-  const offset = 220; // Increased from 200
-  const extendedOffset = 500; // Increased from 450
-  const stepSize = 70; // Increased from 70
+  const offset = 220;
+  const extendedOffset = 500;
+  const stepSize = 70;
 
-  const tl = gsap.timeline({ delay: 0.5 }); // 0.5s initial delay
+  const tl = gsap.timeline({
+    delay: 0.5,
+    onComplete: () => {
+      console.log('Desktop animations complete');
+      gsap.delayedCall(0.2, onComplete); // Slight delay to ensure all cards are settled
+    },
+  });
 
   // Show card stack
   tl.to(stackRef.current, { opacity: 1, duration: 0.6 }, '-=0.3');
 
-  // Initialize cards in stack
+  // Initialize cards in stack with pointer-events disabled
   skillCards.forEach((_, index) => {
     const card = cardRefs.current[index];
     if (card) {
@@ -34,6 +40,7 @@ export const animateDesktop = (
         x: gsap.utils.random(-200, 200),
         y: gsap.utils.random(-200, 200),
         filter: 'blur(10px)',
+        pointerEvents: 'none', // Disable pointer events
       });
     }
   });
@@ -76,8 +83,8 @@ export const animateDesktop = (
     cards.forEach((item, i) => {
       let x = isHorizontal ? (i - (numCards - 1) / 2) * stepSize : baseX;
       let y = isHorizontal ? baseY : (i - (numCards - 1) / 2) * stepSize;
-      x += w / 2 - w / 2; // This simplifies to 0, consider removing
-      y += h / 2 - h / 2; // This simplifies to 0, consider removing
+      x += w / 2 - w / 2;
+      y += h / 2 - h / 2;
 
       tl.to(
         item.ref,
@@ -91,9 +98,18 @@ export const animateDesktop = (
       );
     });
   });
+
+  // Re-enable pointer events after all animations complete
+  tl.to(cardRefs.current, {
+    pointerEvents: 'auto',
+    duration: 0,
+  });
 };
 
-export const animateMobile = cardRefs => {
+export const animateMobile = (cardRefs, onComplete) => {
+  let completedAnimations = 0;
+  const totalCards = cardRefs.current.length;
+
   cardRefs.current.forEach((card, index) => {
     if (card) {
       const row = Math.floor(index / 4) + 1; // Rows 1-5
@@ -111,6 +127,7 @@ export const animateMobile = cardRefs => {
           x: startX,
           y: startY,
           rotation: index * 15,
+          pointerEvents: 'none', // Disable pointer events
         },
         {
           opacity: 1,
@@ -120,11 +137,18 @@ export const animateMobile = cardRefs => {
           rotation: 0,
           gridRow: row,
           gridColumn: col,
+          pointerEvents: 'auto', // Re-enable pointer events
           duration: 1,
           ease: 'power3.out',
           delay: index * 0.2,
-          onComplete: () =>
-            console.log(`Card ${index} placed at row ${row}, col ${col}`),
+          onComplete: () => {
+            console.log(`Card ${index} placed at row ${row}, col ${col}`);
+            completedAnimations++;
+            if (completedAnimations === totalCards && onComplete) {
+              console.log('Mobile animations complete');
+              gsap.delayedCall(0.2, onComplete); // Slight delay to ensure all cards are settled
+            }
+          },
         }
       );
     }

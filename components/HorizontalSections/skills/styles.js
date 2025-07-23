@@ -156,3 +156,11 @@ export const Description = styled.p`
     padding: 0 4px;
   }
 `;
+
+export const SkillsTitle = styled.h2`
+  text-align: center;
+  margin-bottom: 20px;
+  font-size: 2.5rem;
+  color: #333;
+  /* Add more styles as needed */
+`;
