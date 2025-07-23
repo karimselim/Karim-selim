@@ -1,19 +1,16 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { gsap } from 'gsap';
 import { Container, CardsStack } from './styles';
 import TarotCard from './TarotCard';
 import { skillCards, categoryNames } from './SkillCards';
-import { animateDesktop, animateMobile } from './animations';
+import gsap from 'gsap';
 
-const SkillsShowcase = () => {
-  const cardRefs = useRef([]);
-  const stackRef = useRef(null);
+const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
   const [selectedCards, setSelectedCards] = useState([]);
   const [isClient, setIsClient] = useState(false);
   const [isDesktop, setIsDesktop] = useState(false);
 
   const addCardRef = (el, i) => {
-    cardRefs.current[i] = el;
+    cardRefsRef.current[i] = el;
   };
 
   const handleCardClick = (index, stackOrder) => {
@@ -23,9 +20,9 @@ const SkillsShowcase = () => {
         ? [...prev.filter(i => i !== index), index]
         : [...prev, index];
       if (isDesktop && !alreadySelected) {
-        // Desktop: Animate selected card to center
-        const card = cardRefs.current[index];
+        const card = cardRefsRef.current[index];
         if (card) {
+          // const gsap = require('gsap');
           gsap.to(card, {
             x: 0,
             y: 0,
@@ -47,29 +44,11 @@ const SkillsShowcase = () => {
   };
 
   useEffect(() => {
-    // Set isClient and isDesktop on client-side
     setIsClient(true);
     setIsDesktop(window.innerWidth > 768);
 
-    // Run appropriate animation based on viewport
-    if (window.innerWidth > 768) {
-      console.log('Triggering desktop animation');
-      animateDesktop(cardRefs, stackRef, skillCards, categoryNames, true);
-    } else {
-      console.log('Triggering mobile animation');
-      animateMobile(cardRefs);
-    }
-
-    // Handle window resize to update isDesktop
     const handleResize = () => {
-      const newIsDesktop = window.innerWidth > 768;
-      setIsDesktop(newIsDesktop);
-      // Re-run animations on resize if layout changes
-      if (newIsDesktop) {
-        animateDesktop(cardRefs, stackRef, skillCards, categoryNames, true);
-      } else {
-        animateMobile(cardRefs);
-      }
+      setIsDesktop(window.innerWidth > 768);
     };
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
@@ -77,7 +56,7 @@ const SkillsShowcase = () => {
 
   return (
     <Container>
-      <CardsStack ref={stackRef}>
+      <CardsStack ref={stackRefRef}>
         {skillCards.map((skill, i) => (
           <TarotCard
             key={skill.title}

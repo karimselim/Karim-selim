@@ -1,4 +1,3 @@
-// Experience.jsx
 import React, { useRef, useEffect } from 'react';
 import {
   ScrollSectionOuter,
@@ -7,10 +6,16 @@ import {
   ScrollH3,
 } from './styles';
 import WorkExperiene from './WorkExperiene';
+import SkillsShowcase from './skills/SkillsShowCase';
+import { animateDesktop, animateMobile } from './skills/animations';
+import { skillCards, categoryNames } from './skills/SkillCards';
 
 function Experience() {
   const sectionRef = useRef(null);
   const triggerRef = useRef(null);
+  const cardRefsRef = useRef([]);
+  const stackRefRef = useRef(null);
+  const hasAnimated = useRef(false); // 👈 Add this
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -24,7 +29,7 @@ function Experience() {
             scrollTrigger: {
               trigger: triggerRef.current,
               start: 'top top',
-              end: '+=3000', // enough scroll space
+              end: '+=3000',
               scrub: 1,
               pin: true,
               anticipatePin: 1,
@@ -32,13 +37,30 @@ function Experience() {
             },
           });
 
-          // Section 1: no scroll movement
           tl.to(sectionRef.current, { x: '0vw', duration: 1 });
 
-          // Section 2: move after section 1 is done
-          tl.to(sectionRef.current, { x: '-100vw', duration: 1 });
+          tl.to(sectionRef.current, {
+            x: '-100vw',
+            duration: 1,
+            onStart: () => {
+              if (!hasAnimated.current) {
+                // 👈 Prevent rerunning
+                if (window.innerWidth > 768) {
+                  animateDesktop(
+                    cardRefsRef,
+                    stackRefRef,
+                    skillCards,
+                    categoryNames,
+                    true
+                  );
+                } else {
+                  animateMobile(cardRefsRef);
+                }
+                hasAnimated.current = true;
+              }
+            },
+          });
 
-          // Section 3
           tl.to(sectionRef.current, { x: '-200vw', duration: 1 });
         }
       );
@@ -51,7 +73,10 @@ function Experience() {
         <ScrollSectionInner ref={sectionRef} style={{ display: 'flex' }}>
           <WorkExperiene />
           <ScrollSection>
-            <ScrollH3>Section 2</ScrollH3>
+            <SkillsShowcase
+              cardRefsRef={cardRefsRef}
+              stackRefRef={stackRefRef}
+            />
           </ScrollSection>
           <ScrollSection>
             <ScrollH3>Section 3 updated</ScrollH3>
