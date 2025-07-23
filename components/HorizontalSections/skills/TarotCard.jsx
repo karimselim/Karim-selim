@@ -15,12 +15,13 @@ const TarotCard = forwardRef(
     { iconSrc, title, isSelected, zIndex, onClick, description, subtitle },
     ref
   ) => {
+    // local flip/hover state can stay
     const [isFlipped, setIsFlipped] = useState(false);
     const [isHovered, setIsHovered] = useState(false);
 
     const handleInteraction = () => {
-      setIsFlipped(!isFlipped);
-      onClick();
+      setIsFlipped(f => !f);
+      onClick(); // this now comes from parent with correct index
     };
 
     const handleMouseEnter = () => {
@@ -28,7 +29,6 @@ const TarotCard = forwardRef(
         setIsHovered(true);
       }
     };
-
     const handleMouseLeave = () => {
       if (!isSelected && window.innerWidth > 768) {
         setIsHovered(false);
@@ -40,7 +40,7 @@ const TarotCard = forwardRef(
         ref={ref}
         style={{ zIndex }}
         onClick={handleInteraction}
-        onTouchStart={handleInteraction}
+        onTouchEnd={handleInteraction}
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >

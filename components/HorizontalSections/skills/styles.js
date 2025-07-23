@@ -158,9 +158,23 @@ export const Description = styled.p`
 `;
 
 export const SkillsTitle = styled.h2`
-  text-align: center;
-  margin-bottom: 20px;
-  font-size: 2.5rem;
-  color: #333;
-  /* Add more styles as needed */
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 3rem;
+  color: #ffffff;
+  opacity: 0; /* Ensure it's hidden initially */
+  z-index: 10; /* Low z-index to prevent overlap */
+  pointer-events: none; /* Prevent interaction with h2 */
+  display: flex;
+  gap: 6px;
+
+  span {
+    display: inline-block;
+    opacity: 0;
+    transform: translateY(40px) scale(0.7) rotate(8deg);
+    filter: blur(3px);
+    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+  }
 `;
