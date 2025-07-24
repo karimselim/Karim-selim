@@ -10,8 +10,6 @@ export const animateDesktop = (
 ) => {
   if (!isClient) return;
 
-  console.log('animateDesktop running', { cardRefs: cardRefs.current.length });
-
   const { innerWidth: w, innerHeight: h } = window;
 
   const offset = 220;
@@ -21,7 +19,6 @@ export const animateDesktop = (
   const tl = gsap.timeline({
     delay: 0.5,
     onComplete: () => {
-      console.log('Desktop animations complete');
       if (onComplete) onComplete();
     },
   });
@@ -137,10 +134,8 @@ export const animateMobile = (cardRefs, onComplete) => {
           ease: 'power3.out',
           delay: index * 0.2,
           onComplete: () => {
-            console.log(`Card ${index} placed at row ${row}, col ${col}`);
             completedAnimations++;
             if (completedAnimations === totalCards && onComplete) {
-              console.log('Mobile animations complete');
               onComplete();
             }
           },
@@ -157,7 +152,6 @@ export const animateCardFlip = (
   stackOrder,
   titleRef
 ) => {
-  console.log('Animating card flip for index:', index);
   gsap.to(card, {
     x: 0,
     y: 0,
@@ -165,14 +159,11 @@ export const animateCardFlip = (
     duration: 0.5,
     ease: 'power2.out',
     onStart: () => {
-      console.log('Animation start for card at index:', index);
       card.style.zIndex = 1000 + stackOrder;
       if (cardInner) {
         cardInner.style.transform = 'rotateY(180deg)';
       }
     },
-    onUpdate: () => console.log('Animation update for index:', index),
-    onComplete: () => console.log('Animation completed for index:', index),
   });
   if (titleRef.current) {
     const chars = titleRef.current.querySelectorAll('span');
@@ -191,7 +182,6 @@ export const animateCardFlip = (
 };
 
 export const animateShowTitle = titleRef => {
-  console.log('Title animation triggered');
   if (titleRef.current) {
     const chars = titleRef.current.querySelectorAll('span');
     if (chars.length === 0) {

@@ -23,21 +23,9 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
   };
 
   const handleCardClick = (index, stackOrder, event) => {
-    console.log(
-      'handleCardClick triggered with event:',
-      event,
-      'type:',
-      event?.type,
-      'index:',
-      index,
-      'stackOrder:',
-      stackOrder
-    );
     if (event && typeof event.preventDefault === 'function') {
       event.preventDefault();
-      console.log('preventDefault called for event:', event.type);
     } else {
-      console.log('No valid event to preventDefault');
     }
     setSelectedCards(prev => {
       const alreadySelected = prev.includes(index);
@@ -47,16 +35,12 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
       if (!alreadySelected) {
         const card = cardRefsRef.current[index];
         if (card) {
-          console.log('Flipping card at index:', index, 'card:', card);
           const cardInner = card.querySelector('.card-inner');
           if (cardInner) {
-            console.log('cardInner found:', cardInner);
             animateCardFlip(card, cardInner, index, stackOrder, titleRef);
           } else {
-            console.log('cardInner not found for index:', index);
           }
         } else {
-          console.log('Card not found at index:', index);
         }
       }
       return newList;
@@ -80,7 +64,6 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
         entries => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
-              console.log('Section is in view, starting card animation');
               if (isDesktop) {
                 animateDesktop(
                   cardRefsRef,
@@ -89,13 +72,11 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
                   categoryNames,
                   isClient,
                   () => {
-                    console.log('Desktop card animation completed');
                     setIsAnimationComplete(true);
                   }
                 );
               } else {
                 animateMobile(cardRefsRef, () => {
-                  console.log('Mobile card animation completed');
                   setIsAnimationComplete(true);
                 });
               }
@@ -113,7 +94,6 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
 
   useEffect(() => {
     if (isAnimationComplete && titleRef.current) {
-      console.log('Title animation triggered due to animation completion');
       animateShowTitle(titleRef);
     }
   }, [isAnimationComplete]);

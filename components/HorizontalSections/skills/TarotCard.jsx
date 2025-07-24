@@ -17,14 +17,8 @@ const TarotCard = forwardRef(
     const [isHovered, setIsHovered] = useState(false);
 
     const handleInteraction = event => {
-      console.log(
-        'handleInteraction triggered with event:',
-        event?.type,
-        event
-      ); // Debug event
       if (event && typeof event.preventDefault === 'function') {
         event.preventDefault();
-        console.log('preventDefault called for event:', event.type);
       }
       if (onClick) {
         onClick(event);
@@ -33,14 +27,12 @@ const TarotCard = forwardRef(
 
     const handleMouseEnter = () => {
       if (!isSelected && window.innerWidth > 768) {
-        console.log('Mouse enter on desktop');
         setIsHovered(true);
       }
     };
 
     const handleMouseLeave = () => {
       if (!isSelected && window.innerWidth > 768) {
-        console.log('Mouse leave on desktop');
         setIsHovered(false);
       }
     };
@@ -55,7 +47,6 @@ const TarotCard = forwardRef(
         }}
         onClick={handleInteraction}
         onTouchStart={e => {
-          console.log('touchStart triggered:', e);
           handleInteraction(e);
         }}
         onTouchEnd={handleInteraction}
