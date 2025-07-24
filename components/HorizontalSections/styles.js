@@ -55,6 +55,10 @@ export const ExpContainer = styled.div`
   width: 100%;
   height: 80%;
   justify-content: space-between;
+
+  @media (max-width: 768px) {
+    padding-inline: 1rem;
+  }
 `;
 
 export const ExpH2 = styled.h2`
@@ -82,12 +86,20 @@ export const ExpP = styled.div`
   font-size: 1rem;
   line-height: 1.7;
   width: 80%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 export const ScrollH3 = styled.h3`
   color: ${({ theme }) => theme.colors.text}; // use theme color here
   letter-spacing: 3px;
   font-size: 2.5rem;
   text-transform: uppercase;
+
+  @media (max-width: 768px) {
+    font-size: 2rem;
+  }
 `;
 
 // Footer Styles

@@ -84,18 +84,6 @@ const WorkExperiene = () => {
           height={300}
         />
       </ExpContainer>
-      {/* <div
-        ref={overlayRef}
-        style={{
-          position: 'absolute',
-          top: 0,
-          left: 0,
-          width: '100vw',
-          height: '100%',
-          backgroundColor: 'black',
-          zIndex: 10,
-        }}
-      /> */}
       <OverlayExperience triggerRef={sectionRef} />
     </ScrollSection>
   );

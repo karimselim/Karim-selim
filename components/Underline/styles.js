@@ -4,6 +4,10 @@ export const LineContainer = styled.div`
   width: 85%;
   height: 100px;
   position: relative;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 export const HoverBox = styled.div`

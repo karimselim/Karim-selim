@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import hoverEffect from 'hover-effect';
 import PropTypes from 'prop-types';
+import { HoverMorphContainer } from './styles';
 
 const HoverMorphEffect = ({
   image1,
@@ -31,17 +32,7 @@ const HoverMorphEffect = ({
   }, [image1, image2, displacementImage, intensity, width, height]);
 
   return (
-    <div
-      ref={hoverRef}
-      className="hover-morph-container"
-      style={{
-        width: `100%`,
-        height: `300px`,
-        overflow: 'hidden',
-        objectFit: 'cover',
-        flex: 2,
-      }}
-    />
+    <HoverMorphContainer ref={hoverRef} className="hover-morph-container" />
   );
 };
 
