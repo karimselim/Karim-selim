@@ -45,6 +45,7 @@ export const BannerTitle = styled(motion.h1)`
   font-size: 26.25rem;
   pointer-events: none;
   line-height: 0.6714285714;
+  z-index: 10;
 
   & span {
     display: block;
@@ -66,6 +67,5 @@ export const BannerTitle = styled(motion.h1)`
     font-size: 160px;
     font-size: 10rem;
     line-height: .68125;
-    overflow: hidden;
   `};
 `;

@@ -1,3 +1,4 @@
+'use client';
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
@@ -29,16 +30,7 @@ const TextReveal = () => {
 
         gsap.set(clipRect.current, { width: 0 });
 
-        const tl = gsap.timeline({
-          scrollTrigger: !isMobile
-            ? {
-                trigger: sectionRef.current,
-                start: 'top 80%',
-                toggleActions: 'play reset play reset',
-              }
-            : undefined,
-        });
-
+        const tl = gsap.timeline();
         tl.to(words, {
           yPercent: 0,
           opacity: 1,
@@ -65,17 +57,31 @@ const TextReveal = () => {
               duration: 4,
               ease: 'power2.out',
             },
-            isMobile ? 0 : '+=0.4'
+            '+=0.4'
           );
 
-        if (isMobile) {
-          gsap.to(clipRect.current, {
-            width: '100%',
-            duration: 4,
-            ease: 'power2.out',
-            delay: 0.5,
+        if (!isMobile) {
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play reset play reset',
+            animation: tl,
+          });
+        } else {
+          // Prevent animation on load, only trigger on scroll
+          tl.pause();
+          ScrollTrigger.create({
+            trigger: sectionRef.current,
+            start: 'top 80%',
+            onEnter: () => tl.play(),
+            onEnterBack: () => tl.play(),
+            onLeave: () => tl.pause(0),
+            onLeaveBack: () => tl.pause(0),
           });
         }
+
+        // Refresh ScrollTrigger on resize or load to handle mobile viewport changes
+        ScrollTrigger.refresh();
       }, sectionRef);
 
       return () => ctx.revert();
