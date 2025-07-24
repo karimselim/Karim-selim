@@ -161,10 +161,9 @@ export const SkillsTitle = styled.h2`
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 3rem;
-  color: #ffffff;
-  opacity: 0; /* Ensure it's hidden initially */
-  z-index: 10; /* Low z-index to prevent overlap */
-  pointer-events: none; /* Prevent interaction with h2 */
+  opacity: 0;
+  z-index: 10;
+  pointer-events: none;
   display: flex;
   gap: 6px;
 
