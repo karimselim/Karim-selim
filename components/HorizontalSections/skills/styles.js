@@ -84,7 +84,7 @@ export const CardFace = styled.div`
   align-items: center;
   color: white;
   transform: rotateY(180deg);
-  background-image: url('/imgs/test.png');
+  background-image: url('/imgs/face.png');
   background-size: cover;
   background-position: bottom;
 

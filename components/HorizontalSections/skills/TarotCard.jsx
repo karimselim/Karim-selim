@@ -15,32 +15,51 @@ const TarotCard = forwardRef(
     { iconSrc, title, isSelected, zIndex, onClick, description, subtitle },
     ref
   ) => {
-    // local flip/hover state can stay
-    const [isFlipped, setIsFlipped] = useState(false);
-    const [isHovered, setIsHovered] = useState(false);
+    const [isHovered, setIsHovered] = useState(false); // Restore hover state
 
-    const handleInteraction = () => {
-      setIsFlipped(f => !f);
-      onClick(); // this now comes from parent with correct index
+    const handleInteraction = event => {
+      console.log(
+        'handleInteraction triggered with event:',
+        event?.type,
+        event
+      ); // Debug event
+      if (event && typeof event.preventDefault === 'function') {
+        event.preventDefault(); // Prevent default touch behavior
+        console.log('preventDefault called for event:', event.type);
+      }
+      if (onClick) {
+        onClick(event); // Pass event to parent
+      }
     };
 
     const handleMouseEnter = () => {
       if (!isSelected && window.innerWidth > 768) {
-        setIsHovered(true);
+        console.log('Mouse enter on desktop');
+        setIsHovered(true); // Set hover state on enter
       }
     };
+
     const handleMouseLeave = () => {
       if (!isSelected && window.innerWidth > 768) {
-        setIsHovered(false);
+        console.log('Mouse leave on desktop');
+        setIsHovered(false); // Reset hover state on leave
       }
     };
 
     return (
       <CardContainer
         ref={ref}
-        style={{ zIndex }}
+        style={{
+          zIndex, // Include zIndex from props
+          touchAction: 'manipulation', // Enhance touch responsiveness
+          userSelect: 'none', // Prevent text selection on touch
+        }}
         onClick={handleInteraction}
-        onTouchEnd={handleInteraction}
+        onTouchStart={e => {
+          console.log('touchStart triggered:', e);
+          handleInteraction(e); // Trigger interaction on touch start
+        }}
+        onTouchEnd={handleInteraction} // Keep for consistency
         onMouseEnter={handleMouseEnter}
         onMouseLeave={handleMouseLeave}
       >
@@ -48,14 +67,14 @@ const TarotCard = forwardRef(
           className="card-inner"
           style={{
             transform:
-              isFlipped || isHovered ? 'rotateY(180deg)' : 'rotateY(0deg)',
+              isSelected || isHovered ? 'rotateY(180deg)' : 'rotateY(0deg)', // Use both isSelected and isHovered
           }}
         >
           <CardFace>
-            {/* <CardIcon src={iconSrc} alt={title} /> */}
+            <CardIcon src={iconSrc} alt={title} />
             <CardTitle>{title}</CardTitle>
-            {/* <SubTitle>{subtitle}</SubTitle>
-            <Description>{description}</Description> */}
+            <SubTitle>{subtitle}</SubTitle>
+            <Description>{description}</Description>
           </CardFace>
           <CardBack />
         </CardInner>

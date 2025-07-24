@@ -26,13 +26,18 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
     console.log(
       'handleCardClick triggered with event:',
       event,
+      'type:',
+      event?.type,
       'index:',
       index,
       'stackOrder:',
       stackOrder
     );
     if (event && typeof event.preventDefault === 'function') {
-      event.preventDefault();
+      event.preventDefault(); // Prevent default touch behavior
+      console.log('preventDefault called for event:', event.type);
+    } else {
+      console.log('No valid event to preventDefault');
     }
     setSelectedCards(prev => {
       const alreadySelected = prev.includes(index);
@@ -109,7 +114,7 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
   useEffect(() => {
     if (isAnimationComplete && titleRef.current) {
       console.log('Title animation triggered due to animation completion');
-      animateShowTitle(titleRef);
+      animateShowTitle(titleRef); // Line 117
     }
   }, [isAnimationComplete]);
 
