@@ -1,4 +1,3 @@
-'use client';
 import React, { useRef, useEffect } from 'react';
 import { gsap } from 'gsap';
 
@@ -19,6 +18,8 @@ const TextReveal = () => {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+
       const ctx = gsap.context(() => {
         const words = linesRef.current.querySelectorAll('.word');
         gsap.set(words, { yPercent: 100, opacity: 0, skewY: 10 });
@@ -29,11 +30,13 @@ const TextReveal = () => {
         gsap.set(clipRect.current, { width: 0 });
 
         const tl = gsap.timeline({
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 80%',
-            toggleActions: 'play reset play reset',
-          },
+          scrollTrigger: !isMobile
+            ? {
+                trigger: sectionRef.current,
+                start: 'top 80%',
+                toggleActions: 'play reset play reset',
+              }
+            : undefined,
         });
 
         tl.to(words, {
@@ -62,8 +65,17 @@ const TextReveal = () => {
               duration: 4,
               ease: 'power2.out',
             },
-            '+=0.4'
+            isMobile ? 0 : '+=0.4'
           );
+
+        if (isMobile) {
+          gsap.to(clipRect.current, {
+            width: '100%',
+            duration: 4,
+            ease: 'power2.out',
+            delay: 0.5,
+          });
+        }
       }, sectionRef);
 
       return () => ctx.revert();
@@ -81,7 +93,7 @@ const TextReveal = () => {
           <h2 key={ln} className="line">
             {ln.split(' ').map((w, wi) => (
               <span key={wi} className="wordWrap">
-                <span className="word">{w}&nbsp;</span>
+                <span className="word">{w} </span>
               </span>
             ))}
           </h2>
@@ -91,7 +103,7 @@ const TextReveal = () => {
       <p ref={paragraphRef} className="aboutP">
         {aboutText.split(' ').map((w, i) => (
           <span key={i} className="pWord">
-            {w}&nbsp;
+            {w} 
           </span>
         ))}
       </p>
