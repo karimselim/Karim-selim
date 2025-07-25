@@ -115,3 +115,141 @@ export const FooterSpan = styled.span`
   font-size: clamp(5rem, 9.9vw, 15rem);
   color: #e6e6e6;
 `;
+/** */
+export const StarCanvas = styled.canvas`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+`;
+
+export const Section = styled.section`
+  width: 100vw;
+  height: 100vh;
+  padding: 5rem 3rem 2rem;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+
+  @media (max-width: 768px) {
+    padding: 2.5rem 1.5rem 1rem;
+    justify-content: start;
+  }
+`;
+
+export const ContentContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+`;
+
+export const Text = styled.p`
+  font-size: 1.3rem;
+  line-height: 1.2;
+  max-width: 900px;
+  margin: 0 auto 2rem;
+  font-weight: 300;
+  display: inline-block;
+
+  @media (max-width: 768px) {
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+  }
+`;
+
+export const Testimonials = styled.div`
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem;
+  max-width: 1000px;
+  margin: 0 auto 1rem;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+`;
+
+export const Testimonial = styled.div`
+  //   padding: 2rem;
+  max-width: 450px;
+  transition: transform 0.3s ease, background 0.3s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+  }
+`;
+
+export const Quote = styled.blockquote`
+  font-style: italic;
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  line-height: 1.2;
+  display: inline-block;
+
+  &::before,
+  &::after {
+    content: '"';
+    font-size: 1.2rem;
+  }
+`;
+
+export const Author = styled.cite`
+  display: block;
+  text-align: right;
+  font-weight: 400;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  font-style: normal;
+  display: inline-block;
+`;
+
+export const BeforeH2 = styled(ExpH2)`
+  margin-bottom: 1.5rem;
+  margin-top: 1rem !important;
+  position: relative;
+  display: inline-block;
+
+  @media (max-width: 768px) {
+    font-size: 2.5rem;
+  }
+`;
+
+export const BeforeH3 = styled(ScrollH3)`
+  margin-block: 1.5rem;
+  position: relative;
+  display: inline-block;
+
+  @media (max-width: 768px) {
+    font-size: 1.8rem;
+  }
+`;
+
+export const WordWrap = styled.span`
+  display: inline-block;
+  overflow: hidden;
+`;
+
+export const WordInner = styled.span`
+  display: inline-block;
+`;
+
+export const Space = styled.span`
+  display: inline-block;
+  width: 0.25em;
+`;

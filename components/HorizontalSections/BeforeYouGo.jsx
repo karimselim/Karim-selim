@@ -1,7 +1,21 @@
 'use client';
 import { useRef, useLayoutEffect } from 'react';
 import styled from 'styled-components';
-import { ExpH2, ScrollH3 } from './styles';
+import {
+  Space,
+  WordInner,
+  WordWrap,
+  BeforeH3,
+  BeforeH2,
+  Author,
+  Quote,
+  Testimonial,
+  Testimonials,
+  Text,
+  ContentContainer,
+  Section,
+  StarCanvas,
+} from './styles';
 import { gsap } from 'gsap';
 
 const BeforeYouGo = () => {
@@ -11,6 +25,7 @@ const BeforeYouGo = () => {
   const subheadingRef = useRef(null);
   const textRef = useRef(null);
   const testimonialRefs = useRef([]);
+  const authorRefs = useRef([]);
   const particlesRef = useRef([]);
 
   useLayoutEffect(() => {
@@ -160,12 +175,16 @@ const BeforeYouGo = () => {
           .flatMap(t =>
             Array.from(t.querySelectorAll('.reveal-quote .word-inner'))
           );
+        const authors = authorRefs.current
+          .filter(a => a)
+          .flatMap(a => Array.from(a.querySelectorAll('.word-inner')));
 
         console.log('Animating elements:', {
           headings: headings.length,
           subheadings: subheadings.length,
           text: text.length,
           quotes: quotes.length,
+          authors: authors.length,
         });
 
         if (quotes.length === 0) {
@@ -178,7 +197,20 @@ const BeforeYouGo = () => {
           });
         }
 
-        const elements = [...headings, ...subheadings, ...text, ...quotes];
+        if (authors.length === 0) {
+          console.warn('No author elements found. Checking DOM...');
+          authorRefs.current.forEach((a, i) => {
+            console.log(`Author ${i} HTML:`, a?.outerHTML || 'null');
+          });
+        }
+
+        const elements = [
+          ...headings,
+          ...subheadings,
+          ...text,
+          ...quotes,
+          ...authors,
+        ];
         if (elements.length === 0) {
           console.error('No elements to animate.');
           return;
@@ -228,7 +260,7 @@ const BeforeYouGo = () => {
             0.3
           )
           .to(
-            quotes,
+            [...quotes, ...authors],
             {
               yPercent: 0,
               opacity: 1,
@@ -247,7 +279,7 @@ const BeforeYouGo = () => {
     animateText().catch(error => {
       console.error('Animation error:', error);
       const elements = document.querySelectorAll(
-        '.reveal-heading .word-inner, .reveal-text .word-inner, .reveal-quote .word-inner'
+        '.reveal-heading .word-inner, .reveal-text .word-inner, .reveal-quote .word-inner, .reveal-author .word-inner'
       );
       elements.forEach(el => {
         el.style.opacity = '1';
@@ -262,7 +294,7 @@ const BeforeYouGo = () => {
     {
       quote:
         'Kareem is a joy to collaborate with. His openness to feedback and ability to quickly turn advice into action reflect his sharp intellect. His engineering expertise is steadily growing, making him a valuable asset to any team!',
-      author: 'Wes Stearns, Founder of Landidly',
+      author: 'Weston Stearns, Founder of Landidly',
     },
     {
       quote:
@@ -318,7 +350,17 @@ const BeforeYouGo = () => {
                   </WordWrap>
                 ))}
               </Quote>
-              <Author>{t.author}</Author>
+              <Author
+                className="reveal-author"
+                ref={el => (authorRefs.current[i] = el)}
+              >
+                {t.author.split(' ').map((word, j) => (
+                  <WordWrap key={j}>
+                    <WordInner className="word-inner">{word}</WordInner>
+                    <Space> </Space>
+                  </WordWrap>
+                ))}
+              </Author>
             </Testimonial>
           ))}
         </Testimonials>
@@ -326,144 +368,5 @@ const BeforeYouGo = () => {
     </Section>
   );
 };
-
-// Styled Components
-const StarCanvas = styled.canvas`
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 0;
-`;
-
-const Section = styled.section`
-  width: 100vw;
-  height: 100vh;
-  padding: 5rem 3rem 2rem;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: relative;
-  overflow: hidden;
-
-  @media (max-width: 768px) {
-    padding: 2.5rem 1.5rem 1rem;
-    justify-content: start;
-  }
-`;
-
-const ContentContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  width: 100%;
-  max-width: 1200px;
-  position: relative;
-  z-index: 2;
-`;
-
-const Text = styled.p`
-  font-size: 1.3rem;
-  line-height: 1.2;
-  max-width: 900px;
-  margin: 0 auto 2rem;
-  font-weight: 300;
-  display: inline-block;
-
-  @media (max-width: 768px) {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
-  }
-`;
-
-const Testimonials = styled.div`
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;
-  max-width: 1000px;
-  margin: 0 auto 1rem;
-
-  @media (max-width: 768px) {
-    flex-direction: column;
-    gap: 1.5rem;
-  }
-`;
-
-const Testimonial = styled.div`
-  //   padding: 2rem;
-  max-width: 450px;
-  transition: transform 0.3s ease, background 0.3s ease;
-
-  &:hover {
-    transform: translateY(-3px);
-  }
-
-  @media (max-width: 768px) {
-    max-width: 100%;
-  }
-`;
-
-const Quote = styled.blockquote`
-  font-style: italic;
-  margin-bottom: 0.5rem;
-  font-size: 1rem;
-  line-height: 1.2;
-  display: inline-block;
-
-  &::before,
-  &::after {
-    content: '"';
-    font-size: 1.2rem;
-  }
-`;
-
-const Author = styled.cite`
-  display: block;
-  text-align: right;
-  font-weight: 400;
-  font-size: 0.9rem;
-  line-height: 1.4;
-  font-style: normal;
-  display: inline-block;
-`;
-
-const BeforeH2 = styled(ExpH2)`
-  margin-bottom: 1.5rem;
-  margin-top: 1rem !important;
-  position: relative;
-  display: inline-block;
-
-  @media (max-width: 768px) {
-    font-size: 2.5rem;
-  }
-`;
-
-const BeforeH3 = styled(ScrollH3)`
-  margin-block: 1.5rem;
-  position: relative;
-  display: inline-block;
-
-  @media (max-width: 768px) {
-    font-size: 1.8rem;
-  }
-`;
-
-const WordWrap = styled.span`
-  display: inline-block;
-  overflow: hidden;
-`;
-
-const WordInner = styled.span`
-  display: inline-block;
-`;
-
-const Space = styled.span`
-  display: inline-block;
-  width: 0.25em;
-`;
 
 export default BeforeYouGo;
