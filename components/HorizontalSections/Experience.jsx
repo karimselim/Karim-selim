@@ -9,13 +9,14 @@ import WorkExperiene from './WorkExperiene';
 import SkillsShowcase from './skills/SkillsShowCase';
 import { animateDesktop, animateMobile } from './skills/animations';
 import { skillCards, categoryNames } from './skills/SkillCards';
+import BeforeYouGo from './BeforeYouGo';
 
 function Experience() {
   const sectionRef = useRef(null);
   const triggerRef = useRef(null);
   const cardRefsRef = useRef([]);
   const stackRefRef = useRef(null);
-  const hasAnimated = useRef(false); // 👈 Add this
+  const hasAnimated = useRef(false);
 
   useEffect(() => {
     if (typeof window !== 'undefined') {
@@ -26,6 +27,7 @@ function Experience() {
           gsap.registerPlugin(ScrollTrigger);
 
           const tl = gsap.timeline({
+            id: 'horizontal-scroll', // ID for containerAnimation
             scrollTrigger: {
               trigger: triggerRef.current,
               start: 'top top',
@@ -37,31 +39,28 @@ function Experience() {
             },
           });
 
-          tl.to(sectionRef.current, { x: '0vw', duration: 1 });
-
-          tl.to(sectionRef.current, {
-            x: '-100vw',
-            duration: 1,
-            onStart: () => {
-              if (!hasAnimated.current) {
-                // 👈 Prevent rerunning
-                if (window.innerWidth > 768) {
-                  animateDesktop(
-                    cardRefsRef,
-                    stackRefRef,
-                    skillCards,
-                    categoryNames,
-                    true
-                  );
-                } else {
-                  animateMobile(cardRefsRef);
+          tl.to(sectionRef.current, { x: '0vw', duration: 1 })
+            .to(sectionRef.current, {
+              x: '-100vw',
+              duration: 1,
+              onStart: () => {
+                if (!hasAnimated.current) {
+                  if (window.innerWidth > 768) {
+                    animateDesktop(
+                      cardRefsRef,
+                      stackRefRef,
+                      skillCards,
+                      categoryNames,
+                      true
+                    );
+                  } else {
+                    animateMobile(cardRefsRef);
+                  }
+                  hasAnimated.current = true;
                 }
-                hasAnimated.current = true;
-              }
-            },
-          });
-
-          tl.to(sectionRef.current, { x: '-200vw', duration: 1 });
+              },
+            })
+            .to(sectionRef.current, { x: '-200vw', duration: 1 });
         }
       );
     }
@@ -79,7 +78,7 @@ function Experience() {
             />
           </ScrollSection>
           <ScrollSection>
-            <ScrollH3>Section 3 updated</ScrollH3>
+            <BeforeYouGo />
           </ScrollSection>
         </ScrollSectionInner>
       </div>
