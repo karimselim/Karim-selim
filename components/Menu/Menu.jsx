@@ -161,7 +161,7 @@ const Menu = () => {
               >
                 201068679457
               </FooterText>
-              <FooterText className="copyright">© Karim Selim 2024</FooterText>
+              <FooterText className="copyright">© Karim Selim 2025</FooterText>
               {isMobile && (
                 <Address>
                   <FooterText>Egypt, Damietta, Ras-Elbar</FooterText>
