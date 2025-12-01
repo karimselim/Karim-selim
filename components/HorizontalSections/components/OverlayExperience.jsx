@@ -66,9 +66,7 @@ const OverlayExperience = ({ triggerRef }) => {
         <ExpH2 data-text="Experience">Experience</ExpH2>
         <ExpContainer>
           <ExpText>
-            <ScrollH3>
-              KoalaSoft - Hybrid Mobile Developer (Contract via SBARI)
-            </ScrollH3>
+            <ScrollH3>KoalaSoft - Hybrid Mobile Developer</ScrollH3>
             <ExpDetails>Santa Clara, CA · October 2024 – Present</ExpDetails>
             <UnderLine />
             <ExpP>
