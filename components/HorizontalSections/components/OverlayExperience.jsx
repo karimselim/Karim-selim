@@ -67,9 +67,9 @@ const OverlayExperience = ({ triggerRef }) => {
         <ExpContainer>
           <ExpText>
             <ScrollH3>
-              KoalaSoft - Hybrid Mobile Developer
+              KoalaSoft - Software Engineer
             </ScrollH3>
-            <ExpDetails>Santa Clara, CA · October 2024 – Present</ExpDetails>
+            <ExpDetails>Santa Clara, CA · Jan 2022 – Present</ExpDetails>
             <UnderLine />
             <ExpP>
               At Koala Soft, I worked as a Cordova developer, building and
