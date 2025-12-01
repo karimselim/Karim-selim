@@ -62,11 +62,11 @@ const WorkExperiene = () => {
       <ExpH2 data-text="Experience">Experience</ExpH2>
       <ExpContainer>
         <ExpText>
-          <ScrollH3>SBARI – Front-End Developer Intern (Remote)</ScrollH3>
-          <ExpDetails>Gilroy, CA · May 2024 – October 2024</ExpDetails>
+          <ScrollH3>Software Engineer Intern</ScrollH3>
+          <ExpDetails>Gilroy, CA · Aug 2021 – Jan 2022</ExpDetails>
           <UnderLine />
           <ExpP>
-            At SBARI, I worked remotely as a front-end intern, building
+            At Koalasoft, I worked remotely as a front-end intern, building
             responsive and accessible UI components using React and Tailwind
             CSS. I translated Figma designs into functional interfaces,
             integrated REST APIs, and focused on clean state management with
