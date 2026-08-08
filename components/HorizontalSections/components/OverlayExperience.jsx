@@ -66,8 +66,15 @@ const OverlayExperience = ({ triggerRef }) => {
         <ExpH2 data-text="Experience">Experience</ExpH2>
         <ExpContainer>
           <ExpText>
+<<<<<<< HEAD
             <ScrollH3>KoalaSoft - Hybrid Mobile Developer</ScrollH3>
             <ExpDetails>Santa Clara, CA · October 2024 – Present</ExpDetails>
+=======
+            <ScrollH3>
+              KoalaSoft - Software Engineer
+            </ScrollH3>
+            <ExpDetails>Santa Clara, CA · Jan 2022 – Present</ExpDetails>
+>>>>>>> f2b1bee3ab9a75556d964892c3e5951c0df05c73
             <UnderLine />
             <ExpP>
               At Koala Soft, I worked as a Cordova developer, building and
