@@ -62,13 +62,8 @@ const WorkExperiene = () => {
       <ExpH2 data-text="Experience">Experience</ExpH2>
       <ExpContainer>
         <ExpText>
-<<<<<<< HEAD
           <ScrollH3>Koalasoft – Front-End Developer Intern (Remote)</ScrollH3>
           <ExpDetails>Gilroy, CA · May 2024 – October 2024</ExpDetails>
-=======
-          <ScrollH3>Software Engineer Intern</ScrollH3>
-          <ExpDetails>Gilroy, CA · Aug 2021 – Jan 2022</ExpDetails>
->>>>>>> f2b1bee3ab9a75556d964892c3e5951c0df05c73
           <UnderLine />
           <ExpP>
             At Koalasoft, I worked remotely as a front-end intern, building
