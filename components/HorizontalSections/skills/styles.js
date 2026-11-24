@@ -160,18 +160,31 @@ export const SkillsTitle = styled.h2`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 3rem;
+  font-family: presicav, sans-serif;
+  font-size: clamp(3.5rem, 7vw, 7rem);
+  font-weight: 900;
+  line-height: 1;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  white-space: nowrap;
+  color: ${({ theme }) => theme.text};
   opacity: 0;
   z-index: 10;
   pointer-events: none;
   display: flex;
-  gap: 6px;
+  gap: 0;
+  perspective: 700px;
 
   span {
     display: inline-block;
     opacity: 0;
-    transform: translateY(40px) scale(0.7) rotate(8deg);
-    filter: blur(3px);
-    text-shadow: 0 0 0 rgba(255, 255, 255, 0);
+    transform: translateY(60px) rotateX(-80deg);
+    transform-origin: 50% 100%;
+    filter: blur(6px);
+    will-change: transform, opacity, filter;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2.4rem;
   }
 `;

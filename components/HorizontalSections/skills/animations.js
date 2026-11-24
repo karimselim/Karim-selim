@@ -166,8 +166,10 @@ export const animateCardFlip = (
     },
   });
   if (titleRef.current) {
+    if (titleRef.current._floatTween) titleRef.current._floatTween.kill();
     const chars = titleRef.current.querySelectorAll('span');
     gsap.to(chars, {
+      yPercent: 0,
       opacity: 0,
       y: 40,
       scale: 0.7,
@@ -182,36 +184,54 @@ export const animateCardFlip = (
 };
 
 export const animateShowTitle = titleRef => {
-  if (titleRef.current) {
-    const chars = titleRef.current.querySelectorAll('span');
-    if (chars.length === 0) {
-      titleRef.current.innerHTML = titleRef.current.textContent
-        .split('')
-        .map(char => `<span>${char}</span>`)
-        .join('');
-    }
-    gsap.to(titleRef.current, { opacity: 1, duration: 0 });
-    gsap.fromTo(
-      titleRef.current.querySelectorAll('span'),
-      {
-        opacity: 0,
-        y: 40,
-        scale: 0.7,
-        rotate: 8,
-        filter: 'blur(3px)',
-        textShadow: '0 0 0 rgba(255, 255, 255, 0)',
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotate: 0,
-        filter: 'blur(0px)',
-        textShadow: '0 0 10px rgba(255, 255, 255, 0.7)',
-        duration: 1.2,
-        ease: 'power4.inOut',
-        stagger: 0.1,
-      }
-    );
+  const title = titleRef.current;
+  if (!title) return;
+  let chars = title.querySelectorAll('span');
+  if (chars.length === 0) {
+    title.innerHTML = title.textContent
+      .split('')
+      .map(char => `<span>${char}</span>`)
+      .join('');
+    chars = title.querySelectorAll('span');
   }
+  if (title._floatTween) title._floatTween.kill();
+  gsap.set(title, { opacity: 1 });
+
+  const tl = gsap.timeline();
+  tl.fromTo(
+    chars,
+    { opacity: 0, y: 60, rotateX: -80, scale: 0.9, filter: 'blur(6px)' },
+    {
+      opacity: 1,
+      y: 0,
+      rotateX: 0,
+      scale: 1,
+      filter: 'blur(0px)',
+      duration: 1.1,
+      ease: 'power4.out',
+      stagger: 0.08,
+    }
+  )
+    // soft glow sweeps across the letters once they land
+    .to(
+      chars,
+      {
+        textShadow: '0 0 24px currentColor',
+        duration: 0.35,
+        ease: 'power2.out',
+        stagger: { each: 0.08, yoyo: true, repeat: 1 },
+      },
+      '-=0.2'
+    );
+
+  // gentle idle float (uses yPercent so the flip-away animation on y still works)
+  title._floatTween = gsap.to(chars, {
+    yPercent: -8,
+    duration: 1.6,
+    ease: 'sine.inOut',
+    yoyo: true,
+    repeat: -1,
+    stagger: 0.12,
+    delay: 1.6,
+  });
 };
