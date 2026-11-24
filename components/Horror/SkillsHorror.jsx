@@ -147,7 +147,7 @@ const SkillsHorror = () => {
       const rect = container.getBoundingClientRect();
       const x = mx - rect.left;
       const y = my - rect.top;
-      const dark = reduced ? 0.55 : 0.86;
+      const dark = reduced ? 0.5 : 0.8;
       darkRef.current.style.background =
         `radial-gradient(circle at ${x}px ${y}px, rgba(255,150,50,0.10) 0, rgba(0,0,0,0) ${r * 0.45}px, rgba(0,0,0,${dark * 0.35}) ${r * 0.8}px, rgba(0,0,0,${dark}) ${r * 1.5}px)`;
       eyeRefs.current.forEach(el => {
