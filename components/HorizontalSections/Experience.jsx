@@ -39,28 +39,9 @@ function Experience() {
             },
           });
 
-          tl.to(sectionRef.current, { x: '0vw', duration: 1 })
-            .to(sectionRef.current, {
-              x: '-100vw',
-              duration: 1,
-              onStart: () => {
-                if (!hasAnimated.current) {
-                  if (window.innerWidth > 768) {
-                    animateDesktop(
-                      cardRefsRef,
-                      stackRefRef,
-                      skillCards,
-                      categoryNames,
-                      true
-                    );
-                  } else {
-                    animateMobile(cardRefsRef);
-                  }
-                  hasAnimated.current = true;
-                }
-              },
-            })
-            .to(sectionRef.current, { x: '-200vw', duration: 1 });
+          tl.to(sectionRef.current, { x: '0vw', duration: 1, ease: 'none' })
+            .to(sectionRef.current, { x: '-100vw', duration: 1, ease: 'none' })
+            .to(sectionRef.current, { x: '-200vw', duration: 1, ease: 'none' });
         }
       );
     }
