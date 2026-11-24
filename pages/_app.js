@@ -52,9 +52,19 @@ const App = ({ Component, pageProps }) => {
             '/videos/tut.mp4',
           ];
       const controller = new AbortController();
-      assets.forEach(url =>
-        fetch(url, { signal: controller.signal }).catch(() => {})
-      );
+      // One at a time, hero first, so the hero video gets the whole connection
+      // and the main thread is not busy while the intro ends.
+      (async () => {
+        for (const url of assets) {
+          if (controller.signal.aborted) return;
+          try {
+            const res = await fetch(url, { signal: controller.signal });
+            await res.arrayBuffer();
+          } catch (e) {
+            if (controller.signal.aborted) return;
+          }
+        }
+      })();
       stopPreload = () => controller.abort();
 
       const preloadResources = async () => {
