@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // Hero Header Styles
 export const HeroHeader = styled.header`
   height: 100vh;
+  height: 100svh;
   display: flex;
   text-align: center;
   flex-direction: column;
@@ -31,6 +32,7 @@ export const ScrollSectionOuter = styled.div`
 
 export const ScrollSectionInner = styled.div`
   height: 100vh;
+  height: 100svh;
   width: 300vw;
   display: flex;
   flex-direction: row;
@@ -39,6 +41,7 @@ export const ScrollSectionInner = styled.div`
 
 export const ScrollSection = styled.div`
   height: 100vh;
+  height: 100svh;
   width: 100vw;
   // display: flex;
   // justify-content: center;
@@ -105,6 +108,7 @@ export const ScrollH3 = styled.h3`
 // Footer Styles
 export const Footer = styled.footer`
   height: 100vh;
+  height: 100svh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -129,6 +133,7 @@ export const StarCanvas = styled.canvas`
 export const Section = styled.section`
   width: 100vw;
   height: 100vh;
+  height: 100svh;
   padding: 5rem 3rem 2rem;
   text-align: center;
   display: flex;
