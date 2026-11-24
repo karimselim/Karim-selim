@@ -159,9 +159,9 @@ const Menu = () => {
                 onMouseEnter={addCursorBorder}
                 onMouseLeave={removeCursorBorder}
               >
-                201068679457
+                +201068679457
               </FooterText>
-              <FooterText className="copyright">© Karim Selim 2025</FooterText>
+              <FooterText className="copyright">© Karim Selim {new Date().getFullYear()}</FooterText>
               {isMobile && (
                 <Address>
                   <FooterText>Egypt, Damietta, Ras-Elbar</FooterText>
