@@ -31,6 +31,24 @@ const Banner = () => {
   const windowSize = useWindowSize();
   const theme = useStyledTheme();
   const { addCursorBorder, removeCursorBorder } = useCursorStyle();
+  // Wait for web fonts (Typekit) so the title is not re-laid-out after it appears
+  const [titleReady, setTitleReady] = React.useState(false);
+  useEffect(() => {
+    let done = false;
+    const go = () => {
+      if (!done) {
+        done = true;
+        requestAnimationFrame(() => setTitleReady(true));
+      }
+    };
+    const t = setTimeout(go, 3000);
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(go);
+    } else {
+      go();
+    }
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const playVideo = () => {
@@ -101,7 +119,7 @@ const Banner = () => {
       <BannerTitle
         variants={titleAnimation}
         initial="initial"
-        animate="animate"
+        animate={titleReady ? 'animate' : 'initial'}
       >
         <motion.span variants={itemTitleAnimation} className="view">
           kA
