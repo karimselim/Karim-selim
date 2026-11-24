@@ -14,6 +14,8 @@ import {
   Counter2,
   Counter3,
   Number,
+  Haze,
+  Whispers,
 } from './styles';
 
 function Loader() {
@@ -80,6 +82,13 @@ function Loader() {
     <LoaderContainer>
       <Contain className={`contain`}>
         <Loadings className={`loadings`} ref={loading}>
+          <Haze />
+          <Whispers aria-hidden="true">
+            <span>Something is waiting</span>
+            <span>Do not look away</span>
+            <span>It knows your name</span>
+            <span>Enter</span>
+          </Whispers>
           <LoaderWrapper className={`loader`}>
             <Loader1 className={`bar loader1`}></Loader1>
             <Loader2 className={` bar loader2`}></Loader2>

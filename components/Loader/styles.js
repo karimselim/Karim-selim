@@ -65,7 +65,7 @@ export const Logo = styled.a`
 `;
 
 export const Loadings = styled.div`
-  background-color: #a20021;
+  background-color: #120002;
   height: 100vh;
   width: 100vw;
   position: absolute;
@@ -147,8 +147,58 @@ export const Counter3 = styled.div`
   justify-content: space-between;
 `;
 
+export const Haze = styled.div`
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, rgba(120, 0, 10, 0.25) 0, rgba(0, 0, 0, 0.85) 85%);
+  animation: loaderFlicker 3.3s steps(1) infinite;
+  @keyframes loaderFlicker {
+    0%, 100% { opacity: 1; }
+    41% { opacity: 0.55; }
+    43% { opacity: 1; }
+    77% { opacity: 0.7; }
+    79% { opacity: 1; }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+`;
+
+export const Whispers = styled.div`
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 62%;
+  text-align: center;
+  font-family: presicav, serif;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: #b0141e;
+  font-size: clamp(0.8rem, 1.6vw, 1.3rem);
+  pointer-events: none;
+  span {
+    position: absolute;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    animation: whisperIn 1.9s ease-in-out forwards;
+    text-shadow: 0 0 14px rgba(176, 20, 30, 0.7);
+  }
+  span:nth-child(1) { animation-delay: 0.3s; }
+  span:nth-child(2) { animation-delay: 2s; }
+  span:nth-child(3) { animation-delay: 3.7s; }
+  span:nth-child(4) { animation-delay: 5.2s; animation-duration: 1.2s; }
+  @keyframes whisperIn {
+    0% { opacity: 0; filter: blur(6px); }
+    30%, 70% { opacity: 1; filter: blur(0); }
+    100% { opacity: 0; filter: blur(5px); }
+  }
+`;
+
 export const Number = styled.span`
   font-size: 8em;
-  -webkit-text-stroke: 3px white;
+  -webkit-text-stroke: 3px #b0141e;
+  color: transparent;
   max-height: 130px;
 `;
