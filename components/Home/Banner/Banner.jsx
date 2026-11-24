@@ -43,6 +43,21 @@ const Banner = () => {
 
     playVideo();
 
+    // Stop decoding the hero video while it is scrolled out of view
+    let observer;
+    if (videoRef.current && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        const video = videoRef.current;
+        if (!video) return;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+      observer.observe(videoRef.current);
+    }
+
     const handleTouchStart = () => {
       playVideo();
       document.removeEventListener('touchstart', handleTouchStart);
@@ -51,6 +66,7 @@ const Banner = () => {
     document.addEventListener('touchstart', handleTouchStart);
 
     return () => {
+      if (observer) observer.disconnect();
       document.removeEventListener('touchstart', handleTouchStart);
     };
   }, []);
@@ -68,6 +84,9 @@ const Banner = () => {
           muted
           playsInline
           preload="auto"
+          poster="/imgs/hero-poster.jpg"
+          disablePictureInPicture
+          disableRemotePlayback
         />
       </VideoContainer>
       <CanvasEraser
