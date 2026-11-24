@@ -181,8 +181,9 @@ const TextReveal = () => {
         }
         .signature {
           position: relative;
-          align-self: center;
+          align-self: flex-end;
           margin-top: 1.5rem;
+          margin-right: clamp(0rem, 6vw, 6rem);
           width: clamp(200px, 30vw, 340px);
           color: var(--text-color);
         }
