@@ -34,6 +34,8 @@ export const ScrollSectionInner = styled.div`
   height: 100vh;
   height: 100svh;
   width: 300vw;
+  will-change: transform;
+  backface-visibility: hidden;
   display: flex;
   flex-direction: row;
   position: relative;

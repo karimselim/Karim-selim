@@ -205,31 +205,6 @@ const BeforeYouGo = () => {
           .filter(a => a)
           .flatMap(a => Array.from(a.querySelectorAll('.word-inner')));
 
-        console.log('Animating elements:', {
-          headings: headings.length,
-          subheadings: subheadings.length,
-          text: text.length,
-          quotes: quotes.length,
-          authors: authors.length,
-        });
-
-        if (quotes.length === 0) {
-          console.warn('No quote elements found. Checking DOM...');
-          testimonialRefs.current.forEach((t, i) => {
-            console.log(
-              `Testimonial ${i} HTML:`,
-              t?.querySelector('.reveal-quote')?.outerHTML || 'null'
-            );
-          });
-        }
-
-        if (authors.length === 0) {
-          console.warn('No author elements found. Checking DOM...');
-          authorRefs.current.forEach((a, i) => {
-            console.log(`Author ${i} HTML:`, a?.outerHTML || 'null');
-          });
-        }
-
         const elements = [
           ...headings,
           ...subheadings,

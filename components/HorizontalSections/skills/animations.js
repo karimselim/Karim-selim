@@ -1,5 +1,11 @@
 import { gsap } from 'gsap';
 
+const stopTitleMotion = title => {
+  if (title._tl) title._tl.kill();
+  if (title._call) title._call.kill();
+  title._tl = null;
+  title._call = null;
+};
 export const animateDesktop = (
   cardRefs,
   stackRef,
@@ -34,7 +40,6 @@ export const animateDesktop = (
         rotation: gsap.utils.random(-90, 90),
         x: gsap.utils.random(-200, 200),
         y: gsap.utils.random(-200, 200),
-        filter: 'blur(10px)',
         pointerEvents: 'none',
       });
     }
@@ -48,7 +53,6 @@ export const animateDesktop = (
       rotation: 0,
       x: 0,
       y: 0,
-      filter: 'blur(0px)',
       duration: 1.5,
       ease: 'power4.out',
       stagger: 0.1,
@@ -166,8 +170,13 @@ export const animateCardFlip = (
     },
   });
   if (titleRef.current) {
+    stopTitleMotion(titleRef.current);
+    titleRef.current.querySelectorAll('span').forEach(c => {
+      c.textContent = c.dataset.char || c.textContent;
+    });
     const chars = titleRef.current.querySelectorAll('span');
     gsap.to(chars, {
+      yPercent: 0,
       opacity: 0,
       y: 40,
       scale: 0.7,
@@ -181,37 +190,100 @@ export const animateCardFlip = (
   }
 };
 
+// "Skills" decodes out of a buggy, scrambled state: red noise glyphs lock into the
+// real letters one by one with a green "pass" flash. After that it glitches
+// (RGB split) on a random letter every few seconds, like a flaky test that passes.
 export const animateShowTitle = titleRef => {
-  if (titleRef.current) {
-    const chars = titleRef.current.querySelectorAll('span');
-    if (chars.length === 0) {
-      titleRef.current.innerHTML = titleRef.current.textContent
-        .split('')
-        .map(char => `<span>${char}</span>`)
-        .join('');
-    }
-    gsap.to(titleRef.current, { opacity: 1, duration: 0 });
-    gsap.fromTo(
-      titleRef.current.querySelectorAll('span'),
-      {
-        opacity: 0,
-        y: 40,
-        scale: 0.7,
-        rotate: 8,
-        filter: 'blur(3px)',
-        textShadow: '0 0 0 rgba(255, 255, 255, 0)',
-      },
-      {
-        opacity: 1,
-        y: 0,
-        scale: 1,
-        rotate: 0,
-        filter: 'blur(0px)',
-        textShadow: '0 0 10px rgba(255, 255, 255, 0.7)',
-        duration: 1.2,
-        ease: 'power4.inOut',
-        stagger: 0.1,
-      }
-    );
+  const title = titleRef.current;
+  if (!title) return;
+  let chars = title.querySelectorAll('span');
+  if (chars.length === 0) {
+    title.innerHTML = title.textContent
+      .split('')
+      .map(char => `<span data-char="${char}">${char}</span>`)
+      .join('');
+    chars = title.querySelectorAll('span');
   }
+  stopTitleMotion(title);
+
+  const list = Array.from(chars);
+  const n = list.length;
+  const baseColor = getComputedStyle(title).color;
+  const glyphs = '!<>-_/[]{}=+*^?#01';
+
+  gsap.set(title, { opacity: 1 });
+  gsap.set(list, {
+    opacity: 0,
+    y: 0,
+    yPercent: 0,
+    rotateX: 0,
+    scale: 1,
+    filter: 'none',
+    textShadow: 'none',
+    x: 0,
+    color: '#ff4d3d',
+  });
+  // fixed widths so changing glyphs do not shift the layout
+  list.forEach(c => {
+    c.textContent = c.dataset.char;
+    c.style.minWidth = `${c.offsetWidth}px`;
+    c.style.textAlign = 'center';
+  });
+
+  const state = { p: 0 };
+  const locked = new Array(n).fill(false);
+  const tl = gsap.timeline();
+  title._tl = tl;
+  tl.to(list, { opacity: 0.9, duration: 0.3, stagger: 0.05 }, 0).to(
+    state,
+    {
+      p: 1,
+      duration: 2,
+      ease: 'none',
+      onUpdate: () => {
+        const tick = Math.floor(state.p * 40);
+        list.forEach((c, i) => {
+          if (locked[i]) return;
+          const lockAt = 0.2 + (i / Math.max(n - 1, 1)) * 0.65;
+          if (state.p >= lockAt) {
+            locked[i] = true;
+            c.textContent = c.dataset.char;
+            gsap.fromTo(
+              c,
+              { color: '#35e08a', scale: 1.3, opacity: 1 },
+              {
+                color: baseColor,
+                scale: 1,
+                duration: 0.6,
+                ease: 'power3.out',
+                clearProps: 'scale',
+              }
+            );
+          } else if (c._tick !== tick) {
+            c._tick = tick;
+            c.textContent = glyphs[Math.floor(Math.random() * glyphs.length)];
+          }
+        });
+      },
+    },
+    0.2
+  );
+
+  const glitchOnce = () => {
+    if (!document.body.contains(title)) return;
+    const picks = [list[Math.floor(Math.random() * n)]];
+    if (Math.random() > 0.5) picks.push(list[Math.floor(Math.random() * n)]);
+    gsap
+      .timeline()
+      .to(picks, {
+        x: () => gsap.utils.random(-5, 5),
+        textShadow: '3px 0 #ff2e2e, -3px 0 #2ee6ff',
+        duration: 0.05,
+        repeat: 5,
+        yoyo: true,
+      })
+      .set(picks, { x: 0, textShadow: 'none' });
+    title._call = gsap.delayedCall(3 + Math.random() * 2, glitchOnce);
+  };
+  title._call = gsap.delayedCall(3.2, glitchOnce);
 };

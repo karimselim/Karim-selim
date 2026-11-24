@@ -91,6 +91,25 @@ const App = ({ Component, pageProps }) => {
     <>
       <Head>
         <title>Karim Nation</title>
+        <meta
+          name="description"
+          content="Karim Selim, QA automation engineer with a frontend background. Playwright, API testing, and interactive web work."
+        />
+        <meta property="og:type" content="website" />
+        <meta
+          property="og:title"
+          content="Karim Selim - QA Automation Engineer"
+        />
+        <meta
+          property="og:description"
+          content="QA automation engineer with a frontend background. Playwright, API testing, and interactive web work."
+        />
+        <meta property="og:url" content="https://karim-selim.vercel.app/" />
+        <meta
+          property="og:image"
+          content="https://karim-selim.vercel.app/imgs/hero-poster.jpg"
+        />
+        <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon.png" />
         <link rel="stylesheet" href="https://use.typekit.net/yzi3byl.css" />
       </Head>

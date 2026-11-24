@@ -1,5 +1,20 @@
 export const skillCards = [
   {
+    title: 'Playwright',
+    iconSrc: '/cards/playwright.png',
+    category: 'Core',
+  },
+  {
+    title: 'E2E Testing',
+    iconSrc: '/cards/e2e.png',
+    category: 'Core',
+  },
+  {
+    title: 'Page Objects',
+    iconSrc: '/cards/pom.png',
+    category: 'Core',
+  },
+  {
     title: 'JavaScript',
     iconSrc: '/cards/js.png',
     category: 'Core',
@@ -7,16 +22,6 @@ export const skillCards = [
   {
     title: 'TypeScript',
     iconSrc: '/cards/ts.png',
-    category: 'Core',
-  },
-  {
-    title: 'HTML5',
-    iconSrc: '/cards/html.png',
-    category: 'Core',
-  },
-  {
-    title: 'CSS3',
-    iconSrc: '/cards/css.png',
     category: 'Core',
   },
   {
@@ -30,73 +35,73 @@ export const skillCards = [
     category: 'Frameworks',
   },
   {
-    title: 'Tailwind CSS',
-    iconSrc: '/cards/tailwind.png',
-    category: 'Frameworks',
-  },
-  {
-    title: 'React Hook Form',
-    iconSrc: '/cards/react-hf.png',
-    category: 'Frameworks',
-  },
-  {
-    title: 'Zod',
-    iconSrc: '/cards/zod.png',
-    category: 'Frameworks',
-  },
-  {
-    title: 'Redux',
-    iconSrc: '/cards/redux.png',
-    category: 'Frameworks',
-  },
-  {
     title: 'React Native',
     iconSrc: '/cards/rn.png',
-    category: 'Mobile',
-  },
-  {
-    title: 'Cordova',
-    iconSrc: '/cards/cordova.png',
-    category: 'Mobile',
-  },
-  {
-    title: 'Expo',
-    iconSrc: '/cards/expo.png',
-    category: 'Mobile',
-  },
-  {
-    title: 'Firebase',
-    iconSrc: '/cards/firebase.png',
-    category: 'Mobile',
+    category: 'Frameworks',
   },
   {
     title: 'Git',
     iconSrc: '/cards/git.png',
+    category: 'Frameworks',
+  },
+  {
+    title: 'CI/CD',
+    iconSrc: '/cards/cicd.png',
+    category: 'Frameworks',
+  },
+  {
+    title: 'Manual QA',
+    iconSrc: '/cards/manual.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'Mobile QA',
+    iconSrc: '/cards/mobile.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'API Testing',
+    iconSrc: '/cards/api.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'GraphQL Testing',
+    iconSrc: '/cards/graphql.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'Localization QA',
+    iconSrc: '/cards/l10n.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'Bug Hunting',
+    iconSrc: '/cards/bugs.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'Jira',
+    iconSrc: '/cards/jira.png',
+    category: 'Tools',
+  },
+  {
+    title: 'Confluence',
+    iconSrc: '/cards/confluence.png',
+    category: 'Tools',
+  },
+  {
+    title: 'Postman',
+    iconSrc: '/cards/postman.png',
+    category: 'Tools',
+  },
+  {
+    title: 'SQL',
+    iconSrc: '/cards/sql.png',
     category: 'Tools',
   },
   {
     title: 'Jest',
     iconSrc: '/cards/jest.png',
-    category: 'Tools',
-  },
-  {
-    title: 'React Three Fiber',
-    iconSrc: '/cards/three-fiber.png',
-    category: 'Tools',
-  },
-  {
-    title: 'CI/CD',
-    iconSrc: '/cards/three.png',
-    category: 'Tools',
-  },
-  {
-    title: 'GSAP',
-    iconSrc: '/cards/gsap.png',
-    category: 'Tools',
-  },
-  {
-    title: 'Yup',
-    iconSrc: '/cards/yup.png',
     category: 'Tools',
   },
 ];
