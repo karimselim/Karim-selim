@@ -10,6 +10,11 @@ export const skillCards = [
     category: 'Core',
   },
   {
+    title: 'Page Objects',
+    iconSrc: '/cards/pom.png',
+    category: 'Core',
+  },
+  {
     title: 'JavaScript',
     iconSrc: '/cards/js.png',
     category: 'Core',
@@ -17,16 +22,6 @@ export const skillCards = [
   {
     title: 'TypeScript',
     iconSrc: '/cards/ts.png',
-    category: 'Core',
-  },
-  {
-    title: 'Page Objects',
-    iconSrc: '/cards/pom.png',
-    category: 'Core',
-  },
-  {
-    title: 'Jest',
-    iconSrc: '/cards/jest.png',
     category: 'Core',
   },
   {
@@ -42,6 +37,16 @@ export const skillCards = [
   {
     title: 'React Native',
     iconSrc: '/cards/rn.png',
+    category: 'Frameworks',
+  },
+  {
+    title: 'Git',
+    iconSrc: '/cards/git.png',
+    category: 'Frameworks',
+  },
+  {
+    title: 'CI/CD',
+    iconSrc: '/cards/cicd.png',
     category: 'Frameworks',
   },
   {
@@ -95,13 +100,8 @@ export const skillCards = [
     category: 'Tools',
   },
   {
-    title: 'Git',
-    iconSrc: '/cards/git.png',
-    category: 'Tools',
-  },
-  {
-    title: 'CI/CD',
-    iconSrc: '/cards/cicd.png',
+    title: 'Jest',
+    iconSrc: '/cards/jest.png',
     category: 'Tools',
   },
 ];
