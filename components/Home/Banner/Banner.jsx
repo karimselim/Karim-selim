@@ -41,8 +41,11 @@ const Banner = () => {
         requestAnimationFrame(() => setTitleReady(true));
       }
     };
-    const t = setTimeout(go, 3000);
-    if (document.fonts && document.fonts.ready) {
+    // Fonts are warmed during the loader, so this is normally immediate.
+    const t = setTimeout(go, 700);
+    if (document.fonts && document.fonts.status === 'loaded') {
+      go();
+    } else if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(go);
     } else {
       go();

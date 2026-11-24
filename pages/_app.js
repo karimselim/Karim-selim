@@ -127,7 +127,22 @@ const App = ({ Component, pageProps }) => {
           <CursorContextProvider>
             <ThemedApp>
               {loading ? (
-                <Loader />
+                <>
+                  <Loader />
+                  {/* Warm the title web font while the loader plays so the hero
+                      does not wait for it afterwards */}
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      fontFamily: 'presicav, sans-serif',
+                    }}
+                  >
+                    kARIM
+                  </span>
+                </>
               ) : (
                 <>
                   <Header />
