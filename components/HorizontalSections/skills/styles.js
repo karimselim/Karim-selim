@@ -178,10 +178,7 @@ export const SkillsTitle = styled.h2`
   span {
     display: inline-block;
     opacity: 0;
-    transform: translateY(60px) rotateX(-80deg);
-    transform-origin: 50% 100%;
-    filter: blur(6px);
-    will-change: transform, opacity, filter;
+    will-change: transform, opacity;
   }
 
   @media (max-width: 768px) {
