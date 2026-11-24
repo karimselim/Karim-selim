@@ -4,8 +4,7 @@ import colors from '../styles/colors';
 
 const INITIAL_STATE = {
   cursorStyle: {
-    // start as the open ring (same look as when hovering the hero)
-    bordered: true,
+    bordered: false,
     color: colors.red,
   },
   position: null,
