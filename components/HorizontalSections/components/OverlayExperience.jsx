@@ -66,12 +66,18 @@ const OverlayExperience = ({ triggerRef }) => {
         <ExpH2 data-text="Experience">Experience</ExpH2>
         <ExpContainer>
           <ExpText>
-            <ScrollH3>99Bridges - QA Automation Engineer</ScrollH3>
-            <ExpDetails>October 2025 – October 2026</ExpDetails>
+            <ScrollH3>Koalasoft - Frontend Developer</ScrollH3>
+            <ExpDetails>August 2024 – September 2025</ExpDetails>
             <UnderLine />
             <ExpP>
-              At 99Bridges, I worked as a QA automation engineer, testing
-              software, writing automated tests, and tracking issues in Jira.
+              At Koalasoft, I worked as a frontend developer, building
+              responsive and accessible UI components using React and Tailwind
+              CSS. I translated Figma designs into functional interfaces,
+              integrated REST APIs, and focused on clean state management with
+              hooks like <code>useState</code> and <code>useEffect</code>. I
+              also added subtle GSAP animations to enhance the user experience
+              and collaborated weekly with the team through GitHub and video
+              calls.
             </ExpP>
           </ExpText>
           <HoverMorphEffect
