@@ -157,7 +157,7 @@ const TextReveal = () => {
         }
         .line {
           margin: 0;
-          font-size: clamp(2rem, 6vw, 4rem);
+          font-size: clamp(1.8rem, 4.6vw, 3.4rem);
           font-weight: 700;
           line-height: 1.15;
           overflow: hidden;
@@ -171,19 +171,19 @@ const TextReveal = () => {
           transform-origin: top left;
         }
         .aboutP {
-          max-width: 760px;
-          margin-top: 2.5rem;
-          font-size: clamp(1.2rem, 2.8vw, 1.6rem);
-          line-height: 1.9;
+          max-width: 820px;
+          margin-top: 2rem;
+          font-size: clamp(1.05rem, 2.2vw, 1.4rem);
+          line-height: 1.8;
         }
         .pWord {
           display: inline-block;
         }
         .signature {
-          position: absolute;
-          bottom: 2rem;
-          right: 2rem;
-          width: clamp(220px, 40vw, 440px);
+          position: relative;
+          align-self: center;
+          margin-top: 1.5rem;
+          width: clamp(200px, 30vw, 340px);
           color: var(--text-color);
         }
         .sigSVG {
