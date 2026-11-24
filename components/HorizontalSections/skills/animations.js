@@ -34,7 +34,6 @@ export const animateDesktop = (
         rotation: gsap.utils.random(-90, 90),
         x: gsap.utils.random(-200, 200),
         y: gsap.utils.random(-200, 200),
-        filter: 'blur(10px)',
         pointerEvents: 'none',
       });
     }
@@ -48,7 +47,6 @@ export const animateDesktop = (
       rotation: 0,
       x: 0,
       y: 0,
-      filter: 'blur(0px)',
       duration: 1.5,
       ease: 'power4.out',
       stagger: 0.1,
