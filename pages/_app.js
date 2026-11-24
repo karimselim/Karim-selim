@@ -36,7 +36,27 @@ const App = ({ Component, pageProps }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    let stopPreload = () => {};
     const initialTimer = setTimeout(() => {
+      // Warm the browser cache with the heavy assets while the intro animation plays.
+      // Loader timing/animation is unchanged; nothing keeps loading once it ends.
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      // Mobile: only the hero video (saves data). Desktop: hero + project videos.
+      const assets = isMobile
+        ? ['/videos/second(2).mp4']
+        : [
+            '/videos/second(2).mp4',
+            '/videos/home.mp4',
+            '/videos/coffee.mp4',
+            '/videos/fifth.mp4',
+            '/videos/tut.mp4',
+          ];
+      const controller = new AbortController();
+      assets.forEach(url =>
+        fetch(url, { signal: controller.signal }).catch(() => {})
+      );
+      stopPreload = () => controller.abort();
+
       const preloadResources = async () => {
         await new Promise(resolve => setTimeout(resolve, 4000));
         setIsLoaded(true);
@@ -45,12 +65,16 @@ const App = ({ Component, pageProps }) => {
       preloadResources();
 
       setTimeout(() => {
+        stopPreload();
         setLoading(false);
       }, 7000);
     }, 1000);
 
     // Cleanup on component unmount
-    return () => clearTimeout(initialTimer);
+    return () => {
+      clearTimeout(initialTimer);
+      stopPreload();
+    };
   }, []);
 
   return (
