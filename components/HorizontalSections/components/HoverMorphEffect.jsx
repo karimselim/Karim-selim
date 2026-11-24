@@ -16,11 +16,12 @@ const HoverMorphEffect = ({
   useEffect(() => {
     if (!hoverRef.current) return;
 
-    // This is far below the hero: create the WebGL scene a few seconds after
-    // mount, so it does not compete with the hero intro for the main thread.
+    // Far below the hero: create the WebGL scene only when this block is within
+    // about one screen of the viewport, so it never competes with the hero.
     let effect;
+    let observer;
     const create = () => {
-      if (!hoverRef.current) return;
+      if (effect || !hoverRef.current) return;
       effect = new hoverEffect({
         parent: hoverRef.current,
         intensity,
@@ -30,16 +31,23 @@ const HoverMorphEffect = ({
         imagesRatio: width / height,
       });
     };
-    const timer = setTimeout(() => {
-      if ('requestIdleCallback' in window) {
-        window.requestIdleCallback(create, { timeout: 2000 });
-      } else {
-        create();
-      }
-    }, 3000);
+    if ('IntersectionObserver' in window) {
+      observer = new IntersectionObserver(
+        entries => {
+          if (entries.some(e => e.isIntersecting)) {
+            observer.disconnect();
+            create();
+          }
+        },
+        { rootMargin: '100% 100% 100% 100%' }
+      );
+      observer.observe(hoverRef.current);
+    } else {
+      create();
+    }
 
     return () => {
-      clearTimeout(timer);
+      if (observer) observer.disconnect();
       // Clean up the canvas when unmounting
       effect && effect.canvas && effect.canvas.remove();
     };
