@@ -32,6 +32,14 @@ const Banner = () => {
   const theme = useStyledTheme();
   const { addCursorBorder, removeCursorBorder } = useCursorStyle();
   // Wait for web fonts (Typekit) so the title is not re-laid-out after it appears
+  React.useEffect(() => {
+    // let the cursor re-check what is under it now that the loader is gone
+    const t = setTimeout(
+      () => window.dispatchEvent(new Event('cursor-sync')),
+      50
+    );
+    return () => clearTimeout(t);
+  }, []);
   const [titleReady, setTitleReady] = React.useState(false);
   useEffect(() => {
     let done = false;

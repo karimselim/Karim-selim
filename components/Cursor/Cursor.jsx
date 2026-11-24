@@ -40,10 +40,11 @@ const Cursor = () => {
       passive: true,
       capture: true,
     });
-    const interval = setInterval(sync, 150);
+    // Banner fires this once the loader is gone and the hero is on screen
+    window.addEventListener('cursor-sync', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll, { capture: true });
-      clearInterval(interval);
+      window.removeEventListener('cursor-sync', onScroll);
       if (raf !== null) cancelAnimationFrame(raf);
     };
   }, [dispatch]);
