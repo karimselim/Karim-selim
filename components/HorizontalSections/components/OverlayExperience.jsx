@@ -66,18 +66,12 @@ const OverlayExperience = ({ triggerRef }) => {
         <ExpH2 data-text="Experience">Experience</ExpH2>
         <ExpContainer>
           <ExpText>
-            <ScrollH3>KoalaSoft - Hybrid Mobile Developer</ScrollH3>
-            <ExpDetails>Santa Clara, CA · October 2024 – Present</ExpDetails>
+            <ScrollH3>99Bridges - QA Automation Engineer</ScrollH3>
+            <ExpDetails>October 2025 – October 2026</ExpDetails>
             <UnderLine />
             <ExpP>
-              At Koala Soft, I worked as a Cordova developer, building and
-              maintaining cross-platform mobile applications using web
-              technologies like HTML, CSS, and JavaScript. I integrated native
-              plugins to access device features, worked closely with APIs for
-              dynamic data handling, and optimized app performance across both
-              Android and iOS. The role also involved debugging
-              platform-specific issues and delivering updates through iterative
-              releases.
+              At 99Bridges, I worked as a QA automation engineer, testing
+              software, writing automated tests, and tracking issues in Jira.
             </ExpP>
           </ExpText>
           <HoverMorphEffect
