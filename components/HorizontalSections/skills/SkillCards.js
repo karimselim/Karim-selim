@@ -5,6 +5,11 @@ export const skillCards = [
     category: 'Core',
   },
   {
+    title: 'E2E Testing',
+    iconSrc: '/cards/e2e.png',
+    category: 'Core',
+  },
+  {
     title: 'JavaScript',
     iconSrc: '/cards/js.png',
     category: 'Core',
@@ -12,6 +17,11 @@ export const skillCards = [
   {
     title: 'TypeScript',
     iconSrc: '/cards/ts.png',
+    category: 'Core',
+  },
+  {
+    title: 'Page Objects',
+    iconSrc: '/cards/pom.png',
     category: 'Core',
   },
   {
@@ -50,6 +60,16 @@ export const skillCards = [
     category: 'Mobile',
   },
   {
+    title: 'GraphQL Testing',
+    iconSrc: '/cards/graphql.png',
+    category: 'Mobile',
+  },
+  {
+    title: 'Localization QA',
+    iconSrc: '/cards/l10n.png',
+    category: 'Mobile',
+  },
+  {
     title: 'Bug Hunting',
     iconSrc: '/cards/bugs.png',
     category: 'Mobile',
@@ -60,8 +80,18 @@ export const skillCards = [
     category: 'Tools',
   },
   {
+    title: 'Confluence',
+    iconSrc: '/cards/confluence.png',
+    category: 'Tools',
+  },
+  {
     title: 'Postman',
     iconSrc: '/cards/postman.png',
+    category: 'Tools',
+  },
+  {
+    title: 'SQL',
+    iconSrc: '/cards/sql.png',
     category: 'Tools',
   },
   {
