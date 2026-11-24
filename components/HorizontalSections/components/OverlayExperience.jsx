@@ -60,6 +60,8 @@ const OverlayExperience = ({ triggerRef }) => {
         height: '100%',
         backgroundColor: theme.backgroundOverlay || theme.background || 'black', // fallback
         zIndex: 10,
+        // start off-screen so it never flashes over the first entry before GSAP loads
+        transform: 'translateX(-100%)',
       }}
     >
       <ScrollSection style={{ paddingInline: '3%' }}>
