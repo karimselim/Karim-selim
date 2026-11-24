@@ -9,6 +9,7 @@ import {
   animateShowTitle,
 } from './animations';
 import gsap from 'gsap';
+import SkillsHorror from '../../Horror/SkillsHorror';
 
 const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
   const [selectedCards, setSelectedCards] = useState([]);
@@ -119,6 +120,7 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
         ))}
       </CardsStack>
       <SkillsTitle ref={titleRef}>Skills</SkillsTitle>
+      <SkillsHorror />
     </Container>
   );
 };
