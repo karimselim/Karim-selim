@@ -4,9 +4,9 @@ import { gsap } from 'gsap';
 
 const TextReveal = () => {
   const lines = [
-    'Humans feel before they think.',
-    'So I’m designing emotions in motion.',
-    'That’s why your brand doesn’t just show — it shines.',
+    'Users don’t read bug reports. They just leave.',
+    'So I build the pixels, then break them. Politely.',
+    'That’s why your release doesn’t just ship. It survives me.',
   ];
 
   const sectionRef = useRef(null);
@@ -90,7 +90,7 @@ const TextReveal = () => {
     init();
   }, []);
 
-  const aboutText = `I turn caffeine and complex briefs into interactive stories users can’t stop scrolling. Think of me as the front‑end wizard who fights with CSS so you don’t have to. When I’m not animating pixels, I’m busy optimising them — because smooth beats choppy every time.`;
+  const aboutText = `I started out writing frontend, so I know exactly which div is lying to you. I built this whole site, animations and all, and then tested it until it stopped laughing at me. Now I turn vague requirements and a lot of coffee into Playwright suites and Jira tickets nobody has to ask a follow-up question about. 300+ bugs found, 85% fewer production incidents, and yes, I will check that the button works one more time.`;
 
   return (
     <section ref={sectionRef} className="reveal">
