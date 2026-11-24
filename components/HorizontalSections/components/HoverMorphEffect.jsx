@@ -16,16 +16,30 @@ const HoverMorphEffect = ({
   useEffect(() => {
     if (!hoverRef.current) return;
 
-    const effect = new hoverEffect({
-      parent: hoverRef.current,
-      intensity,
-      image1,
-      image2,
-      displacementImage,
-      imagesRatio: width / height,
-    });
+    // This is far below the hero: create the WebGL scene a few seconds after
+    // mount, so it does not compete with the hero intro for the main thread.
+    let effect;
+    const create = () => {
+      if (!hoverRef.current) return;
+      effect = new hoverEffect({
+        parent: hoverRef.current,
+        intensity,
+        image1,
+        image2,
+        displacementImage,
+        imagesRatio: width / height,
+      });
+    };
+    const timer = setTimeout(() => {
+      if ('requestIdleCallback' in window) {
+        window.requestIdleCallback(create, { timeout: 2000 });
+      } else {
+        create();
+      }
+    }, 3000);
 
     return () => {
+      clearTimeout(timer);
       // Clean up the canvas when unmounting
       effect && effect.canvas && effect.canvas.remove();
     };
