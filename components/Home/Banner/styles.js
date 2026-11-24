@@ -50,6 +50,7 @@ export const BannerTitle = styled(motion.h1)`
   & span {
     display: block;
     will-change: transform;
+    backface-visibility: hidden;
   }
 
   ${({ theme }) => theme.breakpoints.small`

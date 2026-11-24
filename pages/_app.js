@@ -36,7 +36,37 @@ const App = ({ Component, pageProps }) => {
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
+    let stopPreload = () => {};
     const initialTimer = setTimeout(() => {
+      // Warm the browser cache with the heavy assets while the intro animation plays.
+      // Loader timing/animation is unchanged; nothing keeps loading once it ends.
+      const isMobile = window.matchMedia('(max-width: 768px)').matches;
+      // Mobile: only the hero video (saves data). Desktop: hero + project videos.
+      const assets = isMobile
+        ? ['/videos/second(2).mp4']
+        : [
+            '/videos/second(2).mp4',
+            '/videos/home.mp4',
+            '/videos/coffee.mp4',
+            '/videos/fifth.mp4',
+            '/videos/tut.mp4',
+          ];
+      const controller = new AbortController();
+      // One at a time, hero first, so the hero video gets the whole connection
+      // and the main thread is not busy while the intro ends.
+      (async () => {
+        for (const url of assets) {
+          if (controller.signal.aborted) return;
+          try {
+            const res = await fetch(url, { signal: controller.signal });
+            await res.arrayBuffer();
+          } catch (e) {
+            if (controller.signal.aborted) return;
+          }
+        }
+      })();
+      stopPreload = () => controller.abort();
+
       const preloadResources = async () => {
         await new Promise(resolve => setTimeout(resolve, 4000));
         setIsLoaded(true);
@@ -45,12 +75,16 @@ const App = ({ Component, pageProps }) => {
       preloadResources();
 
       setTimeout(() => {
+        stopPreload();
         setLoading(false);
       }, 7000);
     }, 1000);
 
     // Cleanup on component unmount
-    return () => clearTimeout(initialTimer);
+    return () => {
+      clearTimeout(initialTimer);
+      stopPreload();
+    };
   }, []);
 
   return (
@@ -93,7 +127,22 @@ const App = ({ Component, pageProps }) => {
           <CursorContextProvider>
             <ThemedApp>
               {loading ? (
-                <Loader />
+                <>
+                  <Loader />
+                  {/* Warm the title web font while the loader plays so the hero
+                      does not wait for it afterwards */}
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      fontFamily: 'presicav, sans-serif',
+                    }}
+                  >
+                    kARIM
+                  </span>
+                </>
               ) : (
                 <>
                   <Header />

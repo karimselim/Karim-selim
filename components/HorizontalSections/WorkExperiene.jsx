@@ -62,17 +62,19 @@ const WorkExperiene = () => {
       <ExpH2 data-text="Experience">Experience</ExpH2>
       <ExpContainer>
         <ExpText>
-          <ScrollH3>Koalasoft – Front-End Developer Intern (Remote)</ScrollH3>
-          <ExpDetails>Gilroy, CA · May 2024 – October 2024</ExpDetails>
+          <ScrollH3>99Bridges - QA Automation Engineer</ScrollH3>
+          <ExpDetails>October 2025 – October 2026</ExpDetails>
           <UnderLine />
           <ExpP>
-            At Koalasoft, I worked remotely as a front-end intern, building
-            responsive and accessible UI components using React and Tailwind
-            CSS. I translated Figma designs into functional interfaces,
-            integrated REST APIs, and focused on clean state management with
-            hooks like <code>useState</code> and <code>useEffect</code>. I also
-            added subtle GSAP animations to enhance the user experience and
-            collaborated weekly with the team through GitHub and video calls.
+            At 99Bridges, I worked as a QA automation engineer. I designed and
+            ran test plans and managed the full testware cycle for backend APIs
+            and web frontends using Playwright, with Jira as the test management
+            system. I found and documented 300+ bugs with clear severity, repro
+            steps, and expected-vs-actual results, which helped reduce
+            production incidents by 85%. I also built and maintained React
+            Native features, which sharpened my root-cause analysis, and worked
+            with cross-functional teams to add automated test runs to release
+            pipelines.
           </ExpP>
         </ExpText>
         <HoverMorphEffect

@@ -32,7 +32,10 @@ const BeforeYouGo = () => {
     let frameId;
     const particleCount = 150;
 
+    let visible = true;
+
     const initSky = () => {
+      if (frameId) cancelAnimationFrame(frameId);
       const canvas = canvasRef.current;
       if (!canvas) return;
       const ctx2d = canvas.getContext('2d');
@@ -61,6 +64,10 @@ const BeforeYouGo = () => {
 
       const animateStars = () => {
         if (!ctx2d) return;
+        if (!visible) {
+          frameId = requestAnimationFrame(animateStars);
+          return;
+        }
         ctx2d.clearRect(0, 0, canvas.width, canvas.height);
 
         particlesRef.current.forEach(star => {
@@ -134,6 +141,11 @@ const BeforeYouGo = () => {
 
     initSky();
 
+    const io = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+    });
+    if (canvasRef.current) io.observe(canvasRef.current);
+
     window.addEventListener('mousemove', handleMouseMove);
     const onResize = () => {
       const canvas = canvasRef.current;
@@ -148,6 +160,7 @@ const BeforeYouGo = () => {
     return () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('resize', onResize);
+      io.disconnect();
       if (frameId) cancelAnimationFrame(frameId);
     };
   }, []);
@@ -157,11 +170,24 @@ const BeforeYouGo = () => {
       const { ScrollTrigger } = await import('gsap/ScrollTrigger');
       gsap.registerPlugin(ScrollTrigger);
 
+      let attempts = 0;
       const setupAnimations = () => {
         const horizontalScroll = gsap.getById('horizontal-scroll');
         if (!horizontalScroll) {
-          console.warn('horizontal-scroll timeline not found, retrying...');
-          requestAnimationFrame(setupAnimations);
+          attempts += 1;
+          if (attempts < 120) {
+            requestAnimationFrame(setupAnimations);
+            return;
+          }
+          // Timeline never appeared (e.g. mobile): show the text instead of hiding it forever
+          document
+            .querySelectorAll(
+              '.reveal-heading .word-inner, .reveal-text .word-inner, .reveal-quote .word-inner, .reveal-author .word-inner'
+            )
+            .forEach(el => {
+              el.style.opacity = '1';
+              el.style.transform = 'none';
+            });
           return;
         }
 
@@ -229,10 +255,6 @@ const BeforeYouGo = () => {
               containerAnimation: horizontalScroll,
               start: 'left 200vw',
               toggleActions: 'play none none none',
-              onEnter: () =>
-                console.log('Animations started for BeforeYouGo section'),
-              onEnterBack: () =>
-                console.log('Animations started back for BeforeYouGo section'),
             },
           })
           .to(

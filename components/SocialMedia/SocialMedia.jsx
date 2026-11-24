@@ -9,7 +9,7 @@ const medias = [
   { component: Github, url: 'https://github.com/karimselim' },
   {
     component: Linkedin,
-    url: 'https://www.linkedin.com/in/kareem-sleem-367718220/',
+    url: 'https://www.linkedin.com/in/karim-selim-qa',
   },
 ];
 

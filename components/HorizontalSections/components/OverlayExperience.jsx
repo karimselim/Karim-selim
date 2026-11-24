@@ -66,18 +66,18 @@ const OverlayExperience = ({ triggerRef }) => {
         <ExpH2 data-text="Experience">Experience</ExpH2>
         <ExpContainer>
           <ExpText>
-            <ScrollH3>KoalaSoft - Hybrid Mobile Developer</ScrollH3>
-            <ExpDetails>Santa Clara, CA · October 2024 – Present</ExpDetails>
+            <ScrollH3>Koalasoft - Frontend Developer</ScrollH3>
+            <ExpDetails>August 2024 – September 2025</ExpDetails>
             <UnderLine />
             <ExpP>
-              At Koala Soft, I worked as a Cordova developer, building and
-              maintaining cross-platform mobile applications using web
-              technologies like HTML, CSS, and JavaScript. I integrated native
-              plugins to access device features, worked closely with APIs for
-              dynamic data handling, and optimized app performance across both
-              Android and iOS. The role also involved debugging
-              platform-specific issues and delivering updates through iterative
-              releases.
+              At Koalasoft, I worked as a frontend developer, building
+              responsive and accessible UI components using React and Tailwind
+              CSS. I translated Figma designs into functional interfaces,
+              integrated REST APIs, and focused on clean state management with
+              hooks like <code>useState</code> and <code>useEffect</code>. I
+              also added subtle GSAP animations to enhance the user experience
+              and collaborated weekly with the team through GitHub and video
+              calls.
             </ExpP>
           </ExpText>
           <HoverMorphEffect

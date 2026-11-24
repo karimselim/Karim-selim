@@ -31,6 +31,35 @@ const Banner = () => {
   const windowSize = useWindowSize();
   const theme = useStyledTheme();
   const { addCursorBorder, removeCursorBorder } = useCursorStyle();
+  // Wait for web fonts (Typekit) so the title is not re-laid-out after it appears
+  React.useEffect(() => {
+    // let the cursor re-check what is under it now that the loader is gone
+    const t = setTimeout(
+      () => window.dispatchEvent(new Event('cursor-sync')),
+      50
+    );
+    return () => clearTimeout(t);
+  }, []);
+  const [titleReady, setTitleReady] = React.useState(false);
+  useEffect(() => {
+    let done = false;
+    const go = () => {
+      if (!done) {
+        done = true;
+        requestAnimationFrame(() => setTitleReady(true));
+      }
+    };
+    // Fonts are warmed during the loader, so this is normally immediate.
+    const t = setTimeout(go, 700);
+    if (document.fonts && document.fonts.status === 'loaded') {
+      go();
+    } else if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(go);
+    } else {
+      go();
+    }
+    return () => clearTimeout(t);
+  }, []);
 
   useEffect(() => {
     const playVideo = () => {
@@ -43,6 +72,21 @@ const Banner = () => {
 
     playVideo();
 
+    // Stop decoding the hero video while it is scrolled out of view
+    let observer;
+    if (videoRef.current && 'IntersectionObserver' in window) {
+      observer = new IntersectionObserver(([entry]) => {
+        const video = videoRef.current;
+        if (!video) return;
+        if (entry.isIntersecting) {
+          video.play().catch(() => {});
+        } else {
+          video.pause();
+        }
+      });
+      observer.observe(videoRef.current);
+    }
+
     const handleTouchStart = () => {
       playVideo();
       document.removeEventListener('touchstart', handleTouchStart);
@@ -51,6 +95,7 @@ const Banner = () => {
     document.addEventListener('touchstart', handleTouchStart);
 
     return () => {
+      if (observer) observer.disconnect();
       document.removeEventListener('touchstart', handleTouchStart);
     };
   }, []);
@@ -68,6 +113,9 @@ const Banner = () => {
           muted
           playsInline
           preload="auto"
+          poster="/imgs/hero-poster.jpg"
+          disablePictureInPicture
+          disableRemotePlayback
         />
       </VideoContainer>
       <CanvasEraser
@@ -75,6 +123,7 @@ const Banner = () => {
         width={windowSize.width}
         height={windowSize.height}
         size={120}
+        data-cursor-ring
         background={theme.background}
         onMouseEnter={addCursorBorder}
         onMouseLeave={removeCursorBorder}
@@ -82,7 +131,7 @@ const Banner = () => {
       <BannerTitle
         variants={titleAnimation}
         initial="initial"
-        animate="animate"
+        animate={titleReady ? 'animate' : 'initial'}
       >
         <motion.span variants={itemTitleAnimation} className="view">
           kA
