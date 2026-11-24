@@ -112,6 +112,7 @@ const Banner = () => {
         width={windowSize.width}
         height={windowSize.height}
         size={120}
+        data-cursor-ring
         background={theme.background}
         onMouseEnter={addCursorBorder}
         onMouseLeave={removeCursorBorder}
