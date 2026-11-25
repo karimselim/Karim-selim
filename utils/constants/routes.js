@@ -1,5 +1,12 @@
 export default [
   {
+    id: 'vendure-testing',
+    title: 'Vendure',
+    tag: 'Testing',
+    path: 'https://github.com/karimselim/Vendure-Testing',
+    video: 'hero-ide.mp4',
+  },
+  {
     id: 'gem',
     title: 'GEM',
     path: 'https://gem-29pc.vercel.app/',
@@ -16,11 +23,5 @@ export default [
     title: 'Message Nation',
     path: 'https://reliable-taffy-f4a46a.netlify.app/',
     video: 'home.mp4',
-  },
-  {
-    id: 'learning-nation',
-    title: 'Learning Nation',
-    path: 'https://learning-nation.vercel.app/',
-    video: 'fifth.mp4',
   },
 ];

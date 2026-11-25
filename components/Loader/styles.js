@@ -187,8 +187,7 @@ export const Whispers = styled.div`
   }
   span:nth-child(1) { animation-delay: 0.3s; }
   span:nth-child(2) { animation-delay: 2s; }
-  span:nth-child(3) { animation-delay: 3.7s; }
-  span:nth-child(4) { animation-delay: 5.2s; animation-duration: 1.2s; }
+  span:nth-child(3) { animation-delay: 3.7s; animation-duration: 1.2s; }
   @keyframes whisperIn {
     0% { opacity: 0; filter: blur(6px); }
     30%, 70% { opacity: 1; filter: blur(0); }

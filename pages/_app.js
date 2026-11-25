@@ -50,7 +50,6 @@ const App = ({ Component, pageProps }) => {
             '/videos/hero-ide.mp4',
             '/videos/home.mp4',
             '/videos/coffee.mp4',
-            '/videos/fifth.mp4',
             '/videos/tut.mp4',
           ];
       const controller = new AbortController();

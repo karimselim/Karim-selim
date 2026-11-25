@@ -27,6 +27,7 @@ import {
   Link,
   ArrowContainer,
   Footer,
+  Tag,
   FooterText,
   VideoContainer,
   VideoReveal,
@@ -136,6 +137,7 @@ const Menu = () => {
                           <Arrow fillColor="#f1e6c8" />
                         </ArrowContainer>
                         {route.title}
+                        {route.tag && <Tag>{route.tag}</Tag>}
                       </Link>
                     </NextLink>
                   </motion.li>

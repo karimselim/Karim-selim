@@ -86,7 +86,6 @@ function Loader() {
           <Whispers aria-hidden="true">
             <span>Something is waiting</span>
             <span>Do not look away</span>
-            <span>It knows your name</span>
             <span>Enter</span>
           </Whispers>
           <LoaderWrapper className={`loader`}>

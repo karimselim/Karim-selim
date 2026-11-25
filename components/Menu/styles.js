@@ -240,3 +240,18 @@ export const CloseButton = styled(MenuButton)`
     }
   `};
 `;
+
+export const Tag = styled.span`
+  display: inline-block;
+  margin-left: 18px;
+  padding: 4px 12px;
+  border: 1px solid #d4af37;
+  border-radius: 999px;
+  color: #d4af37;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  white-space: nowrap;
+`;
