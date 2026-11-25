@@ -56,6 +56,16 @@ const CaseStudy = ({ study }) => {
         </Reveal>
       </Block>
 
+      {study.did && (
+        <Block>
+          <Rule />
+          <BlockTitle>What I did</BlockTitle>
+          <Reveal>
+            <Text>{study.did}</Text>
+          </Reveal>
+        </Block>
+      )}
+
       <Block>
         <Rule />
         <BlockTitle>What I tested</BlockTitle>

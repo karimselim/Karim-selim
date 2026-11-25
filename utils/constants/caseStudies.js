@@ -150,6 +150,8 @@ export default [
     highlights: ['Sole tester', '300+ bugs across both products'],
     summary:
       'Quality for the admin dashboard of a company in the UAE, where I was the only tester.',
+    did:
+      'I wrote test cases for each feature, every one starting with "Verify ...". I reported bugs in Jira with the steps to reproduce and screenshots. When a bug was fixed I tested it again, and some of them reached Verified or Done.',
     problem:
       'MOSDEV is the admin dashboard of a company in the UAE. Staff use it to create products, assets and users, manage location information, scan many products at once, handle invoices and more. I was the only tester in the company and owned quality for it, and I took part in management meetings with the operations manager, the head of engineering and the CEO.',
     tested: [
@@ -186,6 +188,8 @@ export default [
     highlights: ['Sole tester', '390+ test cases across both products'],
     summary:
       'Quality for a consumer site where people scan cups, return them and get rewarded. I was the only tester.',
+    did:
+      'I wrote test cases for each feature, every one starting with "Verify ...". I reported bugs in Jira with the steps to reproduce and screenshots. When a bug was fixed I tested it again, and some of them reached Verified or Done.',
     problem:
       'Again Please is the consumer site of a company in the UAE. People scan cups, return them and are rewarded for it. I was the only tester in the company and owned quality for it, next to the admin dashboard, and I took part in management meetings with the operations manager, the head of engineering and the CEO.',
     tested: [
