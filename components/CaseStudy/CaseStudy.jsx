@@ -26,8 +26,8 @@ const CaseStudy = ({ study }) => {
 
   return (
     <Page>
-      <NextLink href="/" passHref>
-        <Back {...hover}>Back to the site</Back>
+      <NextLink href="/case-studies" passHref>
+        <Back {...hover}>All projects</Back>
       </NextLink>
       <Kind>{study.kind}</Kind>
       <Title>{study.title}</Title>
