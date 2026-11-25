@@ -2,13 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { useHorror } from '../../utils/horror';
-import {
-  startHeartbeat,
-  stopHeartbeat,
-  whisper,
-  creak,
-  scareHit,
-} from '../../utils/horrorSound';
 
 const blink = keyframes`
   0%, 90%, 100% { transform: translate(var(--dx, 0), var(--dy, 0)) scaleY(1); }
@@ -53,33 +46,6 @@ const Hand = styled.img`
   transition: transform 2.2s cubic-bezier(0.2, 0.8, 0.2, 1);
   &[data-up='true'] {
     transform: translateY(30%);
-  }
-`;
-
-const DeathBtn = styled.button`
-  position: absolute;
-  z-index: 56;
-  left: 5vw;
-  top: 50%;
-  margin-top: -9vw;
-  width: 11vw;
-  max-width: 190px;
-  padding: 0;
-  border: 0;
-  background: none;
-  cursor: pointer;
-  transform: rotate(-6deg);
-  filter: drop-shadow(0 0 18px rgba(212, 175, 55, 0.25)) brightness(0.85);
-  transition: transform 0.4s, filter 0.4s;
-  &:hover,
-  &:focus-visible {
-    transform: rotate(-2deg) scale(1.06);
-    filter: drop-shadow(0 0 28px rgba(212, 60, 40, 0.55)) brightness(1.05);
-    outline: none;
-  }
-  img {
-    width: 100%;
-    display: block;
   }
 `;
 
@@ -169,7 +135,6 @@ const SkillsHorror = () => {
         idleNow = wantIdle;
         setIdle(wantIdle);
         if (wantIdle) {
-          creak();
           clearTimeout(handTimer);
           handTimer = setTimeout(() => setHandUp(true), 4500);
         } else {
@@ -218,7 +183,6 @@ const SkillsHorror = () => {
         if (!visible || performance.now() - inView < wait) return;
         clearInterval(scareTimer);
         window.sessionStorage.setItem('horror-scared', '1');
-        scareHit();
         setView('scare');
         setTimeout(() => setView(v => (v === 'scare' ? null : v)), 1700);
       }, 500);
@@ -259,20 +223,6 @@ const SkillsHorror = () => {
         />
       ))}
       {!reduced && <Hand src="/horror/hand.webp" alt="" loading="lazy" data-up={handUp} />}
-      <DeathBtn
-        type="button"
-        aria-label="Death, card XIII. Open the card"
-        onMouseEnter={() => startHeartbeat(72)}
-        onMouseLeave={stopHeartbeat}
-        onFocus={() => startHeartbeat(72)}
-        onBlur={stopHeartbeat}
-        onClick={() => {
-          whisper();
-          setView('card');
-        }}
-      >
-        <img src="/horror/death.webp" alt="" loading="lazy" />
-      </DeathBtn>
       {view &&
         ReactDOM.createPortal(
           <Overlay
