@@ -140,4 +140,39 @@ export default [
       { label: 'Live site', href: 'https://karim-selim.vercel.app/' },
     ],
   },
+  {
+    slug: 'mosdev',
+    title: 'MOSDEV admin dashboard',
+    kind: 'QA of a real product',
+    summary:
+      'Quality for the admin dashboard of a company in the UAE, where I was the only tester.',
+    problem:
+      'MOSDEV is the admin dashboard of a company in the UAE. Staff use it to create products, assets and users, manage location information, scan many products at once, handle invoices and more. I was the only tester in the company and owned quality for it, and I took part in management meetings with the operations manager, the head of engineering and the CEO.',
+    tested: [
+      'Creating products, assets and users, and the forms behind them.',
+      'Location information.',
+      'Scanning many products.',
+      'Invoices.',
+      'Dashboard figures and the data returned by the backend.',
+    ],
+    tools: ['Jira'],
+    result: [
+      { value: '300+', label: 'bugs reported across MOSDEV and Again Please' },
+      { value: '390+', label: 'test cases written across MOSDEV and Again Please' },
+    ],
+    resultNote:
+      'The dashboard is a private tool behind a login, so there is no public link. Names, addresses and ticket numbers are left out on purpose.',
+    hideChart: true,
+    bugsTitle: 'A selection of the bugs I reported',
+    bugsNote:
+      'Five examples chosen to show the range. Not the full list.',
+    bugs: [
+      { area: 'Data', title: 'Zip/Postal Code field is missing in the returned brand data' },
+      { area: 'UI', title: 'Inconsistent modal action button label between Profile, Brands, and Locations' },
+      { area: 'Validation', title: 'Max. Packing Capacity field is expected to be required but the form allows submission without it' },
+      { area: 'Validation', title: 'Max Capacity field allows the value 0 in the Assets creation form' },
+      { area: 'Data', title: 'Dashboard info icon fetches data using the wrong date range (queries from April 2023 instead of Today)' },
+    ],
+    evidence: [],
+  },
 ];

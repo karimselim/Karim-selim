@@ -68,6 +68,7 @@ const CaseStudy = ({ study }) => {
         </Reveal>
       </Block>
 
+      {study.tools && study.tools.length > 0 && (
       <Block>
         <Rule />
         <BlockTitle>Tools</BlockTitle>
@@ -79,6 +80,7 @@ const CaseStudy = ({ study }) => {
         </Chips>
         </Reveal>
       </Block>
+      )}
 
       <Block>
         <Rule />
@@ -137,8 +139,10 @@ const CaseStudy = ({ study }) => {
       {study.bugs && study.bugs.length > 0 && (
         <Block>
           <Rule />
-          <BlockTitle>{`Bugs found (${study.bugs.length})`}</BlockTitle>
+          <BlockTitle>{study.bugsTitle || `Bugs found (${study.bugs.length})`}</BlockTitle>
           <Reveal>
+            {study.bugsNote && <Text>{study.bugsNote}</Text>}
+            {!study.hideChart && (
             <Chart>
               {Object.entries(
                 study.bugs.reduce((acc, bug) => {
@@ -160,6 +164,7 @@ const CaseStudy = ({ study }) => {
                   </BarRow>
                 ))}
             </Chart>
+            )}
             {study.bugs.some(b => b.priority) && (
               <AreaTag as="p">Severity is the impact if the bug happens. Priority is the order to fix: P1 first, P3 last.</AreaTag>
             )}
@@ -180,6 +185,7 @@ const CaseStudy = ({ study }) => {
         </Block>
       )}
 
+      {study.evidence && study.evidence.length > 0 && (
       <Block>
         <Rule />
         <BlockTitle>Evidence</BlockTitle>
@@ -200,6 +206,7 @@ const CaseStudy = ({ study }) => {
         </Links>
         </Reveal>
       </Block>
+      )}
     </Page>
   );
 };
