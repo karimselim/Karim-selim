@@ -2,14 +2,23 @@ import styled from 'styled-components';
 
 export const Cards = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-auto-rows: 1fr;
   gap: 1.5rem;
   margin-top: 1.2rem;
+
+  /* every card the same height as its row, and the same size in both lists */
+  & > * {
+    height: 100%;
+  }
 `;
 
 export const Card = styled.article`
   display: grid;
   align-content: start;
+  height: 100%;
+  min-height: 24rem;
+  box-sizing: border-box;
   gap: 1rem;
   padding: 1.6rem;
   border: 1px solid rgba(128, 128, 128, 0.4);
