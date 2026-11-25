@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import { useRouter } from 'next/router';
 import { ThemeProvider } from 'styled-components';
 import { ThemeContextProvider, useThemeContext } from '../context/theme';
 import { CursorContextProvider } from '../context/cursor';
@@ -35,14 +34,10 @@ const ThemedApp = ({ children }) => {
 const Header = () => <AppBar direction="down" renderAs="header" />;
 
 const App = ({ Component, pageProps }) => {
-  const router = useRouter();
-  // The intro loader belongs to the home page only; inner pages open directly.
-  const isHome = router.pathname === '/';
-  const [loading, setLoading] = useState(isHome);
+  const [loading, setLoading] = useState(true);
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
-    if (!isHome) return undefined;
     let stopPreload = () => {};
     const initialTimer = setTimeout(() => {
       // Warm the browser cache with the heavy assets while the intro animation plays.
@@ -91,7 +86,7 @@ const App = ({ Component, pageProps }) => {
       clearTimeout(initialTimer);
       stopPreload();
     };
-  }, [isHome]);
+  }, []);
 
   return (
     <>
