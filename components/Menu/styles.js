@@ -6,13 +6,9 @@ import DefaultBackdrop from '../Backdrop';
 import DefaultSocialMedia from '../SocialMedia';
 import MenuButton from '../MenuButton';
 
-// Tarot palette: near-black blood red with gold, instead of the bright red
-const MENU_BG = '#14070a';
-const MENU_FG = '#d4af37';
-
 export const Backdrop = styled(DefaultBackdrop)`
-  background: ${MENU_BG};
-  color: ${MENU_FG};
+  background: ${({ theme }) => '#c9a43e'};
+  color: ${({ theme }) => theme.background};
 `;
 
 export const Container = styled.div`
@@ -108,7 +104,7 @@ export const SocialMedia = styled(DefaultSocialMedia)`
   width: 100%;
 
   & a svg path {
-    fill: ${MENU_FG};
+    fill: ${({ theme }) => theme.background};
   }
 
   ${({ theme }) => theme.breakpoints.small`
@@ -192,7 +188,7 @@ export const VideoReveal = styled(motion.div)`
   left: 0;
   will-change: width;
   transform: translateZ(0);
-  background: ${MENU_BG};
+  background: ${({ theme }) => '#c9a43e'};
 `;
 
 export const Video = styled(motion.video)`
@@ -213,13 +209,13 @@ export const CloseButton = styled(MenuButton)`
   margin: -20px;
 
   & span {
-    color: ${MENU_FG};
+    color: ${({ theme }) => theme.background};
   }
 
   &::before,
   &::after {
     margin-top: 0;
-    background: ${MENU_FG};
+    background: ${({ theme }) => theme.background};
   }
 
   &::before {
