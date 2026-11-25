@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { useHorror, setHorror } from '../../utils/horror';
-import { enableSound, disableSound } from '../../utils/horrorSound';
 
 const Wrap = styled.div`
   position: fixed;
@@ -31,32 +30,18 @@ const Btn = styled.button`
 `;
 
 const HorrorToggle = () => {
-  const { enabled, sound } = useHorror();
+  const { enabled } = useHorror();
   return (
     <Wrap data-horror-ui>
       <Btn
         type="button"
         aria-pressed={enabled}
         onClick={() => {
-          if (enabled) disableSound();
-          setHorror({ enabled: !enabled, sound: enabled ? false : sound });
+          setHorror({ enabled: !enabled });
         }}
       >
         {enabled ? 'Horror: on' : 'Horror: off'}
       </Btn>
-      {enabled && (
-        <Btn
-          type="button"
-          aria-pressed={sound}
-          onClick={() => {
-            if (sound) disableSound();
-            else enableSound();
-            setHorror({ sound: !sound });
-          }}
-        >
-          {sound ? 'Sound: on' : 'Sound: off'}
-        </Btn>
-      )}
     </Wrap>
   );
 };
