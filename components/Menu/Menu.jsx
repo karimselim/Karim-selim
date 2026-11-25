@@ -74,6 +74,15 @@ const Menu = () => {
     setRevealVideo(null);
   }, [removeCursorBorder]);
 
+  // The menu can close while a link is hovered (click on an internal project),
+  // so no hover end event fires. Reset the hover state whenever it closes.
+  React.useEffect(() => {
+    if (!isMenuOpen) {
+      setRevealVideo(null);
+      setIsHovering(false);
+    }
+  }, [isMenuOpen]);
+
   React.useEffect(() => {
     const handleResize = () => {
       if (isMenuOpen && containerRef.current && videoContainerRef.current) {
