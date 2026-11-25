@@ -45,9 +45,9 @@ const App = ({ Component, pageProps }) => {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       // Mobile: only the hero video (saves data). Desktop: hero + project videos.
       const assets = isMobile
-        ? ['/videos/hero-dev.mp4']
+        ? ['/videos/hero-code.mp4']
         : [
-            '/videos/hero-dev.mp4',
+            '/videos/hero-code.mp4',
             '/videos/home.mp4',
             '/videos/coffee.mp4',
             '/videos/fifth.mp4',
