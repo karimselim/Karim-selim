@@ -1,4 +1,5 @@
 import React from 'react';
+import { useRouter } from 'next/router';
 import { useThemeContext } from '../../context/theme';
 import useCursorStyle from '../../hooks/useCursorStyle';
 import useStyledTheme from '../../hooks/useStyledTheme';
@@ -6,6 +7,7 @@ import useStyledTheme from '../../hooks/useStyledTheme';
 const Logo = props => {
   const { buttonProps = {}, ...rootProps } = props;
 
+  const router = useRouter();
   const theme = useStyledTheme();
   const [, dispatch] = useThemeContext();
   const {
@@ -18,12 +20,18 @@ const Logo = props => {
   const handleToggleTheme = React.useCallback(
     event => {
       event.preventDefault();
+      // On inner pages (projects, case studies) the logo is the way home.
+      if (router.pathname !== '/') {
+        addCursorColor(null);
+        router.push('/');
+        return;
+      }
       dispatch({ type: 'TOGGLE_THEME' });
 
       // reset the cursor color so that it uses the theme text color as default
       addCursorColor(null);
     },
-    [dispatch, addCursorColor]
+    [dispatch, addCursorColor, router]
   );
 
   return (
