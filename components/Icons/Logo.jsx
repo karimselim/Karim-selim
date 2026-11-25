@@ -45,6 +45,11 @@ const Logo = props => {
         resetCursorColor();
       }}
       onClick={handleToggleTheme}
+      role="button"
+      tabIndex={0}
+      onKeyDown={event => {
+        if (event.key === 'Enter' || event.key === ' ') handleToggleTheme(event);
+      }}
       style={{ fontSize: 42, fontWeight: 'bold' }}
     >
       KARIM
