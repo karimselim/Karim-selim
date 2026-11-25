@@ -188,8 +188,8 @@ export const Chip = styled.em`
   letter-spacing: 0.14em;
   text-transform: uppercase;
   padding: 0.15rem 0.55rem;
-  border: 1px solid ${({ level }) => (level === 'High' ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'rgba(128,128,128,0.7)')};
-  color: ${({ level }) => (level === 'High' ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'inherit')};
+  border: 1px solid ${({ level }) => ((level === 'High' || level === 'Critical') ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'rgba(128,128,128,0.7)')};
+  color: ${({ level }) => ((level === 'High' || level === 'Critical') ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'inherit')};
   opacity: ${({ level }) => (level === 'Low' ? 0.8 : 1)};
 `;
 

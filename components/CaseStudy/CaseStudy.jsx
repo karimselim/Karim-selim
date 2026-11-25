@@ -160,11 +160,15 @@ const CaseStudy = ({ study }) => {
                   </BarRow>
                 ))}
             </Chart>
+            {study.bugs.some(b => b.priority) && (
+              <AreaTag as="p">Severity is the impact if the bug happens. Priority is the order to fix: P1 first, P3 last.</AreaTag>
+            )}
             <BugList>
               {study.bugs.map(bug => (
                 <li key={bug.title}>
                   <BugHead>
                     {bug.severity && <Chip level={bug.severity}>{bug.severity}</Chip>}
+                    {bug.priority && <Chip level="Low">{bug.priority}</Chip>}
                     {bug.area && <AreaTag>{bug.area}</AreaTag>}
                   </BugHead>
                   <strong>{bug.title}</strong>
