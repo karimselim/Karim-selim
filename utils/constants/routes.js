@@ -3,7 +3,8 @@ export default [
     id: 'vendure-testing',
     title: 'Vendure',
     tag: 'Testing',
-    path: 'https://github.com/karimselim/Vendure-Testing',
+    path: '/case-studies/vendure',
+    internal: true,
     video: 'hero-ide.mp4',
   },
   {

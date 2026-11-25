@@ -122,7 +122,7 @@ const Menu = () => {
                     <NextLink href={route.path}>
                       <Link
                         href={route.path}
-                        target="_blank"
+                        target={route.internal ? undefined : '_blank'}
                         key={`${route.id}_${isMobile}`}
                         name={route.id}
                         onHoverStart={handleHoverStart}
