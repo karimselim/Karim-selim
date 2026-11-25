@@ -68,7 +68,7 @@ export const startMusic = () => {
   ctx.resume();
   // Very soft on purpose.
   master.out.gain.cancelScheduledValues(ctx.currentTime);
-  master.out.gain.setTargetAtTime(0.16, ctx.currentTime, 2.5);
+  master.out.gain.setTargetAtTime(0.035, ctx.currentTime, 2.5);
   let i = 0;
   const step = () => {
     playChord(CHORDS[i % CHORDS.length], ctx.currentTime + 0.05, 9);

@@ -2,10 +2,12 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { useHorror } from '../../utils/horror';
+import Bugs from './Bugs';
+import DeathCard from './DeathCard';
 
 const blink = keyframes`
-  0%, 90%, 100% { transform: translate(var(--dx, 0), var(--dy, 0)) scaleY(1); }
-  94% { transform: translate(var(--dx, 0), var(--dy, 0)) scaleY(0.06); }
+  0%, 90%, 100% { transform: scaleY(1); }
+  94% { transform: scaleY(0.06); }
 `;
 
 const Dark = styled.div`
@@ -15,39 +17,51 @@ const Dark = styled.div`
   pointer-events: none;
 `;
 
-const Eye = styled.img`
+const Eye = styled.svg`
   position: absolute;
   z-index: 55;
   width: ${({ w }) => w}vw;
-  max-width: 340px;
+  max-width: 220px;
   pointer-events: none;
-  mix-blend-mode: screen;
   opacity: 0;
   transition: opacity 0.9s ease;
-  animation: ${blink} ${({ d }) => d}s infinite;
   &[data-open='true'] {
     opacity: 0.95;
   }
+  .lid {
+    transform-origin: 60px 28px;
+    animation: ${blink} ${({ d }) => d}s infinite;
+  }
   @media (prefers-reduced-motion: reduce) {
-    animation: none;
+    .lid {
+      animation: none;
+    }
   }
 `;
 
-const Hand = styled.img`
-  position: absolute;
-  z-index: 54;
-  bottom: 0;
-  left: 74%;
-  width: 11vw;
-  max-width: 190px;
-  pointer-events: none;
-  mix-blend-mode: screen;
-  transform: translateY(105%);
-  transition: transform 2.2s cubic-bezier(0.2, 0.8, 0.2, 1);
-  &[data-up='true'] {
-    transform: translateY(30%);
-  }
-`;
+const EyeSvg = React.forwardRef(({ w, d, style, open }, ref) => (
+  <Eye ref={ref} viewBox="0 0 120 56" w={w} d={d} data-open={open} style={style} aria-hidden="true">
+    <defs>
+      <radialGradient id="iris" cx="50%" cy="50%" r="50%">
+        <stop offset="0" stopColor="#ffd9a0" />
+        <stop offset="0.55" stopColor="#c8501e" />
+        <stop offset="1" stopColor="#4a0508" />
+      </radialGradient>
+      <clipPath id="almond">
+        <path d="M4 28 Q60 -14 116 28 Q60 70 4 28Z" />
+      </clipPath>
+    </defs>
+    <g className="lid">
+      <path d="M4 28 Q60 -14 116 28 Q60 70 4 28Z" fill="#150203" stroke="#7a1015" strokeWidth="2" />
+      <g clipPath="url(#almond)">
+        <g style={{ transform: 'translate(var(--dx, 0px), var(--dy, 0px))' }}>
+          <circle cx="60" cy="28" r="17" fill="url(#iris)" />
+          <ellipse cx="60" cy="28" rx="4" ry="13" fill="#000" />
+        </g>
+      </g>
+    </g>
+  </Eye>
+));
 
 const flipIn = keyframes`
   0% { transform: perspective(1200px) rotateY(0deg) scale(0.9); }
@@ -116,7 +130,6 @@ const SkillsHorror = () => {
   const darkRef = useRef(null);
   const eyeRefs = useRef([]);
   const [idle, setIdle] = useState(false);
-  const [handUp, setHandUp] = useState(false);
   const [view, setView] = useState(null); // null | 'card' | 'scare'
 
   useEffect(() => {
@@ -134,16 +147,17 @@ const SkillsHorror = () => {
     let inView = 0;
     let lastFlicker = 0;
     let idleNow = false;
-    let handTimer = null;
     let scared = false;
 
     const paint = () => {
       const rect = container.getBoundingClientRect();
       const x = mx - rect.left;
       const y = my - rect.top;
-      const dark = reduced ? 0.5 : 0.8;
+      const dark = reduced ? 0.6 : 0.9;
+      // slow, low red heartbeat in the dark (no flash)
+      const hb = reduced ? 0 : Math.round(26 * Math.pow(Math.max(0, Math.sin(performance.now() / 700)), 6));
       darkRef.current.style.background =
-        `radial-gradient(circle at ${x}px ${y}px, rgba(255,150,50,0.10) 0, rgba(0,0,0,0) ${r * 0.45}px, rgba(0,0,0,${dark * 0.35}) ${r * 0.8}px, rgba(0,0,0,${dark}) ${r * 1.5}px)`;
+        `radial-gradient(circle at ${x}px ${y}px, rgba(255,170,70,0.16) 0, rgba(255,140,40,0.05) ${r * 0.5}px, rgba(0,0,0,${dark * 0.4}) ${r * 0.85}px, rgba(${hb},0,2,${dark}) ${r * 1.45}px)`;
       eyeRefs.current.forEach(el => {
         if (!el) return;
         const b = el.getBoundingClientRect();
@@ -162,13 +176,6 @@ const SkillsHorror = () => {
       if (wantIdle !== idleNow) {
         idleNow = wantIdle;
         setIdle(wantIdle);
-        if (wantIdle) {
-          clearTimeout(handTimer);
-          handTimer = setTimeout(() => setHandUp(true), 4500);
-        } else {
-          clearTimeout(handTimer);
-          setHandUp(false);
-        }
       }
       // The fate card: if the visitor stays still, one card of the spread turns over.
       if (!reduced && idleFor > 9500 && !scared && !window.sessionStorage.getItem('horror-scared')) {
@@ -200,7 +207,6 @@ const SkillsHorror = () => {
           inView = performance.now();
         } else {
           setIdle(false);
-          setHandUp(false);
           idleNow = false;
         }
       },
@@ -214,7 +220,6 @@ const SkillsHorror = () => {
       cancelAnimationFrame(raf);
       io.disconnect();
       window.removeEventListener('mousemove', onMove);
-      clearTimeout(handTimer);
     };
   }, [enabled, reduced]);
 
@@ -231,19 +236,16 @@ const SkillsHorror = () => {
     <div ref={rootRef} aria-hidden={view ? undefined : 'true'}>
       <Dark ref={darkRef} aria-hidden="true" />
       {EYES.map((e, i) => (
-        <Eye
+        <EyeSvg
           key={i}
           ref={el => (eyeRefs.current[i] = el)}
-          src="/horror/eyes.webp"
-          alt=""
-          loading="lazy"
-          data-open={eyesOpen}
+          open={eyesOpen}
           w={e.w}
           d={e.d}
           style={{ left: `${e.x}%`, top: `${e.y}%`, transitionDelay: `${i * 0.35}s` }}
         />
       ))}
-      {!reduced && <Hand src="/horror/hand.webp" alt="" loading="lazy" data-up={handUp} />}
+      {!reduced && <Bugs />}
       {view &&
         ReactDOM.createPortal(
           <Overlay
@@ -255,10 +257,10 @@ const SkillsHorror = () => {
             {view === 'scare' ? (
               <Flip>
                 <img src="/imgs/cardBack.png" alt="" />
-                <img className="front" src="/horror/death.webp" alt="Death, tarot card XIII" />
+                <DeathCard className="front" />
               </Flip>
             ) : (
-              <img src="/horror/death.webp" alt="Death, tarot card XIII" />
+              <DeathCard />
             )}
           </Overlay>,
           document.body
