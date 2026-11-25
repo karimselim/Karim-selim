@@ -190,9 +190,9 @@ const MobileSkills = () => {
           y: 0,
           rotation: 0,
           scale: 1,
-          duration: 0.55,
+          duration: 0.9,
           ease: 'power3.out',
-          stagger: 0.035,
+          stagger: 0.09,
         });
         // face-up wave, corner to corner
         let idx = 0;
@@ -208,8 +208,8 @@ const MobileSkills = () => {
           if (inner) {
             tl.to(
               inner,
-              { rotateY: 180, duration: 0.5, ease: 'power2.inOut' },
-              1.2 + d * 0.07
+              { rotateY: 180, duration: 0.8, ease: 'power2.inOut' },
+              2.4 + d * 0.14
             );
           }
         });
