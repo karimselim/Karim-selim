@@ -28,7 +28,9 @@ const TextReveal = () => {
         const pWords = paragraphRef.current.querySelectorAll('.pWord');
         gsap.set(pWords, { y: 20, opacity: 0 });
 
-        gsap.set(clipRect.current, { width: 0 });
+        // width must be an SVG attribute: Safari ignores CSS width on <rect>,
+        // which made the signature show in full before it was written
+        gsap.set(clipRect.current, { attr: { width: 0 } });
 
         const tl = gsap.timeline();
         tl.to(words, {
@@ -53,7 +55,7 @@ const TextReveal = () => {
           .to(
             clipRect.current,
             {
-              width: '100%',
+              attr: { width: 700 },
               duration: 4,
               ease: 'power2.out',
             },
