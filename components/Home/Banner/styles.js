@@ -69,4 +69,12 @@ export const BannerTitle = styled(motion.h1)`
     font-size: 10rem;
     line-height: .68125;
   `};
+
+  /* light mode on a phone: the dark hero video is always visible behind it */
+  ${({ theme }) =>
+    theme.mode === 'dark'
+      ? ''
+      : theme.breakpoints.tablet`
+    color: #fff;
+  `};
 `;

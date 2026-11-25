@@ -1,5 +1,7 @@
 import React from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import { useThemeContext } from '../../context/theme';
 import Logo from '../Icons/Logo';
 import MenuButton from '../MenuButton';
 import { Slider, Container, StyledLink, MenuWrapper } from './styles';
@@ -26,6 +28,28 @@ const AppBar = props => {
     ...rootProps
   } = props;
   const [hidden, setHidden] = React.useState(false);
+  const router = useRouter();
+  const [{ theme: mode }] = useThemeContext();
+  // Light mode on a phone: the hero video is dark and always visible, so the
+  // black logo and menu icon vanish on it. Draw them white while it is behind.
+  const [overVideo, setOverVideo] = React.useState(false);
+  React.useEffect(() => {
+    const check = () => {
+      setOverVideo(
+        mode === 'light' &&
+          router.pathname === '/' &&
+          window.innerWidth <= 767 &&
+          window.scrollY < window.innerHeight - 70
+      );
+    };
+    check();
+    window.addEventListener('scroll', check, { passive: true });
+    window.addEventListener('resize', check);
+    return () => {
+      window.removeEventListener('scroll', check);
+      window.removeEventListener('resize', check);
+    };
+  }, [mode, router.pathname]);
 
   React.useEffect(() => {
     const handleScroll = () => {
@@ -69,6 +93,7 @@ const AppBar = props => {
       }}
       style={{
         ...styles,
+        ...(overVideo ? { '--hdr': '#fff' } : {}),
         ...styleProp,
       }}
       inert={hidden && direction === 'down' ? '' : undefined}

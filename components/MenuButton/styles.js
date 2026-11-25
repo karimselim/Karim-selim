@@ -19,7 +19,7 @@ export const Button = styled.button`
     height: 7px;
     display: block;
     transform: translateY(-50%);
-    background: ${({ theme }) => theme.text};
+    background: var(--hdr, ${({ theme }) => theme.text});
   }
 
   &::before {
