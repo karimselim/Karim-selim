@@ -6,6 +6,7 @@ export default [
     slug: 'vendure',
     title: 'Vendure storefront',
     kind: 'QA automation',
+    highlights: ['26 tests passing in CI', '15 bugs logged'],
     summary: 'UI and API test suite for an e-commerce storefront.',
     problem:
       'An online store has to keep working while it changes: browsing, sorting, product pages, accounts and the cart. Checking that by hand after every change is slow, so I built an automated suite that covers each flow at the UI level and at the API level.',
@@ -75,6 +76,7 @@ export default [
     slug: 'portfolio-website',
     title: 'This website',
     kind: 'QA of a real product',
+    highlights: ['Lighthouse 99 to 100 on desktop', '77 commits, one per change'],
     summary:
       'I built this portfolio, then tested it like any other product: scanned it, logged what was broken or slow, fixed it and measured again.',
     problem:
@@ -145,6 +147,7 @@ export default [
     slug: 'mosdev',
     title: 'MOSDEV admin dashboard',
     kind: 'QA of a real product',
+    highlights: ['Sole tester', '300+ bugs across both products'],
     summary:
       'Quality for the admin dashboard of a company in the UAE, where I was the only tester.',
     problem:
@@ -180,6 +183,7 @@ export default [
     slug: 'again-please',
     title: 'Again Please consumer site',
     kind: 'QA of a real product',
+    highlights: ['Sole tester', '390+ test cases across both products'],
     summary:
       'Quality for a consumer site where people scan cups, return them and get rewarded. I was the only tester.',
     problem:

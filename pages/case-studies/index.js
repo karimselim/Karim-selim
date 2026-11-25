@@ -43,6 +43,13 @@ const Projects = () => {
               <Tag>QA</Tag>
               <CardTitle>{study.title}</CardTitle>
               <CardLine>{study.summary}</CardLine>
+              {study.highlights && (
+                <Chips>
+                  {study.highlights.map(item => (
+                    <li key={item}>{item}</li>
+                  ))}
+                </Chips>
+              )}
               <Links>
                 <li>
                   <NextLink href={`/case-studies/${study.slug}`} passHref>
