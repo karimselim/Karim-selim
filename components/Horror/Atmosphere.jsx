@@ -2,13 +2,9 @@ import React, { useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useHorror } from '../../utils/horror';
 
-const driftA = keyframes`
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-`;
-const driftB = keyframes`
-  from { transform: translateX(-50%); }
-  to { transform: translateX(0); }
+const rise = keyframes`
+  from { transform: translateY(0); }
+  to { transform: translateY(-50%); }
 `;
 
 const Layer = styled.div`
@@ -25,47 +21,69 @@ const Layer = styled.div`
   );
 `;
 
-// Each strip is the fog image followed by its mirror, so the tile edges always
-// match (no cut when it wraps). Two strips move in opposite directions.
-const Strip = styled.div`
+const LINES = [
+  'FAIL  tests/checkout.spec.ts',
+  'expect(received).toBe(expected)',
+  '  Expected: 200   Received: 500',
+  '  at CartPage.pay (cart.page.ts:42)',
+  'retrying (2/3)...',
+  'flaky: passed on retry. suspicious.',
+  'PASS  tests/login.spec.ts',
+  'Error: locator.click: Timeout 30000ms',
+  '  waiting for getByRole("button", { name: "Pay" })',
+  'bug filed: JIRA-481  severity: high',
+  'it works on my machine',
+  '1 failed, 14 passed',
+];
+
+// The bugs that never leave: a quiet, slowly rising test log in the lower-left
+// corner. Relates the mood to QA instead of generic horror.
+const TraceBox = styled.div`
   position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 200vw;
-  height: 38vh;
-  display: flex;
-  mix-blend-mode: screen;
-  opacity: ${({ o }) => o};
-  animation: ${({ rev }) => (rev ? driftB : driftA)} ${({ t }) => t}s linear infinite;
+  left: 2.2vw;
+  bottom: 3vh;
+  width: 34vw;
+  height: 26vh;
+  overflow: hidden;
+  opacity: 0.32;
+  transition: opacity 0.5s;
+  -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
+  mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
+  font-family: 'Courier New', monospace;
+  font-size: 12px;
+  line-height: 1.7;
+  color: #b0141e;
+  white-space: pre;
+  @media (max-width: 768px) {
+    display: none;
+  }
+`;
+
+const TraceList = styled.div`
+  animation: ${rise} 60s linear infinite;
   will-change: transform;
-  div {
-    flex: 0 0 50%;
-    height: 100%;
-    background: url('/horror/fog.webp') center bottom / 100% 100% no-repeat;
-  }
-  div:nth-child(even) {
-    transform: scaleX(-1);
-  }
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
+  .ok {
+    color: #d4af37;
+  }
 `;
 
-const FogWrap = styled.div`
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  transition: opacity 0.5s;
-`;
-
-const FogStrip = props => (
-  <Strip {...props}>
-    <div />
-    <div />
-    <div />
-    <div />
-  </Strip>
-);
+const Trace = React.forwardRef((props, ref) => {
+  const all = LINES.concat(LINES);
+  return (
+    <TraceBox ref={ref} aria-hidden="true">
+      <TraceList>
+        {all.map((l, i) => (
+          <div key={i} className={l.startsWith('PASS') ? 'ok' : undefined}>
+            {l}
+          </div>
+        ))}
+      </TraceList>
+    </TraceBox>
+  );
+});
 
 // Light mood for the sections below the hero: red-black vignette and slow fog.
 // Fades out completely over the hero.
@@ -85,7 +103,7 @@ const Atmosphere = () => {
       // No fog over the Experience slides: it washed the photos out.
       const v = window.scrollY / window.innerHeight;
       const inExperience = v > 2.1 && v < 4.7;
-      if (fogRef.current) fogRef.current.style.opacity = inExperience ? '0' : '1';
+      if (fogRef.current) fogRef.current.style.opacity = inExperience ? '0' : '0.32';
     };
     const onScroll = () => {
       if (raf === null) raf = requestAnimationFrame(update);
@@ -101,10 +119,7 @@ const Atmosphere = () => {
   if (!enabled) return null;
   return (
     <Layer ref={ref} aria-hidden="true">
-      <FogWrap ref={fogRef}>
-        <FogStrip o={0.16} t={110} />
-        <FogStrip o={0.1} t={160} rev />
-      </FogWrap>
+      <Trace ref={fogRef} />
     </Layer>
   );
 };
