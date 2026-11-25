@@ -7,7 +7,7 @@ import DefaultSocialMedia from '../SocialMedia';
 import MenuButton from '../MenuButton';
 
 export const Backdrop = styled(DefaultBackdrop)`
-  background: radial-gradient(ellipse at 30% 20%, rgba(120, 0, 14, 0.65) 0%, rgba(40, 0, 6, 0.9) 45%, #0c0102 100%);
+  background: #1c0308;
   color: #f1e6c8;
 `;
 
@@ -104,7 +104,11 @@ export const SocialMedia = styled(DefaultSocialMedia)`
   width: 100%;
 
   & a svg path {
-    fill: ${({ theme }) => '#f1e6c8'};
+    fill: #f1e6c8;
+  }
+
+  & a:hover svg path {
+    fill: #d4af37;
   }
 
   ${({ theme }) => theme.breakpoints.small`
@@ -114,89 +118,90 @@ export const SocialMedia = styled(DefaultSocialMedia)`
 `;
 
 export const Navigation = styled.nav`
-  flex: 1;
-  min-height: 0;
+  height: 462px;
+
+  ${({ theme }) => theme.breakpoints.small`
+    position: absolute;
+    top: 94px;
+  `};
+`;
+
+export const List = styled(motion.ul)`
+  display: inline-block;
+
+  & li {
+    display: block;
+    overflow: hidden;
+    float: left;
+    clear: left;
+  }
+`;
+
+export const Link = styled(motion.a)`
   display: flex;
   align-items: center;
-`;
+  font-size: 57px;
+  font-size: 3.5625rem;
+  line-height: 1.5964912281;
+  font-weight: 900;
+  text-transform: uppercase;
+  will-change: transform;
 
-export const Grid = styled(motion.div)`
-  width: 100%;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 18px;
-
-  ${({ theme }) => theme.breakpoints.small`
-    grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
-    margin-top: 70px;
-    align-self: flex-start;
-  `};
-`;
-
-export const Tile = styled(motion.a)`
-  position: relative;
-  display: block;
-  aspect-ratio: 3 / 4;
-  overflow: hidden;
-  border: 1px solid rgba(212, 175, 55, 0.4);
-  border-radius: 4px;
-  background: #0c0102;
-
-  & video {
-    position: absolute;
-    inset: 0;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    filter: saturate(0.8) brightness(0.62);
-    transition: filter 0.5s ease, transform 0.8s ease;
-  }
-
-  &::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(to top, rgba(12, 1, 2, 0.92), rgba(80, 0, 10, 0.12) 55%);
-  }
-
-  & .num {
-    position: absolute;
-    z-index: 1;
-    top: 12px;
-    left: 14px;
-    font-size: 0.8125rem;
-    letter-spacing: 0.2em;
-    color: #d4af37;
-  }
-
-  & .title {
-    position: absolute;
-    z-index: 1;
-    left: 14px;
-    right: 14px;
-    bottom: 14px;
+  ${({ theme }) => theme.breakpoints.tablet`
     font-size: 1.75rem;
-    line-height: 1.1;
-    font-weight: 900;
-    text-transform: uppercase;
-    color: #f1e6c8;
-  }
+    line-height: 1.7857142857;
+  `};
+`;
 
-  &:hover,
-  &:focus-visible {
-    border-color: #d4af37;
-    outline: none;
-    & video {
-      filter: saturate(1) brightness(1);
-      transform: scale(1.05);
-    }
+export const ArrowContainer = styled.span`
+  display: block;
+  overflow: hidden;
+  width: 68px;
+  height: 57px;
+  padding-right: 6px;
+  margin-right: 6px;
+
+  & svg {
+    float: right;
+    width: 101px;
+    height: 57px;
   }
 
   ${({ theme }) => theme.breakpoints.small`
-    aspect-ratio: 1 / 1;
-    & .title { font-size: 1.05rem; }
+    display: none;
   `};
+`;
+
+export const VideoContainer = styled.div`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+
+  ${({ theme }) => theme.breakpoints.small`
+    display: none;
+  `};
+`;
+
+export const VideoReveal = styled(motion.div)`
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  will-change: width;
+  transform: translateZ(0);
+  background: #1c0308;
+`;
+
+export const Video = styled(motion.video)`
+  position: absolute;
+  height: 100%;
+  margin: 0;
+  will-change: opacity;
+  transform: translateZ(0);
+  z-index: -1;
 `;
 
 export const Address = styled.address`
@@ -208,13 +213,13 @@ export const CloseButton = styled(MenuButton)`
   margin: -20px;
 
   & span {
-    color: ${({ theme }) => '#f1e6c8'};
+    color: #f1e6c8;
   }
 
   &::before,
   &::after {
     margin-top: 0;
-    background: ${({ theme }) => '#f1e6c8'};
+    background: #f1e6c8;
   }
 
   &::before {

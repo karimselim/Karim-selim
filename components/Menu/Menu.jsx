@@ -12,6 +12,9 @@ import Arrow from '../Icons/Arrow';
 import {
   listVariants,
   listItemsVariants,
+  linkVariants,
+  videoRevealVariants,
+  videoVariants,
   transition,
 } from './variants';
 import {
@@ -20,10 +23,14 @@ import {
   CloseButton,
   Header,
   Navigation,
-  Grid,
-  Tile,
+  List,
+  Link,
+  ArrowContainer,
   Footer,
   FooterText,
+  VideoContainer,
+  VideoReveal,
+  Video,
   Address,
   SocialMedia,
 } from './styles';
@@ -95,37 +102,45 @@ const Menu = () => {
               <CloseButton title="Close" />
             </Header>
             <Navigation>
-              <Grid
+              <List
                 variants={listVariants}
                 initial="hidden"
                 animate="show"
+                onHoverStart={() => setIsHovering(true)}
+                onHoverEnd={() => setIsHovering(false)}
               >
-                {routes.map((route, i) => (
-                  <Tile
+                {routes.map(route => (
+                  <motion.li
                     key={route.id}
-                    href={route.path}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    aria-label={`${route.title}, opens the live project`}
                     variants={listItemsVariants}
-                    transition={{ duration: 0.9, ease: transition.ease }}
-                    onMouseEnter={addCursorBorder}
-                    onMouseLeave={removeCursorBorder}
+                    transition={{
+                      duration: 0.9,
+                      ease: transition.ease,
+                    }}
                   >
-                    <video
-                      src={`/videos/${route.video}`}
-                      muted
-                      loop
-                      playsInline
-                      autoPlay
-                      preload="metadata"
-                      poster={route.poster}
-                    />
-                    <span className="num">0{i + 1}</span>
-                    <span className="title">{route.title}</span>
-                  </Tile>
+                    <NextLink href={route.path}>
+                      <Link
+                        href={route.path}
+                        target="_blank"
+                        key={`${route.id}_${isMobile}`}
+                        name={route.id}
+                        onHoverStart={handleHoverStart}
+                        onHoverEnd={handleHoverEnd}
+                        custom={{ isMobile, color: '#d4af37' }}
+                        initial="initial"
+                        whileHover="hover"
+                        variants={linkVariants}
+                        transition={transition}
+                      >
+                        <ArrowContainer>
+                          <Arrow fillColor="#f1e6c8" />
+                        </ArrowContainer>
+                        {route.title}
+                      </Link>
+                    </NextLink>
+                  </motion.li>
                 ))}
-              </Grid>
+              </List>
             </Navigation>
             <Footer>
               <FooterText
@@ -155,6 +170,28 @@ const Menu = () => {
               <SocialMedia />
             </Footer>
           </Container>
+          {!isMobile && (
+            <VideoContainer ref={videoContainerRef}>
+              <VideoReveal
+                variants={videoRevealVariants}
+                transition={transition}
+                initial="show"
+                animate={isHovering ? 'hidden' : 'show'}
+              />
+              {routes.map(route => (
+                <Video
+                  key={route.id}
+                  src={`/videos/${route.video}`}
+                  variants={videoVariants}
+                  initial="hidden"
+                  animate={route.id === revealVideo ? 'show' : 'hidden'}
+                  transition={transition}
+                  loop
+                  autoPlay
+                ></Video>
+              ))}
+            </VideoContainer>
+          )}
         </Backdrop>
       )}
     </AnimatePresence>
