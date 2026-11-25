@@ -63,6 +63,8 @@ export const ExpContainer = styled.div`
 
   @media (max-width: 768px) {
     padding-inline: 1rem;
+    padding-bottom: 4.5rem; /* keep text clear of the MUSIC button */
+    box-sizing: border-box;
   }
 `;
 
@@ -71,6 +73,11 @@ export const ExpH2 = styled.h2`
   margin-top: 6rem;
   font-size: 4rem;
   text-transform: uppercase;
+
+  @media (max-width: 768px) and (max-height: 760px) {
+    margin-top: 2.5rem;
+    font-size: 2.6rem;
+  }
 `;
 
 export const ExpText = styled.div`
@@ -94,6 +101,11 @@ export const ExpP = styled.div`
 
   @media (max-width: 768px) {
     width: 100%;
+    font-size: clamp(0.78rem, 2.1svh, 1rem);
+
+    @media (max-height: 760px) {
+      line-height: 1.5;
+    }
   }
 `;
 export const ScrollH3 = styled.h3`
@@ -104,6 +116,11 @@ export const ScrollH3 = styled.h3`
 
   @media (max-width: 768px) {
     font-size: 2rem;
+  }
+
+  @media (max-width: 768px) and (max-height: 760px) {
+    font-size: 1.4rem;
+    margin-block: 0.6rem;
   }
 `;
 
