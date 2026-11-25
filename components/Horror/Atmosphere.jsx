@@ -2,9 +2,13 @@ import React, { useEffect, useRef } from 'react';
 import styled, { keyframes } from 'styled-components';
 import { useHorror } from '../../utils/horror';
 
-const drift = keyframes`
-  from { background-position: 0 100%; }
-  to { background-position: -1400px 100%; }
+const driftA = keyframes`
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+`;
+const driftB = keyframes`
+  from { transform: translateX(-50%); }
+  to { transform: translateX(0); }
 `;
 
 const Layer = styled.div`
@@ -21,27 +25,54 @@ const Layer = styled.div`
   );
 `;
 
-const Fog = styled.div`
+// Each strip is the fog image followed by its mirror, so the tile edges always
+// match (no cut when it wraps). Two strips move in opposite directions.
+const Strip = styled.div`
   position: absolute;
   left: 0;
-  right: 0;
   bottom: 0;
-  height: 45vh;
-  background: url('/horror/fog.webp') repeat-x;
-  background-size: 1400px auto;
+  width: 200vw;
+  height: 38vh;
+  display: flex;
   mix-blend-mode: screen;
-  opacity: 0.22;
-  animation: ${drift} 90s linear infinite;
+  opacity: ${({ o }) => o};
+  animation: ${({ rev }) => (rev ? driftB : driftA)} ${({ t }) => t}s linear infinite;
+  will-change: transform;
+  div {
+    flex: 0 0 50%;
+    height: 100%;
+    background: url('/horror/fog.webp') center bottom / 100% 100% no-repeat;
+  }
+  div:nth-child(even) {
+    transform: scaleX(-1);
+  }
   @media (prefers-reduced-motion: reduce) {
     animation: none;
   }
 `;
+
+const FogWrap = styled.div`
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  transition: opacity 0.5s;
+`;
+
+const FogStrip = props => (
+  <Strip {...props}>
+    <div />
+    <div />
+    <div />
+    <div />
+  </Strip>
+);
 
 // Light mood for the sections below the hero: red-black vignette and slow fog.
 // Fades out completely over the hero.
 const Atmosphere = () => {
   const { enabled } = useHorror();
   const ref = useRef(null);
+  const fogRef = useRef(null);
 
   useEffect(() => {
     if (!enabled) return;
@@ -51,6 +82,10 @@ const Atmosphere = () => {
       if (!ref.current) return;
       const t = (window.scrollY - window.innerHeight * 0.7) / (window.innerHeight * 0.5);
       ref.current.style.opacity = String(Math.max(0, Math.min(1, t)));
+      // No fog over the Experience slides: it washed the photos out.
+      const v = window.scrollY / window.innerHeight;
+      const inExperience = v > 2.1 && v < 4.7;
+      if (fogRef.current) fogRef.current.style.opacity = inExperience ? '0' : '1';
     };
     const onScroll = () => {
       if (raf === null) raf = requestAnimationFrame(update);
@@ -66,7 +101,10 @@ const Atmosphere = () => {
   if (!enabled) return null;
   return (
     <Layer ref={ref} aria-hidden="true">
-      <Fog />
+      <FogWrap ref={fogRef}>
+        <FogStrip o={0.16} t={110} />
+        <FogStrip o={0.1} t={160} rev />
+      </FogWrap>
     </Layer>
   );
 };
