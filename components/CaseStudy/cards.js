@@ -32,3 +32,13 @@ export const CardLine = styled.p`
   line-height: 1.5;
   opacity: 0.8;
 `;
+
+export const Tag = styled.span`
+  justify-self: start;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d4af37;
+  border: 1px solid #d4af37;
+  padding: 0.2rem 0.6rem;
+`;

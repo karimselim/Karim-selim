@@ -14,7 +14,7 @@ import {
   Chips,
   Links,
 } from '../../components/CaseStudy/styles';
-import { Cards, Card, CardTitle, CardLine } from '../../components/CaseStudy/cards';
+import { Cards, Card, CardTitle, CardLine, Tag } from '../../components/CaseStudy/cards';
 
 const Projects = () => {
   const { addCursorBorder, removeCursorBorder } = useCursorStyle();
@@ -52,6 +52,7 @@ const Projects = () => {
           {caseStudies.map((study, i) => (
             <Reveal key={study.slug} delay={i * 0.12}>
             <Card>
+              <Tag>QA</Tag>
               <CardTitle>{study.title}</CardTitle>
               <CardLine>{study.summary}</CardLine>
               <Links>
@@ -71,6 +72,7 @@ const Projects = () => {
           {devProjects.map((project, i) => (
             <Reveal key={project.id} delay={i * 0.12}>
             <Card>
+              <Tag>Frontend</Tag>
               <CardTitle>{project.title}</CardTitle>
               <CardLine>{project.line}</CardLine>
               <Chips>
