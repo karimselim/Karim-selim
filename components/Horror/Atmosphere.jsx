@@ -12,14 +12,12 @@ const Layer = styled.div`
   inset: 0;
   z-index: 40;
   pointer-events: none;
-  display: ${({ theme }) => (theme.mode === 'dark' ? 'block' : 'none')};
   opacity: 0;
   transition: opacity 0.6s;
-  background: radial-gradient(
-    ellipse at center,
-    rgba(0, 0, 0, 0) 45%,
-    rgba(0, 0, 0, 0.5) 100%
-  );
+  background: ${({ theme }) =>
+    theme.mode === 'dark'
+      ? 'radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 45%, rgba(0, 0, 0, 0.5) 100%)'
+      : 'none'};
 `;
 
 const LINES = [
