@@ -42,7 +42,7 @@ const TraceBox = styled.div`
   width: 38vw;
   height: 26vh;
   overflow: hidden;
-  opacity: 0.4;
+  opacity: ${({ theme }) => (theme.mode === 'light' ? 0.75 : 0.4)};
   transition: opacity 0.5s;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
