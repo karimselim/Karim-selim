@@ -17,8 +17,14 @@ import {
   StarCanvas,
 } from './styles';
 import { gsap } from 'gsap';
+import { useThemeContext } from '../../context/theme';
+import StarCard from '../Horror/StarCard';
 
 const BeforeYouGo = () => {
+  const [{ theme: mode }] = useThemeContext();
+  const starRgb = mode === 'light' ? '70, 48, 12' : '255, 255, 255';
+  const starRgbRef = useRef(starRgb);
+  starRgbRef.current = starRgb;
   const sectionRef = useRef(null);
   const canvasRef = useRef(null);
   const headingRef = useRef(null);
@@ -75,7 +81,7 @@ const BeforeYouGo = () => {
             star.originalOpacity *
             (0.7 + 0.3 * Math.sin(Date.now() * star.twinkleSpeed + star.pulse));
 
-          ctx2d.fillStyle = `rgba(255, 255, 255, ${star.opacity})`;
+          ctx2d.fillStyle = `rgba(${starRgbRef.current}, ${starRgbRef.current[0] === '7' ? Math.min(1, star.opacity + 0.25) : star.opacity})`;
           ctx2d.beginPath();
           ctx2d.arc(
             star.x,
@@ -303,6 +309,7 @@ const BeforeYouGo = () => {
   return (
     <Section ref={sectionRef} className="theme">
       <StarCanvas ref={canvasRef} />
+      <StarCard />
       <ContentContainer>
         <BeforeH2
           className="reveal-heading"

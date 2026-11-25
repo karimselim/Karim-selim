@@ -17,23 +17,21 @@ const Layer = styled.div`
   background: radial-gradient(
     ellipse at center,
     rgba(0, 0, 0, 0) 45%,
-    rgba(10, 0, 0, 0.6) 100%
+    ${({ theme }) => (theme.mode === 'light' ? 'rgba(70, 42, 12, 0.22)' : 'rgba(0, 0, 0, 0.5)')} 100%
   );
 `;
 
 const LINES = [
-  'FAIL  tests/checkout.spec.ts',
-  'expect(received).toBe(expected)',
-  '  Expected: 200   Received: 500',
-  '  at CartPage.pay (cart.page.ts:42)',
-  'retrying (2/3)...',
-  'flaky: passed on retry. suspicious.',
-  'PASS  tests/login.spec.ts',
-  'Error: locator.click: Timeout 30000ms',
-  '  waiting for getByRole("button", { name: "Pay" })',
-  'bug filed: JIRA-481  severity: high',
-  'it works on my machine',
-  '1 failed, 14 passed',
+  'XIII  Death: regression found in checkout',
+  'VII   The Chariot: release is moving too fast',
+  'XVI   The Tower: production is down',
+  'XVIII The Moon: flaky test, passed on retry',
+  'II    The High Priestess: hidden requirement',
+  'PASS  X The Wheel: the suite is green again',
+  'XV    The Devil: it works on my machine',
+  'IX    The Hermit: reproduced in isolation',
+  'XVII  The Star: bug fixed and verified',
+  '0     The Fool: skipped the test plan',
 ];
 
 // The bugs that never leave: a quiet, slowly rising test log in the lower-left
@@ -42,17 +40,17 @@ const TraceBox = styled.div`
   position: absolute;
   left: 2.2vw;
   bottom: 3vh;
-  width: 34vw;
+  width: 38vw;
   height: 26vh;
   overflow: hidden;
-  opacity: 0.32;
+  opacity: 0.4;
   transition: opacity 0.5s;
   -webkit-mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
   mask-image: linear-gradient(to bottom, transparent, #000 35%, #000 65%, transparent);
   font-family: 'Courier New', monospace;
   font-size: 12px;
   line-height: 1.7;
-  color: #b0141e;
+  color: ${({ theme }) => (theme.mode === 'light' ? '#5a4326' : '#cbbf9a')};
   white-space: pre;
   @media (max-width: 768px) {
     display: none;
@@ -66,7 +64,7 @@ const TraceList = styled.div`
     animation: none;
   }
   .ok {
-    color: #d4af37;
+    color: ${({ theme }) => (theme.mode === 'light' ? '#8a6a12' : '#d4af37')};
   }
 `;
 

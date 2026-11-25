@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 import ReactDOM from 'react-dom';
 import styled, { keyframes } from 'styled-components';
 import { useHorror } from '../../utils/horror';
-import Bugs from './Bugs';
 import DeathCard from './DeathCard';
 
 const blink = keyframes`
@@ -21,15 +20,15 @@ const Eye = styled.svg`
   position: absolute;
   z-index: 55;
   width: ${({ w }) => w}vw;
-  max-width: 220px;
+  max-width: 190px;
   pointer-events: none;
   opacity: 0;
   transition: opacity 0.9s ease;
   &[data-open='true'] {
-    opacity: 0.95;
+    opacity: 0.55;
   }
   .lid {
-    transform-origin: 60px 28px;
+    transform-origin: 60px 12px;
     animation: ${blink} ${({ d }) => d}s infinite;
   }
   @media (prefers-reduced-motion: reduce) {
@@ -40,25 +39,10 @@ const Eye = styled.svg`
 `;
 
 const EyeSvg = React.forwardRef(({ w, d, style, open }, ref) => (
-  <Eye ref={ref} viewBox="0 0 120 56" w={w} d={d} data-open={open} style={style} aria-hidden="true">
-    <defs>
-      <radialGradient id="iris" cx="50%" cy="50%" r="50%">
-        <stop offset="0" stopColor="#ffd9a0" />
-        <stop offset="0.55" stopColor="#c8501e" />
-        <stop offset="1" stopColor="#4a0508" />
-      </radialGradient>
-      <clipPath id="almond">
-        <path d="M4 28 Q60 -14 116 28 Q60 70 4 28Z" />
-      </clipPath>
-    </defs>
-    <g className="lid">
-      <path d="M4 28 Q60 -14 116 28 Q60 70 4 28Z" fill="#150203" stroke="#7a1015" strokeWidth="2" />
-      <g clipPath="url(#almond)">
-        <g style={{ transform: 'translate(var(--dx, 0px), var(--dy, 0px))' }}>
-          <circle cx="60" cy="28" r="17" fill="url(#iris)" />
-          <ellipse cx="60" cy="28" rx="4" ry="13" fill="#000" />
-        </g>
-      </g>
+  <Eye ref={ref} viewBox="0 0 120 30" w={w} d={d} data-open={open} style={style} aria-hidden="true">
+    <g className="lid" fill="#f4f4f0">
+      <path d="M2 3 L50 14 L48 21 L12 13 Z" />
+      <path d="M118 3 L70 14 L72 21 L108 13 Z" />
     </g>
   </Eye>
 ));
@@ -116,12 +100,11 @@ const Overlay = styled.div`
 `;
 
 const EYES = [
-  { x: 1.5, y: 6, w: 17, d: 5.5 },
-  { x: 2, y: 70, w: 15, d: 6.8 },
-  { x: 43, y: 80, w: 13, d: 4.9 },
-  { x: 81, y: 44, w: 16, d: 7.4 },
-  { x: 42, y: 1, w: 12, d: 6.1 },
-];
+  { x: 4, y: 12, w: 11, d: 6.5 },
+  { x: 80, y: 8, w: 9, d: 7.7 },
+  { x: 86, y: 66, w: 12, d: 5.9 },
+  { x: 6, y: 74, w: 10, d: 8.1 },
+  ];
 
 // Idle in Skills: the candle shrinks and eyes open in the dark. Move and they close.
 const SkillsHorror = () => {
@@ -154,10 +137,8 @@ const SkillsHorror = () => {
       const x = mx - rect.left;
       const y = my - rect.top;
       const dark = reduced ? 0.6 : 0.9;
-      // slow, low red heartbeat in the dark (no flash)
-      const hb = reduced ? 0 : Math.round(26 * Math.pow(Math.max(0, Math.sin(performance.now() / 700)), 6));
       darkRef.current.style.background =
-        `radial-gradient(circle at ${x}px ${y}px, rgba(255,170,70,0.16) 0, rgba(255,140,40,0.05) ${r * 0.5}px, rgba(0,0,0,${dark * 0.4}) ${r * 0.85}px, rgba(${hb},0,2,${dark}) ${r * 1.45}px)`;
+        `radial-gradient(circle at ${x}px ${y}px, rgba(255,170,70,0.16) 0, rgba(255,140,40,0.05) ${r * 0.5}px, rgba(0,0,0,${dark * 0.4}) ${r * 0.85}px, rgba(0,0,0,${dark}) ${r * 1.45}px)`;
       eyeRefs.current.forEach(el => {
         if (!el) return;
         const b = el.getBoundingClientRect();
@@ -245,7 +226,6 @@ const SkillsHorror = () => {
           style={{ left: `${e.x}%`, top: `${e.y}%`, transitionDelay: `${i * 0.35}s` }}
         />
       ))}
-      {!reduced && <Bugs />}
       {view &&
         ReactDOM.createPortal(
           <Overlay
