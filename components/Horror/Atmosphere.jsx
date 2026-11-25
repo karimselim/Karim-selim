@@ -17,7 +17,7 @@ const Layer = styled.div`
   background: radial-gradient(
     ellipse at center,
     rgba(0, 0, 0, 0) 45%,
-    ${({ theme }) => (theme.mode === 'light' ? 'rgba(70, 42, 12, 0.22)' : 'rgba(0, 0, 0, 0.5)')} 100%
+    rgba(0, 0, 0, 0.5) 100%
   );
 `;
 

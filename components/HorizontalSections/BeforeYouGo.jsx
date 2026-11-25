@@ -18,7 +18,6 @@ import {
 } from './styles';
 import { gsap } from 'gsap';
 import { useThemeContext } from '../../context/theme';
-import StarCard from '../Horror/StarCard';
 
 const BeforeYouGo = () => {
   const [{ theme: mode }] = useThemeContext();
@@ -309,7 +308,6 @@ const BeforeYouGo = () => {
   return (
     <Section ref={sectionRef} className="theme">
       <StarCanvas ref={canvasRef} />
-      <StarCard />
       <ContentContainer>
         <BeforeH2
           className="reveal-heading"

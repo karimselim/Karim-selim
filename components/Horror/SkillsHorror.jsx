@@ -136,9 +136,9 @@ const SkillsHorror = () => {
       const rect = container.getBoundingClientRect();
       const x = mx - rect.left;
       const y = my - rect.top;
-      const dark = reduced ? 0.6 : 0.9;
+      const dark = reduced ? 0.55 : 0.84;
       darkRef.current.style.background =
-        `radial-gradient(circle at ${x}px ${y}px, rgba(255,170,70,0.16) 0, rgba(255,140,40,0.05) ${r * 0.5}px, rgba(0,0,0,${dark * 0.4}) ${r * 0.85}px, rgba(0,0,0,${dark}) ${r * 1.45}px)`;
+        `radial-gradient(circle at ${x}px ${y}px, rgba(255,170,70,0.16) 0, rgba(255,140,40,0.05) ${r * 0.5}px, rgba(0,0,0,${dark * 0.22}) ${r * 0.8}px, rgba(0,0,0,${dark}) ${r * 1.45}px)`;
       eyeRefs.current.forEach(el => {
         if (!el) return;
         const b = el.getBoundingClientRect();
@@ -165,7 +165,7 @@ const SkillsHorror = () => {
         setView('scare');
         setTimeout(() => setView(v => (v === 'scare' ? null : v)), 3200);
       }
-      const targetR = reduced ? 320 : idleNow ? 130 : 270;
+      const targetR = reduced ? 420 : idleNow ? 260 : 380;
       r += (targetR - r) * 0.05;
       if (!reduced && now - lastFlicker > 70) {
         lastFlicker = now;

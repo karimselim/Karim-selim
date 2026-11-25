@@ -1,6 +1,7 @@
 import React from 'react';
 import styled, { keyframes, css } from 'styled-components';
 import { useHorror, setHorror } from '../../utils/horror';
+import useCursorStyle from '../../hooks/useCursorStyle';
 
 const flicker = keyframes`
   0%, 100% { transform: scale(1, 1) rotate(0deg); }
@@ -19,7 +20,7 @@ const Btn = styled.button`
   right: 18px;
   bottom: 16px;
   z-index: 900;
-  cursor: pointer;
+  cursor: none;
   display: flex;
   align-items: center;
   gap: 10px;
@@ -65,12 +66,15 @@ const Btn = styled.button`
 // Music toggle drawn as a candle: lit and flickering = music on, snuffed with smoke = off.
 const HorrorToggle = () => {
   const { music } = useHorror();
+  const { addCursorBorder, removeCursorBorder } = useCursorStyle();
   return (
     <Btn
       type="button"
       data-horror-ui
       on={music}
       aria-pressed={music}
+      onMouseEnter={addCursorBorder}
+      onMouseLeave={removeCursorBorder}
       aria-label={music ? 'Turn the music off' : 'Turn the music on'}
       onClick={() => {
         import('../../utils/horrorMusic').then(m => (music ? m.stopMusic() : m.startMusic()));
