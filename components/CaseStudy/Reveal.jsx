@@ -182,3 +182,21 @@ export const Count = ({ value }) => {
 
   return <strong ref={ref}>{shown}</strong>;
 };
+
+// A bar that grows to its width when it scrolls into view.
+export const GrowBar = ({ percent, delay = 0, children }) => {
+  const [ref, inView] = useInView({ triggerOnce: true });
+
+  return (
+    <div ref={ref} style={{ height: '100%' }}>
+      <motion.div
+        initial={{ width: 0 }}
+        animate={{ width: inView ? `${percent}%` : 0 }}
+        transition={{ duration: 1.2, ease, delay }}
+        style={{ height: '100%', overflow: 'hidden' }}
+      >
+        {children}
+      </motion.div>
+    </div>
+  );
+};

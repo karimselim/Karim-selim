@@ -180,3 +180,87 @@ export const BugList = styled.ul`
     opacity: 0.75;
   }
 `;
+
+export const Chip = styled.em`
+  justify-self: start;
+  font-style: normal;
+  font-size: 0.72rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.15rem 0.55rem;
+  border: 1px solid ${({ level }) => (level === 'High' ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'rgba(128,128,128,0.7)')};
+  color: ${({ level }) => (level === 'High' ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'inherit')};
+  opacity: ${({ level }) => (level === 'Low' ? 0.8 : 1)};
+`;
+
+export const BugHead = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+`;
+
+export const AreaTag = styled.small`
+  font-size: 0.8rem;
+  opacity: 0.6;
+`;
+
+export const Chart = styled.div`
+  display: grid;
+  gap: 0.7rem;
+  margin-bottom: 2.2rem;
+`;
+
+export const BarRow = styled.div`
+  display: grid;
+  grid-template-columns: 10rem 1fr 2.5rem;
+  align-items: center;
+  gap: 1rem;
+  font-size: 1rem;
+
+  @media (max-width: 700px) {
+    grid-template-columns: 7rem 1fr 2rem;
+  }
+`;
+
+export const Track = styled.div`
+  height: 10px;
+  background: rgba(128, 128, 128, 0.2);
+`;
+
+export const Fill = styled.div`
+  height: 100%;
+  background: ${({ tone }) => (tone === 'before' ? '#ea281e' : '#d4af37')};
+`;
+
+export const Compare = styled.div`
+  display: grid;
+  gap: 1.8rem;
+  margin-bottom: 2rem;
+`;
+
+export const CompareRow = styled.div`
+  display: grid;
+  gap: 0.5rem;
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 900;
+  }
+
+  > div {
+    display: grid;
+    grid-template-columns: 5rem 1fr 5.5rem;
+    align-items: center;
+    gap: 1rem;
+    font-size: 0.95rem;
+  }
+
+  span:first-child {
+    opacity: 0.6;
+  }
+
+  span:last-child {
+    text-align: right;
+  }
+`;

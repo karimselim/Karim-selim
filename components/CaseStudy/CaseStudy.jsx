@@ -1,6 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
-import { Reveal, WordReveal, Rule, Count } from './Reveal';
+import { Reveal, WordReveal, Rule, Count, GrowBar } from './Reveal';
 import useCursorStyle from '../../hooks/useCursorStyle';
 import {
   Page,
@@ -17,6 +17,15 @@ import {
   Stat,
   Links,
   BugList,
+  Chip,
+  BugHead,
+  AreaTag,
+  Chart,
+  BarRow,
+  Track,
+  Fill,
+  Compare,
+  CompareRow,
 } from './styles';
 
 const CaseStudy = ({ study }) => {
@@ -87,14 +96,77 @@ const CaseStudy = ({ study }) => {
         </Reveal>
       </Block>
 
+      {study.compare && study.compare.length > 0 && (
+        <Block>
+          <Rule />
+          <BlockTitle>Before and after</BlockTitle>
+          <Reveal>
+            <Compare>
+              {study.compare.map(row => {
+                const max = Math.max(row.before, row.after);
+                return (
+                  <CompareRow key={row.label}>
+                    <h3>{row.label}</h3>
+                    <div>
+                      <span>Before</span>
+                      <Track>
+                        <GrowBar percent={(row.before / max) * 100}>
+                          <Fill tone="before" />
+                        </GrowBar>
+                      </Track>
+                      <span>{row.beforeText}</span>
+                    </div>
+                    <div>
+                      <span>After</span>
+                      <Track>
+                        <GrowBar percent={(row.after / max) * 100} delay={0.25}>
+                          <Fill tone="after" />
+                        </GrowBar>
+                      </Track>
+                      <span>{row.afterText}</span>
+                    </div>
+                  </CompareRow>
+                );
+              })}
+            </Compare>
+            <Text>Measured on this site in a headless browser, so real devices will differ.</Text>
+          </Reveal>
+        </Block>
+      )}
+
       {study.bugs && study.bugs.length > 0 && (
         <Block>
           <Rule />
           <BlockTitle>{`Bugs found (${study.bugs.length})`}</BlockTitle>
           <Reveal>
+            <Chart>
+              {Object.entries(
+                study.bugs.reduce((acc, bug) => {
+                  const area = bug.area || 'Other';
+                  acc[area] = (acc[area] || 0) + 1;
+                  return acc;
+                }, {})
+              )
+                .sort((a, b) => b[1] - a[1])
+                .map(([area, count]) => (
+                  <BarRow key={area}>
+                    <span>{area}</span>
+                    <Track>
+                      <GrowBar percent={(count / study.bugs.length) * 100}>
+                        <Fill tone="after" />
+                      </GrowBar>
+                    </Track>
+                    <span>{count}</span>
+                  </BarRow>
+                ))}
+            </Chart>
             <BugList>
               {study.bugs.map(bug => (
                 <li key={bug.title}>
+                  <BugHead>
+                    {bug.severity && <Chip level={bug.severity}>{bug.severity}</Chip>}
+                    {bug.area && <AreaTag>{bug.area}</AreaTag>}
+                  </BugHead>
                   <strong>{bug.title}</strong>
                   {bug.detail && <span>{bug.detail}</span>}
                 </li>
