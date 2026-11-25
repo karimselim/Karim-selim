@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 
 const KEY = 'horror-settings';
-let state = { enabled: true, sound: false, reduced: false };
+let state = { enabled: true, music: false, reduced: false };
 const listeners = new Set();
 let inited = false;
 

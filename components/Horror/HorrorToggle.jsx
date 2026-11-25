@@ -30,7 +30,7 @@ const Btn = styled.button`
 `;
 
 const HorrorToggle = () => {
-  const { enabled } = useHorror();
+  const { enabled, music } = useHorror();
   return (
     <Wrap data-horror-ui>
       <Btn
@@ -41,6 +41,18 @@ const HorrorToggle = () => {
         }}
       >
         {enabled ? 'Horror: on' : 'Horror: off'}
+      </Btn>
+      <Btn
+        type="button"
+        aria-pressed={music}
+        onClick={() => {
+          import('../../utils/horrorMusic').then(m =>
+            music ? m.stopMusic() : m.startMusic()
+          );
+          setHorror({ music: !music });
+        }}
+      >
+        {music ? 'Music: on' : 'Music: off'}
       </Btn>
     </Wrap>
   );
