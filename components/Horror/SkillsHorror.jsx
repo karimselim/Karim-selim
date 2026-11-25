@@ -49,6 +49,33 @@ const Hand = styled.img`
   }
 `;
 
+const flipIn = keyframes`
+  0% { transform: perspective(1200px) rotateY(0deg) scale(0.9); }
+  35% { transform: perspective(1200px) rotateY(0deg) scale(1); }
+  75% { transform: perspective(1200px) rotateY(180deg) scale(1.03); }
+  100% { transform: perspective(1200px) rotateY(180deg) scale(1.05); }
+`;
+
+const Flip = styled.div`
+  position: relative;
+  height: 82vh;
+  aspect-ratio: 2 / 3;
+  transform-style: preserve-3d;
+  animation: ${flipIn} 1.6s ease-in-out both;
+  img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    backface-visibility: hidden;
+    animation: none !important;
+  }
+  img.front {
+    transform: rotateY(180deg);
+  }
+`;
+
 const shake = keyframes`
   0% { transform: translate(0, 0) scale(0.5); }
   12% { transform: translate(-14px, 8px) scale(1.12); }
@@ -70,7 +97,7 @@ const Overlay = styled.div`
     height: 82vh;
     max-width: 92vw;
     object-fit: contain;
-    animation: ${({ scare }) => (scare ? shake : 'none')} 0.45s ease-out both;
+    
   }
 `;
 
@@ -108,6 +135,7 @@ const SkillsHorror = () => {
     let lastFlicker = 0;
     let idleNow = false;
     let handTimer = null;
+    let scared = false;
 
     const paint = () => {
       const rect = container.getBoundingClientRect();
@@ -142,6 +170,13 @@ const SkillsHorror = () => {
           setHandUp(false);
         }
       }
+      // The fate card: if the visitor stays still, one card of the spread turns over.
+      if (!reduced && idleFor > 9500 && !scared && !window.sessionStorage.getItem('horror-scared')) {
+        scared = true;
+        window.sessionStorage.setItem('horror-scared', '1');
+        setView('scare');
+        setTimeout(() => setView(v => (v === 'scare' ? null : v)), 3200);
+      }
       const targetR = reduced ? 320 : idleNow ? 130 : 270;
       r += (targetR - r) * 0.05;
       if (!reduced && now - lastFlicker > 70) {
@@ -175,25 +210,11 @@ const SkillsHorror = () => {
     window.addEventListener('mousemove', onMove, { passive: true });
     raf = requestAnimationFrame(tick);
 
-    // One rare scare per visit, after the visitor has spent a while in Skills.
-    let scareTimer = null;
-    if (!reduced && !window.sessionStorage.getItem('horror-scared')) {
-      const wait = 14000 + Math.random() * 8000;
-      scareTimer = setInterval(() => {
-        if (!visible || performance.now() - inView < wait) return;
-        clearInterval(scareTimer);
-        window.sessionStorage.setItem('horror-scared', '1');
-        setView('scare');
-        setTimeout(() => setView(v => (v === 'scare' ? null : v)), 1700);
-      }, 500);
-    }
-
     return () => {
       cancelAnimationFrame(raf);
       io.disconnect();
       window.removeEventListener('mousemove', onMove);
       clearTimeout(handTimer);
-      clearInterval(scareTimer);
     };
   }, [enabled, reduced]);
 
@@ -231,7 +252,14 @@ const SkillsHorror = () => {
             aria-label="Death, card XIII"
             onClick={() => setView(null)}
           >
-            <img src="/horror/death.webp" alt="Death, tarot card XIII" />
+            {view === 'scare' ? (
+              <Flip>
+                <img src="/imgs/cardBack.png" alt="" />
+                <img className="front" src="/horror/death.webp" alt="Death, tarot card XIII" />
+              </Flip>
+            ) : (
+              <img src="/horror/death.webp" alt="Death, tarot card XIII" />
+            )}
           </Overlay>,
           document.body
         )}
