@@ -1,6 +1,7 @@
 import React from 'react';
 import Head from 'next/head';
 import NextLink from 'next/link';
+import { Reveal, WordReveal } from '../../components/CaseStudy/Reveal';
 import useCursorStyle from '../../hooks/useCursorStyle';
 import caseStudies from '../../utils/constants/caseStudies';
 import devProjects from '../../utils/constants/devProjects';
@@ -39,13 +40,18 @@ const Projects = () => {
         <NextLink href="/" passHref>
           <Back {...hover}>Back to the site</Back>
         </NextLink>
-        <Title>Projects</Title>
-        <Summary>QA work first, then the frontend projects I built.</Summary>
+        <Title>
+          <WordReveal text="Projects" />
+        </Title>
+        <Reveal delay={0.5}>
+          <Summary>QA work first, then the frontend projects I built.</Summary>
+        </Reveal>
 
         <Kind style={{ marginTop: '3.5rem' }}>QA case studies</Kind>
         <Cards>
-          {caseStudies.map(study => (
-            <Card key={study.slug}>
+          {caseStudies.map((study, i) => (
+            <Reveal key={study.slug} delay={i * 0.12}>
+            <Card>
               <CardTitle>{study.title}</CardTitle>
               <CardLine>{study.summary}</CardLine>
               <Links>
@@ -56,13 +62,15 @@ const Projects = () => {
                 </li>
               </Links>
             </Card>
+            </Reveal>
           ))}
         </Cards>
 
         <Kind style={{ marginTop: '3.5rem' }}>Frontend projects</Kind>
         <Cards>
-          {devProjects.map(project => (
-            <Card key={project.id}>
+          {devProjects.map((project, i) => (
+            <Reveal key={project.id} delay={i * 0.12}>
+            <Card>
               <CardTitle>{project.title}</CardTitle>
               <CardLine>{project.line}</CardLine>
               <Chips>
@@ -93,6 +101,7 @@ const Projects = () => {
                 </li>
               </Links>
             </Card>
+            </Reveal>
           ))}
         </Cards>
       </Page>

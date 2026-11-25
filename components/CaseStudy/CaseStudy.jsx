@@ -1,5 +1,6 @@
 import React from 'react';
 import NextLink from 'next/link';
+import { Reveal, WordReveal, Rule, Count } from './Reveal';
 import useCursorStyle from '../../hooks/useCursorStyle';
 import {
   Page,
@@ -15,6 +16,7 @@ import {
   Stats,
   Stat,
   Links,
+  BugList,
 } from './styles';
 
 const CaseStudy = ({ study }) => {
@@ -30,49 +32,82 @@ const CaseStudy = ({ study }) => {
         <Back {...hover}>All projects</Back>
       </NextLink>
       <Kind>{study.kind}</Kind>
-      <Title>{study.title}</Title>
-      <Summary>{study.summary}</Summary>
+      <Title>
+        <WordReveal text={study.title} />
+      </Title>
+      <Reveal delay={0.6}>
+        <Summary>{study.summary}</Summary>
+      </Reveal>
 
       <Block>
+        <Rule />
         <BlockTitle>Problem</BlockTitle>
-        <Text>{study.problem}</Text>
+        <Reveal>
+          <Text>{study.problem}</Text>
+        </Reveal>
       </Block>
 
       <Block>
+        <Rule />
         <BlockTitle>What I tested</BlockTitle>
+        <Reveal>
         <List>
           {study.tested.map(item => (
             <li key={item}>{item}</li>
           ))}
         </List>
+        </Reveal>
       </Block>
 
       <Block>
+        <Rule />
         <BlockTitle>Tools</BlockTitle>
+        <Reveal>
         <Chips>
           {study.tools.map(tool => (
             <li key={tool}>{tool}</li>
           ))}
         </Chips>
+        </Reveal>
       </Block>
 
       <Block>
+        <Rule />
         <BlockTitle>Result</BlockTitle>
-        <div>
+        <Reveal>
           <Stats>
             {study.result.map(item => (
               <Stat key={item.label}>
-                <strong>{item.value}</strong>
+                <Count value={item.value} />
                 <span>{item.label}</span>
               </Stat>
             ))}
           </Stats>
           {study.resultNote && <Text>{study.resultNote}</Text>}
-        </div>
+        </Reveal>
       </Block>
 
+      {study.bugs && study.bugs.length > 0 && (
+        <Block>
+          <Rule />
+          <BlockTitle>{`Bugs found (${study.bugs.length})`}</BlockTitle>
+          <Reveal>
+            <BugList>
+              {study.bugs.map(bug => (
+                <li key={bug.title}>
+                  <strong>{bug.title}</strong>
+                  {bug.detail && <span>{bug.detail}</span>}
+                </li>
+              ))}
+            </BugList>
+          </Reveal>
+        </Block>
+      )}
+
       <Block>
+        <Rule />
         <BlockTitle>Evidence</BlockTitle>
+        <Reveal>
         <Links>
           {study.evidence.map(link => (
             <li key={link.href}>
@@ -87,6 +122,7 @@ const CaseStudy = ({ study }) => {
             </li>
           ))}
         </Links>
+        </Reveal>
       </Block>
     </Page>
   );

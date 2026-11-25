@@ -28,9 +28,17 @@ export const Kind = styled.p`
   margin-bottom: 0.8rem;
 `;
 
-export const Title = styled.h1`
-  font-size: clamp(2.6rem, 7vw, 5.5rem);
-  font-weight: 900;
+export const Title = styled.div`
+  h1 {
+    font-family: inherit;
+    font-size: inherit;
+    font-weight: inherit;
+    line-height: inherit;
+  }
+
+  font-family: 'Ogg', serif;
+  font-size: clamp(3rem, 8vw, 6.5rem);
+  font-weight: 400;
   line-height: 1;
   margin-bottom: 1.2rem;
 `;
@@ -45,10 +53,8 @@ export const Summary = styled.p`
 export const Block = styled.section`
   display: grid;
   grid-template-columns: 11rem 1fr;
-  gap: 1.5rem 3rem;
-  padding: 2.5rem 0;
-  border-top: 1px solid currentColor;
-  border-top-color: rgba(128, 128, 128, 0.35);
+  gap: 2rem 3rem;
+  padding: 0 0 3rem;
 
   &:first-of-type {
     margin-top: 3.5rem;
@@ -138,5 +144,39 @@ export const Links = styled.ul`
     font-size: 1.15rem;
     text-decoration: underline;
     text-underline-offset: 4px;
+  }
+`;
+
+export const BugList = styled.ul`
+  display: grid;
+  gap: 1.1rem;
+
+  li {
+    display: grid;
+    gap: 0.25rem;
+    padding-left: 1.2rem;
+    position: relative;
+  }
+
+  li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 6px;
+    height: 6px;
+    background: #ea281e;
+  }
+
+  strong {
+    font-size: 1.15rem;
+    font-weight: 900;
+    line-height: 1.4;
+  }
+
+  span {
+    font-size: 1.05rem;
+    line-height: 1.5;
+    opacity: 0.75;
   }
 `;

@@ -13,6 +13,13 @@ export const Card = styled.article`
   gap: 1rem;
   padding: 1.6rem;
   border: 1px solid rgba(128, 128, 128, 0.4);
+  transition: transform 0.4s cubic-bezier(0, 0.7, 0.29, 0.97),
+    border-color 0.4s ease;
+
+  &:hover {
+    transform: translateY(-6px);
+    border-color: #d4af37;
+  }
 `;
 
 export const CardTitle = styled.h2`
