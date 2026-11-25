@@ -29,11 +29,11 @@ export default [
       { value: '14', label: 'spec files: 8 UI, 6 API' },
       { value: '6', label: 'page objects' },
       { value: '5', label: 'typed API clients' },
-      { value: '26', label: 'tests in the latest CI run, all passing (3 on retry)' },
+      { value: '26', label: 'tests in the latest CI run, all passing' },
       { value: '15', label: 'bugs logged in the shop' },
     ],
     resultNote:
-      'The CI workflow starts a fresh Vendure shop with my storefront, seeds a test user and runs the whole suite in a real browser. The latest run on the CI branch passed all 26 tests, 3 of them on a retry (the login-related ones, which are slow on the first try). That branch is not merged into main yet. Along the way I also logged 15 bugs in the shop: 1 Critical, 4 High, 4 Medium and 6 Low.',
+      'The CI workflow starts a fresh Vendure shop with my storefront, seeds a test user and runs the whole suite in a real browser. The latest run on main passed all 26 tests. Along the way I also logged 15 bugs in the shop: 1 Critical, 4 High, 4 Medium and 6 Low.',
     // Bugs found while testing. Filled from the author's own list, never guessed.
     bugs: [
       { severity: 'High', priority: 'P1', area: 'Validation', title: 'Same email can sign up many times', detail: 'Signup accepts the same email address repeatedly.' },
@@ -68,7 +68,7 @@ export default [
       {
         label: 'CI workflow',
         href:
-          'https://github.com/karimselim/Vendure-Testing/blob/ci/run-against-vendure/.github/workflows/playwright.yml',
+          'https://github.com/karimselim/Vendure-Testing/blob/main/.github/workflows/playwright.yml',
       },
     ],
   },
