@@ -93,7 +93,7 @@ const App = ({ Component, pageProps }) => {
   const seo = {
     title: 'Karim Selim - QA Automation Engineer',
     description:
-      'Karim Selim, QA automation engineer with a frontend background. Playwright, API testing, and interactive web work.',
+      'Karim Selim, QA automation engineer with a frontend background. 300+ bugs reported and 390+ test cases across two products. Playwright and API testing.',
     url: 'https://karim-selim.vercel.app/',
     ...(pageProps && pageProps.seo),
   };

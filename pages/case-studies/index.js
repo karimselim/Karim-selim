@@ -32,7 +32,7 @@ const Projects = () => {
           <WordReveal text="Projects" />
         </Title>
         <Reveal delay={0.5}>
-          <Summary>QA work first, then the frontend projects I built.</Summary>
+          <Summary>QA work first: 300+ bugs reported and 390+ test cases across two products. Then the frontend projects I built.</Summary>
         </Reveal>
 
         <Kind style={{ marginTop: '3.5rem' }}>QA case studies</Kind>
