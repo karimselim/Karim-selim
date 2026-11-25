@@ -4,7 +4,6 @@ export default [
     title: 'GEM',
     path: 'https://gem-29pc.vercel.app/',
     video: 'tut.mp4',
-    poster: '/imgs/tut-poster.jpg',
   },
   {
     id: 'coffee-nation',
