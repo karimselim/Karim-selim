@@ -43,3 +43,27 @@ export const MenuWrapper = styled.div`
     top: 29px;
   `};
 `;
+
+export const CvLink = styled.a`
+  position: absolute;
+  top: 54px;
+  right: 140px;
+  font-size: 0.8rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: inherit;
+  padding: 0.3rem 0.8rem;
+  border: 1px solid #d4af37;
+  line-height: 1.2;
+  transition: background 0.2s ease, color 0.2s ease;
+
+  &:hover {
+    background: #d4af37;
+    color: #000;
+  }
+
+  ${({ theme }) => theme.breakpoints.tablet`
+    top: 26px;
+    right: 120px;
+  `};
+`;

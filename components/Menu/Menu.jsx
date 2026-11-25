@@ -189,6 +189,16 @@ const Menu = () => {
               >
                 +201068679457
               </FooterText>
+              <FooterText
+                className="link"
+                as="a"
+                href="/Karim_Selim_QA_Resume.pdf"
+                download="Karim_Selim_QA_Resume.pdf"
+                onMouseEnter={addCursorBorder}
+                onMouseLeave={removeCursorBorder}
+              >
+                Download CV
+              </FooterText>
               <FooterText className="copyright">© Karim Selim {new Date().getFullYear()}</FooterText>
               {isMobile && (
                 <Address>

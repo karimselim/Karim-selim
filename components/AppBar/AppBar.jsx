@@ -2,7 +2,7 @@ import React from 'react';
 import Link from 'next/link';
 import Logo from '../Icons/Logo';
 import MenuButton from '../MenuButton';
-import { Slider, Container, StyledLink, MenuWrapper } from './styles';
+import { Slider, Container, StyledLink, MenuWrapper, CvLink } from './styles';
 
 const getStyles = (direction = '') => {
   if (direction === 'down') return { top: 0 };
@@ -80,6 +80,9 @@ const AppBar = props => {
             <Logo {...logoProps} />
           </StyledLink>
         </Link>
+        <CvLink href="/Karim_Selim_QA_Resume.pdf" download="Karim_Selim_QA_Resume.pdf">
+          CV
+        </CvLink>
         <MenuWrapper>
           <MenuButton title="Projects" />
         </MenuWrapper>
