@@ -119,6 +119,7 @@ const Menu = () => {
                       playsInline
                       autoPlay
                       preload="metadata"
+                      poster={route.poster}
                     />
                     <span className="num">0{i + 1}</span>
                     <span className="title">{route.title}</span>

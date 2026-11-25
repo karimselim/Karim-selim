@@ -18,7 +18,7 @@ const Btn = styled.button`
   position: fixed;
   right: 18px;
   bottom: 16px;
-  z-index: 9000;
+  z-index: 900;
   cursor: pointer;
   display: flex;
   align-items: center;
