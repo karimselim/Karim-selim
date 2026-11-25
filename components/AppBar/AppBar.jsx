@@ -70,18 +70,18 @@ const AppBar = props => {
         ...styles,
         ...styleProp,
       }}
-      inert={hidden ? '' : undefined}
-      aria-hidden={hidden ? 'true' : undefined}
+      inert={hidden && direction === 'down' ? '' : undefined}
+      aria-hidden={hidden && direction === 'down' ? 'true' : undefined}
       {...rootProps}
     >
       <Container>
         <Link href="/" passHref>
-          <StyledLink title="Karim" tabIndex={direction === 'up' ? -1 : undefined}>
+          <StyledLink title="Karim">
             <Logo {...logoProps} />
           </StyledLink>
         </Link>
         <MenuWrapper>
-          <MenuButton title="Projects" tabIndex={direction === 'up' ? -1 : undefined} />
+          <MenuButton title="Projects" />
         </MenuWrapper>
       </Container>
     </Slider>
