@@ -163,7 +163,7 @@ export const Section = styled.section`
   overflow: hidden;
 
   @media (max-width: 768px) {
-    padding: 2.5rem 1.5rem 1rem;
+    padding: 1.5rem 1.25rem 1rem;
     justify-content: start;
   }
 `;
@@ -187,8 +187,8 @@ export const Text = styled.p`
   display: inline-block;
 
   @media (max-width: 768px) {
-    font-size: 1rem;
-    margin-bottom: 1.5rem;
+    font-size: clamp(0.82rem, 2.2svh, 1rem);
+    margin-bottom: 0.9rem;
   }
 `;
 
@@ -201,7 +201,8 @@ export const Testimonials = styled.div`
 
   @media (max-width: 768px) {
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 0.9rem;
+    margin-bottom: 4.5rem; /* clear of the footer bar */
   }
 `;
 
@@ -231,6 +232,11 @@ export const Quote = styled.blockquote`
     content: '"';
     font-size: 1.2rem;
   }
+
+  @media (max-width: 768px) {
+    font-size: clamp(0.72rem, 1.9svh, 0.9rem);
+    line-height: 1.3;
+  }
 `;
 
 export const Author = styled.cite`
@@ -250,7 +256,9 @@ export const BeforeH2 = styled(ExpH2)`
   display: inline-block;
 
   @media (max-width: 768px) {
-    font-size: 2.5rem;
+    font-size: clamp(1.6rem, 5svh, 2.5rem);
+    margin-top: 0.5rem !important;
+    margin-bottom: 0.8rem;
   }
 `;
 
@@ -261,6 +269,11 @@ export const BeforeH3 = styled(ScrollH3)`
 
   @media (max-width: 768px) {
     font-size: 1.8rem;
+  }
+
+  @media (max-width: 768px) and (max-height: 760px) {
+    font-size: 1.3rem;
+    margin-block: 0.6rem;
   }
 `;
 
