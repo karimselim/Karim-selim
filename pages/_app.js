@@ -11,7 +11,6 @@ import AppBar from '../components/AppBar';
 import Cursor from '../components/Cursor';
 import Menu from '../components/Menu';
 import { Loader } from '../components/Loader';
-import HorrorToggle from '../components/Horror/HorrorToggle';
 import Atmosphere from '../components/Horror/Atmosphere';
 
 const themes = {
@@ -172,7 +171,6 @@ const App = ({ Component, pageProps }) => {
                   <Menu />
                   <Component {...pageProps} />
                   <Atmosphere />
-                  <HorrorToggle />
                 </>
               )}
               <Cursor />
