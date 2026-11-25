@@ -51,23 +51,110 @@ export const WordReveal = ({ text, delay = 0.2, ...rest }) => (
   </h1>
 );
 
-// A gold rule that draws itself from left to right.
+// A gold line that draws itself left to right, then bounces like a string
+// when the cursor moves across it (same feel as the Experience lines).
+const HEIGHT = 40;
+
 export const Rule = () => {
-  const [ref, inView] = useInView({ triggerOnce: true });
+  const [wrapRef, inView] = useInView({ triggerOnce: true });
+  const pathRef = React.useRef(null);
+  const boxRef = React.useRef(null);
+  const [width, setWidth] = React.useState(980);
+  const state = React.useRef({ progress: 0, x: 0.5, time: Math.PI / 2, id: 0 });
+
+  const draw = React.useCallback(
+    value => {
+      const { x } = state.current;
+      if (pathRef.current) {
+        pathRef.current.setAttribute(
+          'd',
+          `M0 ${HEIGHT / 2} Q${width * x} ${HEIGHT / 2 + value}, ${width} ${HEIGHT / 2}`
+        );
+      }
+    },
+    [width]
+  );
+
+  React.useEffect(() => {
+    if (boxRef.current) setWidth(boxRef.current.getBoundingClientRect().width);
+  }, []);
+
+  React.useEffect(() => {
+    const path = pathRef.current;
+    if (!path) return;
+    draw(0);
+    const length = path.getTotalLength();
+    path.style.strokeDasharray = length;
+    path.style.strokeDashoffset = length;
+    if (inView) {
+      path.getBoundingClientRect();
+      path.style.transition = 'stroke-dashoffset 1.2s cubic-bezier(0, 0.7, 0.29, 0.97)';
+      path.style.strokeDashoffset = '0';
+    }
+  }, [inView, draw]);
+
+  React.useEffect(() => () => cancelAnimationFrame(state.current.id), []);
+
+  const lerp = (a, b, t) => a * (1 - t) + b * t;
+
+  const animateOut = () => {
+    const st = state.current;
+    draw(st.progress * Math.sin(st.time));
+    st.time += 0.2;
+    st.progress = lerp(st.progress, 0, 0.025);
+    if (Math.abs(st.progress) > 0.75) {
+      st.id = requestAnimationFrame(animateOut);
+    } else {
+      st.time = Math.PI / 2;
+      st.progress = 0;
+      draw(0);
+    }
+  };
+
+  const onMove = e => {
+    const st = state.current;
+    const { left, width: w } = boxRef.current.getBoundingClientRect();
+    st.x = (e.clientX - left) / w;
+    st.progress = Math.max(-60, Math.min(60, st.progress + e.movementY));
+    draw(st.progress);
+  };
 
   return (
-    <motion.div
-      ref={ref}
-      initial={{ scaleX: 0 }}
-      animate={{ scaleX: inView ? 1 : 0 }}
-      transition={{ duration: 1.2, ease }}
-      style={{
-        height: 1,
-        background: '#d4af37',
-        transformOrigin: 'left',
-        gridColumn: '1 / -1',
-      }}
-    />
+    <div
+      ref={wrapRef}
+      style={{ gridColumn: '1 / -1', position: 'relative', height: 1 }}
+    >
+      <div
+        ref={boxRef}
+        onMouseEnter={() => cancelAnimationFrame(state.current.id)}
+        onMouseMove={onMove}
+        onMouseLeave={animateOut}
+        style={{
+          position: 'absolute',
+          left: 0,
+          right: 0,
+          top: -HEIGHT / 2,
+          height: HEIGHT,
+          zIndex: 2,
+        }}
+      >
+        <svg
+          width="100%"
+          height={HEIGHT}
+          viewBox={`0 0 ${width} ${HEIGHT}`}
+          preserveAspectRatio="none"
+          style={{ overflow: 'visible', display: 'block' }}
+          aria-hidden="true"
+        >
+          <path
+            ref={pathRef}
+            fill="none"
+            stroke="#d4af37"
+            strokeWidth="1.5"
+          />
+        </svg>
+      </div>
+    </div>
   );
 };
 
