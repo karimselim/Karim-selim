@@ -31,6 +31,19 @@ const Projects = () => {
           name="description"
           content="QA case studies and frontend projects by Karim Selim."
         />
+        <meta property="og:title" content="Projects - Karim Selim" />
+        <meta
+          property="og:description"
+          content="QA case studies and frontend projects by Karim Selim."
+        />
+        <meta
+          property="og:url"
+          content="https://karim-selim.vercel.app/case-studies"
+        />
+        <meta
+          property="og:image"
+          content="https://karim-selim.vercel.app/imgs/hero-poster.jpg"
+        />
         <link
           rel="canonical"
           href="https://karim-selim.vercel.app/case-studies"

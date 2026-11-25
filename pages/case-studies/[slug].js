@@ -8,6 +8,17 @@ const CaseStudyPage = ({ study }) => (
     <Head>
       <title>{`${study.title} - Karim Selim`}</title>
       <meta name="description" content={study.summary} />
+      <meta property="og:type" content="article" />
+      <meta property="og:title" content={`${study.title} - Karim Selim`} />
+      <meta property="og:description" content={study.summary} />
+      <meta
+        property="og:url"
+        content={`https://karim-selim.vercel.app/case-studies/${study.slug}`}
+      />
+      <meta
+        property="og:image"
+        content="https://karim-selim.vercel.app/imgs/hero-poster.jpg"
+      />
       <link
         rel="canonical"
         href={`https://karim-selim.vercel.app/case-studies/${study.slug}`}
