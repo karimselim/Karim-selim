@@ -28,6 +28,7 @@ import {
   ArrowContainer,
   Footer,
   Tag,
+  AllProjects,
   FooterText,
   VideoContainer,
   VideoReveal,
@@ -108,7 +109,18 @@ const Menu = () => {
         <Backdrop onAnimationComplete={handleAnimationComplete}>
           <Container ref={containerRef}>
             <Header>
-              <h3>Projects</h3>
+              <h3>
+                Projects
+                <NextLink href="/case-studies" passHref>
+                  <AllProjects
+                    onClick={() => dispatchMenu({ type: 'TOGGLE_MENU' })}
+                    onMouseEnter={addCursorBorder}
+                    onMouseLeave={removeCursorBorder}
+                  >
+                    All projects
+                  </AllProjects>
+                </NextLink>
+              </h3>
               <CloseButton title="Close" />
             </Header>
             <Navigation>

@@ -255,3 +255,13 @@ export const Tag = styled.span`
   font-weight: 700;
   white-space: nowrap;
 `;
+
+export const AllProjects = styled.a`
+  margin-left: 24px;
+  font-size: 0.9rem;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #d4af37;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+`;
