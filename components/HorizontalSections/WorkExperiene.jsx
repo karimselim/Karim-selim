@@ -78,8 +78,8 @@ const WorkExperiene = () => {
           </ExpP>
         </ExpText>
         <HoverMorphEffect
-          image1={'/imgs/second.jpg'}
-          image2={'/imgs/first.jpg'}
+          image1={'/imgs/qa-fail.jpg'}
+          image2={'/imgs/qa-pass.jpg'}
           displacementImage={'/imgs/colorful-displacemnt.png'}
           intensity={0.7}
           width={400}
