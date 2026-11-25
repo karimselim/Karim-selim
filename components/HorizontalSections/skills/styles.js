@@ -7,15 +7,9 @@ export const Container = styled.div`
   overflow: hidden;
 
   @media (max-width: 768px) {
+    height: 100svh;
     padding: 4px;
     box-sizing: border-box;
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
-    grid-column-gap: 4px;
-    grid-row-gap: 8px;
-    justify-items: center;
-    align-items: center;
   }
 `;
 
@@ -37,12 +31,13 @@ export const CardsStack = styled.div`
     opacity: 1;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
-    grid-template-rows: repeat(5, 1fr);
+    grid-template-rows: repeat(6, 1fr);
     grid-column-gap: 4px;
-    grid-row-gap: 8px;
+    grid-row-gap: 6px;
     justify-items: center;
     align-items: center;
-    padding-top: 40px;
+    padding-top: 0;
+    box-sizing: border-box;
   }
 `;
 
@@ -55,10 +50,12 @@ export const CardContainer = styled.div`
   left: 0;
 
   @media (max-width: 768px) {
-    width: calc((100vw - 16px) / 4); /* 4 columns, 4px gaps, 4px padding */
-    height: calc((100vh - 32px) / 5); /* 5 rows, 8px gaps, 4px padding */
-    max-width: 120px;
-    max-height: 140px;
+    /* 4 columns x 6 rows holds all 21 cards inside one screen */
+    height: calc((100svh - 8px - 30px) / 6);
+    width: auto;
+    aspect-ratio: 2 / 3;
+    max-width: calc((100vw - 8px - 12px) / 4);
+    max-height: 150px;
     position: relative;
     transform: none;
   }
