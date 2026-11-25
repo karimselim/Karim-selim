@@ -158,7 +158,7 @@ export default [
     tools: ['Jira'],
     result: [
       { value: '300+', label: 'bugs reported across MOSDEV and Again Please' },
-      { value: '390+', label: 'test cases written across MOSDEV and Again Please' },
+      { value: '390+', label: 'test cases recorded across MOSDEV and Again Please' },
     ],
     resultNote:
       'The dashboard is a private tool behind a login, so there is no public link. Names, addresses and ticket numbers are left out on purpose.',
@@ -172,6 +172,41 @@ export default [
       { area: 'Validation', title: 'Max. Packing Capacity field is expected to be required but the form allows submission without it' },
       { area: 'Validation', title: 'Max Capacity field allows the value 0 in the Assets creation form' },
       { area: 'Data', title: 'Dashboard info icon fetches data using the wrong date range (queries from April 2023 instead of Today)' },
+    ],
+    evidence: [],
+  },
+  {
+    slug: 'again-please',
+    title: 'Again Please consumer site',
+    kind: 'QA of a real product',
+    summary:
+      'Quality for a consumer site where people scan cups, return them and get rewarded. I was the only tester.',
+    problem:
+      'Again Please is the consumer site of a company in the UAE. People scan cups, return them and are rewarded for it. I was the only tester in the company and owned quality for it, next to the admin dashboard, and I took part in management meetings with the operations manager, the head of engineering and the CEO.',
+    tested: [
+      'Scanning cups and counting each scan once.',
+      'Signup, login and the instant reward.',
+      'Phone number entry.',
+      'The wallet screen and the pull-up slider.',
+      'Layout and styling against the design.',
+    ],
+    tools: ['Jira'],
+    result: [
+      { value: '300+', label: 'bugs reported across MOSDEV and Again Please' },
+      { value: '390+', label: 'test cases recorded across MOSDEV and Again Please' },
+    ],
+    resultNote:
+      'The staging site is not public, so there is no link. Names, addresses and ticket numbers are left out on purpose.',
+    hideChart: true,
+    bugsTitle: 'A selection of the bugs I reported',
+    bugsNote: 'Six examples chosen to show the range. Not the full list.',
+    bugs: [
+      { area: 'Behaviour', title: 'Duplicate scan counting and UI layout issues affecting accuracy and user experience' },
+      { area: 'UI', title: 'Pull-up slider intermittently freezes and the top shadow styling is missing' },
+      { area: 'UI', title: 'Wallet UI does not match the Apple Wallet-style design and card content is partially hidden' },
+      { area: 'Behaviour', title: 'Instant reward is displayed multiple times instead of only once on signup' },
+      { area: 'Behaviour', title: 'User can scan additional cups while already logged in' },
+      { area: 'Validation', title: 'Phone number is accepted with an empty country code' },
     ],
     evidence: [],
   },
