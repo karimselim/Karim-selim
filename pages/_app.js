@@ -91,7 +91,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Karim Nation</title>
+        <title>Karim Selim - QA Automation Engineer</title>
         <meta
           name="description"
           content="Karim Selim, QA automation engineer with a frontend background. Playwright, API testing, and interactive web work."
@@ -112,6 +112,8 @@ const App = ({ Component, pageProps }) => {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="canonical" href="https://karim-selim.vercel.app/" />
         <link rel="stylesheet" href="https://use.typekit.net/yzi3byl.css" />
       </Head>
       <style jsx global>{`

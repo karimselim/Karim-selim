@@ -12,6 +12,7 @@ const Layer = styled.div`
   inset: 0;
   z-index: 40;
   pointer-events: none;
+  display: ${({ theme }) => (theme.mode === 'dark' ? 'block' : 'none')};
   opacity: 0;
   transition: opacity 0.6s;
   background: radial-gradient(

@@ -7,9 +7,11 @@ import Experience from '../components/HorizontalSections/Experience';
 const Home = () => {
   return (
     <>
-      <BannerSection />
-      <TextReveal />
-      <Experience />
+      <main>
+        <BannerSection />
+        <TextReveal />
+        <Experience />
+      </main>
       <Footer />
     </>
   );
