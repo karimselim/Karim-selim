@@ -28,6 +28,7 @@ import {
   ArrowContainer,
   Footer,
   Tag,
+  AllProjects,
   FooterText,
   VideoContainer,
   VideoReveal,
@@ -42,7 +43,7 @@ const Menu = () => {
   const [revealVideo, setRevealVideo] = React.useState(null);
   const [isHovering, setIsHovering] = React.useState(false);
   const theme = useStyledTheme();
-  const [{ isMenuOpen }] = useMenuContext();
+  const [{ isMenuOpen }, dispatchMenu] = useMenuContext();
   const {
     addCursorBorder,
     removeCursorBorder,
@@ -74,6 +75,15 @@ const Menu = () => {
     setRevealVideo(null);
   }, [removeCursorBorder]);
 
+  // The menu can close while a link is hovered (click on an internal project),
+  // so no hover end event fires. Reset the hover state whenever it closes.
+  React.useEffect(() => {
+    if (!isMenuOpen) {
+      setRevealVideo(null);
+      setIsHovering(false);
+    }
+  }, [isMenuOpen]);
+
   React.useEffect(() => {
     const handleResize = () => {
       if (isMenuOpen && containerRef.current && videoContainerRef.current) {
@@ -99,7 +109,18 @@ const Menu = () => {
         <Backdrop onAnimationComplete={handleAnimationComplete}>
           <Container ref={containerRef}>
             <Header>
-              <h3>Projects</h3>
+              <h3>
+                Projects
+                <NextLink href="/case-studies" passHref>
+                  <AllProjects
+                    onClick={() => dispatchMenu({ type: 'TOGGLE_MENU' })}
+                    onMouseEnter={addCursorBorder}
+                    onMouseLeave={removeCursorBorder}
+                  >
+                    All projects
+                  </AllProjects>
+                </NextLink>
+              </h3>
               <CloseButton title="Close" />
             </Header>
             <Navigation>
@@ -122,9 +143,14 @@ const Menu = () => {
                     <NextLink href={route.path}>
                       <Link
                         href={route.path}
-                        target="_blank"
+                        target={route.internal ? undefined : '_blank'}
                         key={`${route.id}_${isMobile}`}
                         name={route.id}
+                        onClick={() => {
+                          // Internal pages open in the same tab: close the menu so it
+                          // does not stay on top of the new page.
+                          if (route.internal) dispatchMenu({ type: 'TOGGLE_MENU' });
+                        }}
                         onHoverStart={handleHoverStart}
                         onHoverEnd={handleHoverEnd}
                         custom={{ isMobile, color: '#d4af37' }}
@@ -162,6 +188,16 @@ const Menu = () => {
                 onMouseLeave={removeCursorBorder}
               >
                 +201068679457
+              </FooterText>
+              <FooterText
+                className="link"
+                as="a"
+                href="/Karim_Selim_QA_Resume.pdf"
+                download="Karim_Selim_QA_Resume.pdf"
+                onMouseEnter={addCursorBorder}
+                onMouseLeave={removeCursorBorder}
+              >
+                Download CV
               </FooterText>
               <FooterText className="copyright">© Karim Selim {new Date().getFullYear()}</FooterText>
               {isMobile && (

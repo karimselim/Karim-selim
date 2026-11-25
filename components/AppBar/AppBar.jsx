@@ -3,6 +3,7 @@ import Link from 'next/link';
 import Logo from '../Icons/Logo';
 import MenuButton from '../MenuButton';
 import { Slider, Container, StyledLink, MenuWrapper } from './styles';
+import CvButton from './CvButton';
 
 const getStyles = (direction = '') => {
   if (direction === 'down') return { top: 0 };
@@ -80,6 +81,7 @@ const AppBar = props => {
             <Logo {...logoProps} />
           </StyledLink>
         </Link>
+        <CvButton />
         <MenuWrapper>
           <MenuButton title="Projects" />
         </MenuWrapper>

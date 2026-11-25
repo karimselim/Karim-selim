@@ -1,4 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://karim-selim.vercel.app/</loc></url>
+  <url><loc>https://karim-selim.vercel.app/case-studies</loc></url>
+  <url><loc>https://karim-selim.vercel.app/case-studies/vendure</loc></url>
+  <url><loc>https://karim-selim.vercel.app/case-studies/portfolio-website</loc></url>
+  <url><loc>https://karim-selim.vercel.app/case-studies/mosdev</loc></url>
+  <url><loc>https://karim-selim.vercel.app/case-studies/again-please</loc></url>
 </urlset>

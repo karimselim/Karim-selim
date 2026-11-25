@@ -18,6 +18,7 @@ const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
         onMouseEnter={addCursorBorder}
         onMouseLeave={removeCursorBorder}
         onClick={handleOnToggle}
+        aria-label={title || 'Menu'}
         ref={ref}
         {...props}
       >

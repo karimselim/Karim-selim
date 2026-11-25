@@ -88,24 +88,25 @@ const App = ({ Component, pageProps }) => {
     };
   }, []);
 
+  // Page titles and descriptions come from pageProps.seo so they are in the
+  // server HTML even while the intro loader is showing.
+  const seo = {
+    title: 'Karim Selim - QA Automation Engineer',
+    description:
+      'Karim Selim, QA automation engineer with a frontend background. 300+ bugs reported and 390+ test cases across two products. Playwright and API testing.',
+    url: 'https://karim-selim.vercel.app/',
+    ...(pageProps && pageProps.seo),
+  };
+
   return (
     <>
       <Head>
-        <title>Karim Selim - QA Automation Engineer</title>
-        <meta
-          name="description"
-          content="Karim Selim, QA automation engineer with a frontend background. Playwright, API testing, and interactive web work."
-        />
+        <title>{seo.title}</title>
+        <meta name="description" content={seo.description} />
         <meta property="og:type" content="website" />
-        <meta
-          property="og:title"
-          content="Karim Selim - QA Automation Engineer"
-        />
-        <meta
-          property="og:description"
-          content="QA automation engineer with a frontend background. Playwright, API testing, and interactive web work."
-        />
-        <meta property="og:url" content="https://karim-selim.vercel.app/" />
+        <meta property="og:title" content={seo.title} />
+        <meta property="og:description" content={seo.description} />
+        <meta property="og:url" content={seo.url} />
         <meta
           property="og:image"
           content="https://karim-selim.vercel.app/imgs/hero-poster.jpg"
@@ -113,7 +114,7 @@ const App = ({ Component, pageProps }) => {
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon.png" />
         <link rel="apple-touch-icon" href="/favicon.png" />
-        <link rel="canonical" href="https://karim-selim.vercel.app/" />
+        <link rel="canonical" href={seo.url} />
         <link rel="stylesheet" href="https://use.typekit.net/yzi3byl.css" />
       </Head>
       <style jsx global>{`

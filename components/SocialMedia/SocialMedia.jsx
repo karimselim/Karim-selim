@@ -5,10 +5,11 @@ import StickyCursor from '../StickyCursor';
 import { Container, Link } from './styles';
 
 const medias = [
-  { component: Facebook, url: 'https://www.facebook.com/karim.selim.27/' },
-  { component: Github, url: 'https://github.com/karimselim' },
+  { component: Facebook, label: 'Facebook', url: 'https://www.facebook.com/karim.selim.27/' },
+  { component: Github, label: 'GitHub', url: 'https://github.com/karimselim' },
   {
     component: Linkedin,
+    label: 'LinkedIn',
     url: 'https://www.linkedin.com/in/karim-selim-qa',
   },
 ];
@@ -18,10 +19,12 @@ const SocialMedia = props => {
 
   return (
     <Container {...props}>
-      {medias.map(({ component: Component, url }) => (
+      {medias.map(({ component: Component, url, label }) => (
         <StickyCursor key={url}>
           <Link
             target="_blank"
+            rel="noopener noreferrer"
+            aria-label={`${label} (opens in a new tab)`}
             href={url}
             onMouseEnter={addCursorBorder}
             onMouseLeave={removeCursorBorder}
