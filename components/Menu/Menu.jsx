@@ -42,7 +42,7 @@ const Menu = () => {
   const [revealVideo, setRevealVideo] = React.useState(null);
   const [isHovering, setIsHovering] = React.useState(false);
   const theme = useStyledTheme();
-  const [{ isMenuOpen }] = useMenuContext();
+  const [{ isMenuOpen }, dispatchMenu] = useMenuContext();
   const {
     addCursorBorder,
     removeCursorBorder,
@@ -125,6 +125,11 @@ const Menu = () => {
                         target={route.internal ? undefined : '_blank'}
                         key={`${route.id}_${isMobile}`}
                         name={route.id}
+                        onClick={() => {
+                          // Internal pages open in the same tab: close the menu so it
+                          // does not stay on top of the new page.
+                          if (route.internal) dispatchMenu({ type: 'TOGGLE_MENU' });
+                        }}
                         onHoverStart={handleHoverStart}
                         onHoverEnd={handleHoverEnd}
                         custom={{ isMobile, color: '#d4af37' }}
