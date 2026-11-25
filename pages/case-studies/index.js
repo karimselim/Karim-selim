@@ -1,5 +1,4 @@
 import React from 'react';
-import Head from 'next/head';
 import NextLink from 'next/link';
 import { Reveal, WordReveal } from '../../components/CaseStudy/Reveal';
 import useCursorStyle from '../../hooks/useCursorStyle';
@@ -25,30 +24,6 @@ const Projects = () => {
 
   return (
     <>
-      <Head>
-        <title>Projects - Karim Selim</title>
-        <meta
-          name="description"
-          content="QA case studies and frontend projects by Karim Selim."
-        />
-        <meta property="og:title" content="Projects - Karim Selim" />
-        <meta
-          property="og:description"
-          content="QA case studies and frontend projects by Karim Selim."
-        />
-        <meta
-          property="og:url"
-          content="https://karim-selim.vercel.app/case-studies"
-        />
-        <meta
-          property="og:image"
-          content="https://karim-selim.vercel.app/imgs/hero-poster.jpg"
-        />
-        <link
-          rel="canonical"
-          href="https://karim-selim.vercel.app/case-studies"
-        />
-      </Head>
       <Page>
         <NextLink href="/" passHref>
           <Back {...hover}>Back to the site</Back>
@@ -123,5 +98,15 @@ const Projects = () => {
     </>
   );
 };
+
+export const getStaticProps = async () => ({
+  props: {
+    seo: {
+      title: 'Projects - Karim Selim',
+      description: 'QA case studies and frontend projects by Karim Selim.',
+      url: 'https://karim-selim.vercel.app/case-studies',
+    },
+  },
+});
 
 export default Projects;
