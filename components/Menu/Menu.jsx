@@ -12,9 +12,6 @@ import Arrow from '../Icons/Arrow';
 import {
   listVariants,
   listItemsVariants,
-  linkVariants,
-  videoRevealVariants,
-  videoVariants,
   transition,
 } from './variants';
 import {
@@ -23,14 +20,10 @@ import {
   CloseButton,
   Header,
   Navigation,
-  List,
-  Link,
-  ArrowContainer,
+  Grid,
+  Tile,
   Footer,
   FooterText,
-  VideoContainer,
-  VideoReveal,
-  Video,
   Address,
   SocialMedia,
 } from './styles';
@@ -102,45 +95,36 @@ const Menu = () => {
               <CloseButton title="Close" />
             </Header>
             <Navigation>
-              <List
+              <Grid
                 variants={listVariants}
                 initial="hidden"
                 animate="show"
-                onHoverStart={() => setIsHovering(true)}
-                onHoverEnd={() => setIsHovering(false)}
               >
-                {routes.map(route => (
-                  <motion.li
+                {routes.map((route, i) => (
+                  <Tile
                     key={route.id}
+                    href={route.path}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`${route.title}, opens the live project`}
                     variants={listItemsVariants}
-                    transition={{
-                      duration: 0.9,
-                      ease: transition.ease,
-                    }}
+                    transition={{ duration: 0.9, ease: transition.ease }}
+                    onMouseEnter={addCursorBorder}
+                    onMouseLeave={removeCursorBorder}
                   >
-                    <NextLink href={route.path}>
-                      <Link
-                        href={route.path}
-                        target="_blank"
-                        key={`${route.id}_${isMobile}`}
-                        name={route.id}
-                        onHoverStart={handleHoverStart}
-                        onHoverEnd={handleHoverEnd}
-                        custom={{ isMobile, color: theme.text }}
-                        initial="initial"
-                        whileHover="hover"
-                        variants={linkVariants}
-                        transition={transition}
-                      >
-                        <ArrowContainer>
-                          <Arrow fillColor={theme.background} />
-                        </ArrowContainer>
-                        {route.title}
-                      </Link>
-                    </NextLink>
-                  </motion.li>
+                    <video
+                      src={`/videos/${route.video}`}
+                      muted
+                      loop
+                      playsInline
+                      autoPlay
+                      preload="metadata"
+                    />
+                    <span className="num">0{i + 1}</span>
+                    <span className="title">{route.title}</span>
+                  </Tile>
                 ))}
-              </List>
+              </Grid>
             </Navigation>
             <Footer>
               <FooterText
@@ -170,28 +154,6 @@ const Menu = () => {
               <SocialMedia />
             </Footer>
           </Container>
-          {!isMobile && (
-            <VideoContainer ref={videoContainerRef}>
-              <VideoReveal
-                variants={videoRevealVariants}
-                transition={transition}
-                initial="show"
-                animate={isHovering ? 'hidden' : 'show'}
-              />
-              {routes.map(route => (
-                <Video
-                  key={route.id}
-                  src={`/videos/${route.video}`}
-                  variants={videoVariants}
-                  initial="hidden"
-                  animate={route.id === revealVideo ? 'show' : 'hidden'}
-                  transition={transition}
-                  loop
-                  autoPlay
-                ></Video>
-              ))}
-            </VideoContainer>
-          )}
         </Backdrop>
       )}
     </AnimatePresence>

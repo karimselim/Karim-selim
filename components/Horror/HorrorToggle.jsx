@@ -1,5 +1,5 @@
 import React from 'react';
-import styled, { keyframes } from 'styled-components';
+import styled, { keyframes, css } from 'styled-components';
 import { useHorror, setHorror } from '../../utils/horror';
 
 const flicker = keyframes`
@@ -47,7 +47,12 @@ const Btn = styled.button`
   }
   .smoke {
     opacity: 0;
-    ${({ on }) => (on ? '' : `animation: ${smoke} 2.4s ease-out 1;`)}
+    ${({ on }) =>
+      on
+        ? ''
+        : css`
+            animation: ${smoke} 2.4s ease-out 1;
+          `}
   }
   @media (prefers-reduced-motion: reduce) {
     .flame,
