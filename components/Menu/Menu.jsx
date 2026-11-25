@@ -27,6 +27,7 @@ import {
   Link,
   ArrowContainer,
   Footer,
+  Tag,
   FooterText,
   VideoContainer,
   VideoReveal,
@@ -126,16 +127,17 @@ const Menu = () => {
                         name={route.id}
                         onHoverStart={handleHoverStart}
                         onHoverEnd={handleHoverEnd}
-                        custom={{ isMobile, color: theme.text }}
+                        custom={{ isMobile, color: '#d4af37' }}
                         initial="initial"
                         whileHover="hover"
                         variants={linkVariants}
                         transition={transition}
                       >
                         <ArrowContainer>
-                          <Arrow fillColor={theme.background} />
+                          <Arrow fillColor="#f1e6c8" />
                         </ArrowContainer>
                         {route.title}
+                        {route.tag && <Tag>{route.tag}</Tag>}
                       </Link>
                     </NextLink>
                   </motion.li>

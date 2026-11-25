@@ -4,10 +4,10 @@ export const StyledCursor = styled.div`
   position: fixed;
   top: 0;
   left: 0;
-  width: 36px;
-  height: 36px;
-  margin: -18px 0 0 -18px;
-  border: 18px solid ${({ theme }) => theme.text};
+  width: 24px;
+  height: 24px;
+  margin: -12px 0 0 -12px;
+  border: 12px solid ${({ theme }) => theme.text};
   border-radius: 100%;
   transform: translate3d(-100%, -100%, 0);
   transition: all 0.1s ease-out;
@@ -21,7 +21,7 @@ export const StyledCursor = styled.div`
     return (
       color &&
       css`
-        border: 18px solid ${color};
+        border: 12px solid ${color};
       `
     );
   }};
@@ -31,11 +31,24 @@ export const StyledCursor = styled.div`
     return (
       bordered &&
       css`
-        width: 64px;
-        height: 64px;
-        margin: -32px 0 0 -32px;
-        border-width: 5px;
+        width: 54px;
+        height: 54px;
+        margin: -27px 0 0 -27px;
+        border-width: 3px;
         border-color: ${color || theme.text};
+
+        /* same colour dot in the middle: the ring is the disc opened up */
+        &::after {
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 8px;
+          height: 8px;
+          margin: -4px 0 0 -4px;
+          border-radius: 100%;
+          background: ${color || theme.text};
+        }
       `
     );
   }};

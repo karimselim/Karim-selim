@@ -70,6 +70,8 @@ const AppBar = props => {
         ...styles,
         ...styleProp,
       }}
+      inert={hidden && direction === 'down' ? '' : undefined}
+      aria-hidden={hidden && direction === 'down' ? 'true' : undefined}
       {...rootProps}
     >
       <Container>

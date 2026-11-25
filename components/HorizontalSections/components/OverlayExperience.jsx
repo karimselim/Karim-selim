@@ -81,8 +81,8 @@ const OverlayExperience = ({ triggerRef }) => {
             </ExpP>
           </ExpText>
           <HoverMorphEffect
-            image1={'/imgs/coloful-closed.jpg'}
-            image2={'/imgs/colorful-open.jpg'}
+            image1={'/imgs/fe-design.jpg'}
+            image2={'/imgs/fe-code.jpg'}
             displacementImage={'/imgs/colorful-displacemnt.png'}
             intensity={0.7}
             width={400}

@@ -98,6 +98,12 @@ export default createGlobalStyle`
     cursor: none;
   }
 
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #d4af37;
+    outline-offset: 4px;
+  }
+
   svg {
     width: 100%;
     height: 100%;

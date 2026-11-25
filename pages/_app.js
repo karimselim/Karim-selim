@@ -11,6 +11,8 @@ import AppBar from '../components/AppBar';
 import Cursor from '../components/Cursor';
 import Menu from '../components/Menu';
 import { Loader } from '../components/Loader';
+import HorrorToggle from '../components/Horror/HorrorToggle';
+import Atmosphere from '../components/Horror/Atmosphere';
 
 const themes = {
   dark: darkTheme,
@@ -43,12 +45,11 @@ const App = ({ Component, pageProps }) => {
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       // Mobile: only the hero video (saves data). Desktop: hero + project videos.
       const assets = isMobile
-        ? ['/videos/second(2).mp4']
+        ? ['/videos/hero-ide.mp4']
         : [
-            '/videos/second(2).mp4',
+            '/videos/hero-ide.mp4',
             '/videos/home.mp4',
             '/videos/coffee.mp4',
-            '/videos/fifth.mp4',
             '/videos/tut.mp4',
           ];
       const controller = new AbortController();
@@ -90,7 +91,7 @@ const App = ({ Component, pageProps }) => {
   return (
     <>
       <Head>
-        <title>Karim Nation</title>
+        <title>Karim Selim - QA Automation Engineer</title>
         <meta
           name="description"
           content="Karim Selim, QA automation engineer with a frontend background. Playwright, API testing, and interactive web work."
@@ -111,6 +112,8 @@ const App = ({ Component, pageProps }) => {
         />
         <meta name="twitter:card" content="summary_large_image" />
         <link rel="icon" href="/favicon.png" />
+        <link rel="apple-touch-icon" href="/favicon.png" />
+        <link rel="canonical" href="https://karim-selim.vercel.app/" />
         <link rel="stylesheet" href="https://use.typekit.net/yzi3byl.css" />
       </Head>
       <style jsx global>{`
@@ -167,6 +170,8 @@ const App = ({ Component, pageProps }) => {
                   <Header />
                   <Menu />
                   <Component {...pageProps} />
+                  <Atmosphere />
+                  <HorrorToggle />
                 </>
               )}
               <Cursor />

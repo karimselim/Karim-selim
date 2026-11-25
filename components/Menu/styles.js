@@ -7,8 +7,8 @@ import DefaultSocialMedia from '../SocialMedia';
 import MenuButton from '../MenuButton';
 
 export const Backdrop = styled(DefaultBackdrop)`
-  background: ${({ theme }) => theme.colors.red};
-  color: ${({ theme }) => theme.background};
+  background: #1c0308;
+  color: #f1e6c8;
 `;
 
 export const Container = styled.div`
@@ -70,7 +70,7 @@ export const FooterText = styled.p`
     margin-right: 64px;
 
     &:hover {
-      color: ${({ theme }) => theme.text};
+      color: #d4af37;
     }
   }
 
@@ -104,7 +104,11 @@ export const SocialMedia = styled(DefaultSocialMedia)`
   width: 100%;
 
   & a svg path {
-    fill: ${({ theme }) => theme.background};
+    fill: #f1e6c8;
+  }
+
+  & a:hover svg path {
+    fill: #d4af37;
   }
 
   ${({ theme }) => theme.breakpoints.small`
@@ -188,7 +192,7 @@ export const VideoReveal = styled(motion.div)`
   left: 0;
   will-change: width;
   transform: translateZ(0);
-  background: ${({ theme }) => theme.colors.red};
+  background: #1c0308;
 `;
 
 export const Video = styled(motion.video)`
@@ -209,13 +213,13 @@ export const CloseButton = styled(MenuButton)`
   margin: -20px;
 
   & span {
-    color: ${({ theme }) => theme.background};
+    color: #f1e6c8;
   }
 
   &::before,
   &::after {
     margin-top: 0;
-    background: ${({ theme }) => theme.background};
+    background: #f1e6c8;
   }
 
   &::before {
@@ -235,4 +239,19 @@ export const CloseButton = styled(MenuButton)`
       margin-top: 0;
     }
   `};
+`;
+
+export const Tag = styled.span`
+  display: inline-block;
+  margin-left: 18px;
+  padding: 4px 12px;
+  border: 1px solid #d4af37;
+  border-radius: 999px;
+  color: #d4af37;
+  font-size: 0.8125rem;
+  line-height: 1.2;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-weight: 700;
+  white-space: nowrap;
 `;
