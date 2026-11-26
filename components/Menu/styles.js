@@ -7,8 +7,8 @@ import DefaultSocialMedia from '../SocialMedia';
 import MenuButton from '../MenuButton';
 
 export const Backdrop = styled(DefaultBackdrop)`
-  background: #1c0308;
-  color: #f1e6c8;
+  background: ${({ theme }) => theme.menuBg};
+  color: ${({ theme }) => theme.menuInk};
 `;
 
 export const Container = styled.div`
@@ -70,7 +70,7 @@ export const FooterText = styled.p`
     margin-right: 64px;
 
     &:hover {
-      color: #d4af37;
+      color: ${({ theme }) => theme.menuGold};
     }
   }
 
@@ -104,11 +104,11 @@ export const SocialMedia = styled(DefaultSocialMedia)`
   width: 100%;
 
   & a svg path {
-    fill: #f1e6c8;
+    fill: ${({ theme }) => theme.menuInk};
   }
 
   & a:hover svg path {
-    fill: #d4af37;
+    fill: ${({ theme }) => theme.menuGold};
   }
 
   ${({ theme }) => theme.breakpoints.small`
@@ -198,7 +198,7 @@ export const VideoReveal = styled(motion.div)`
   left: 0;
   will-change: width;
   transform: translateZ(0);
-  background: #1c0308;
+  background: ${({ theme }) => theme.menuBg};
 `;
 
 export const Video = styled(motion.video)`
@@ -219,13 +219,13 @@ export const CloseButton = styled(MenuButton)`
   margin: -20px;
 
   & span {
-    color: #f1e6c8;
+    color: ${({ theme }) => theme.menuInk};
   }
 
   &::before,
   &::after {
     margin-top: 0;
-    background: #f1e6c8;
+    background: ${({ theme }) => theme.menuInk};
   }
 
   &::before {
@@ -260,9 +260,9 @@ export const Tag = styled.span`
   @media (min-width: 768px) {
     padding: 4px calc(12px - 0.18em) 4px 12px;
   }
-  border: 1px solid #d4af37;
+  border: 1px solid ${({ theme }) => theme.menuGold};
   border-radius: 999px;
-  color: #d4af37;
+  color: ${({ theme }) => theme.menuGold};
   font-size: 0.8125rem;
   line-height: 1.2;
   letter-spacing: 0.18em;
@@ -276,7 +276,7 @@ export const AllProjects = styled.a`
   font-size: 0.9rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  color: #d4af37;
+  color: ${({ theme }) => theme.menuGold};
   text-decoration: underline;
   text-underline-offset: 4px;
 `;
