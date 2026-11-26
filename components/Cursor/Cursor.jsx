@@ -52,8 +52,19 @@ const Cursor = () => {
   React.useEffect(() => {
     const onMouseMove = event => {
       lastPoint.current = { x: event.clientX, y: event.clientY };
-      const x = position ? position.x : event.clientX;
-      const y = position ? position.y : event.clientY;
+      // The sticky lock is normally released by mouseleave. If the locked button
+      // is removed while hovered (menu open/close), that never fires and the
+      // cursor stays frozen. A pointer well away from the lock releases it.
+      let locked = position;
+      if (
+        locked &&
+        Math.hypot(event.clientX - locked.x, event.clientY - locked.y) > 90
+      ) {
+        locked = null;
+        dispatch({ type: 'LOCK_CURSOR_POSITION', payload: null });
+      }
+      const x = locked ? locked.x : event.clientX;
+      const y = locked ? locked.y : event.clientY;
       cursorRef.current.style.transform = `translate3d(${x}px, ${y}px, 0)`;
     };
 
@@ -62,7 +73,7 @@ const Cursor = () => {
     return () => {
       document.removeEventListener('mousemove', onMouseMove);
     };
-  }, [position]);
+  }, [position, dispatch]);
 
   return (
     <StyledCursor
