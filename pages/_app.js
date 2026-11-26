@@ -83,7 +83,7 @@ const App = ({ Component, pageProps }) => {
         const now = Date.now();
         if (!document.hidden) visibleMs += Math.min(now - last, 250);
         last = now;
-        if (visibleMs >= 7000) {
+        if (visibleMs >= 4300) {
           clearInterval(endTimer);
           stopPreload();
           setLoading(false);
