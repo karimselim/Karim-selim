@@ -27,15 +27,27 @@ const Cursor = () => {
         });
       }
     };
+    // The hit test forces layout work, so while scrolling run it at most about
+    // every 120ms instead of every frame (the ring still catches up right after).
     let raf = null;
+    let lastRun = 0;
     const onScroll = () => {
       if (raf === null) {
         raf = requestAnimationFrame(() => {
+          const now = performance.now();
+          if (now - lastRun < 120) {
+            raf = null;
+            clearTimeout(timer);
+            timer = setTimeout(onScroll, 130 - (now - lastRun));
+            return;
+          }
+          lastRun = now;
           raf = null;
           sync();
         });
       }
     };
+    let timer = null;
     window.addEventListener('scroll', onScroll, {
       passive: true,
       capture: true,
@@ -45,6 +57,7 @@ const Cursor = () => {
     return () => {
       window.removeEventListener('scroll', onScroll, { capture: true });
       window.removeEventListener('cursor-sync', onScroll);
+      clearTimeout(timer);
       if (raf !== null) cancelAnimationFrame(raf);
     };
   }, [dispatch]);
