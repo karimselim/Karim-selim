@@ -25,6 +25,8 @@ export const StyledLink = styled.a`
   left: auto;
   width: 131px;
   height: 23px;
+  color: var(--hdr, inherit);
+  transition: color 0.3s ease;
 
   ${({ theme }) => theme.breakpoints.tablet`
     width: 99px;

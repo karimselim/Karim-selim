@@ -13,6 +13,7 @@ const TextReveal = () => {
   const linesRef = useRef(null);
   const paragraphRef = useRef(null);
   const clipRect = useRef(null);
+  const sigRef = useRef(null);
 
   useEffect(() => {
     const init = async () => {
@@ -28,7 +29,9 @@ const TextReveal = () => {
         const pWords = paragraphRef.current.querySelectorAll('.pWord');
         gsap.set(pWords, { y: 20, opacity: 0 });
 
-        gsap.set(clipRect.current, { width: 0 });
+        // width must be an SVG attribute: Safari ignores CSS width on <rect>,
+        // which made the signature show in full before it was written
+        gsap.set(clipRect.current, { attr: { width: 0 } });
 
         const tl = gsap.timeline();
         tl.to(words, {
@@ -50,17 +53,18 @@ const TextReveal = () => {
             },
             '+=0.2'
           )
-          .to(
-            clipRect.current,
-            {
-              width: '100%',
-              duration: 4,
-              ease: 'power2.out',
-            },
-            '+=0.4'
-          );
+          ;
+
+        const writeSignature = () =>
+          gsap.to(clipRect.current, {
+            attr: { width: 700 },
+            duration: 3.5,
+            ease: 'power2.inOut',
+          });
 
         if (!isMobile) {
+          // desktop: signature writes after the text, as part of the timeline
+          tl.add(writeSignature(), '+=0.4');
           ScrollTrigger.create({
             trigger: sectionRef.current,
             start: 'top 80%',
@@ -77,6 +81,19 @@ const TextReveal = () => {
             onEnterBack: () => tl.play(),
             onLeave: () => tl.pause(0),
             onLeaveBack: () => tl.pause(0),
+          });
+          // phone: the text takes ~7s, people scroll on before the signature
+          // would start, so it writes itself when the signature is on screen
+          let sig;
+          ScrollTrigger.create({
+            trigger: sigRef.current,
+            start: 'top 92%',
+            onEnter: () => {
+              if (!sig) {
+                gsap.set(clipRect.current, { attr: { width: 0 } });
+                sig = writeSignature();
+              }
+            },
           });
         }
 
@@ -114,7 +131,7 @@ const TextReveal = () => {
         ))}
       </p>
 
-      <div className="signature">
+      <div className="signature" ref={sigRef}>
         <svg
           viewBox="0 0 700 120"
           className="sigSVG"

@@ -1,15 +1,25 @@
+import React from 'react';
 import styled from 'styled-components';
 
 export const Cards = styled.div`
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+  grid-auto-rows: 1fr;
   gap: 1.5rem;
   margin-top: 1.2rem;
+
+  /* every card the same height as its row, and the same size in both lists */
+  & > * {
+    height: 100%;
+  }
 `;
 
-export const Card = styled.article`
+const CardBase = styled.article`
   display: grid;
   align-content: start;
+  height: 100%;
+  min-height: 24rem;
+  box-sizing: border-box;
   gap: 1rem;
   padding: 1.6rem;
   border: 1px solid rgba(128, 128, 128, 0.4);
@@ -20,7 +30,33 @@ export const Card = styled.article`
     transform: translateY(-6px);
     border-color: #d4af37;
   }
+
+  /* desktop: tilt toward the pointer, same feel as the CV card */
+  @media (min-width: 768px) {
+    will-change: transform;
+    &:hover {
+      transform: perspective(900px) translateY(-6px) rotateX(var(--rx, 0deg))
+        rotateY(var(--ry, 0deg));
+      transition: transform 0.25s ease-out, border-color 0.4s ease;
+    }
+  }
 `;
+
+export const Card = props => {
+  const move = e => {
+    if (window.innerWidth <= 768) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    e.currentTarget.style.setProperty('--ry', `${x * 36}deg`);
+    e.currentTarget.style.setProperty('--rx', `${-y * 28}deg`);
+  };
+  const leave = e => {
+    e.currentTarget.style.setProperty('--ry', '0deg');
+    e.currentTarget.style.setProperty('--rx', '0deg');
+  };
+  return <CardBase onMouseMove={move} onMouseLeave={leave} {...props} />;
+};
 
 export const CardTitle = styled.h2`
   font-size: 1.8rem;
@@ -35,10 +71,17 @@ export const CardLine = styled.p`
 
 export const Tag = styled.span`
   justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #d4af37;
   border: 1px solid #d4af37;
-  padding: 0.2rem 0.6rem;
+  padding: 0.3rem calc(0.6rem - 0.14em) 0.1rem 0.6rem;
+  @media (min-width: 768px) {
+    padding: 0.2rem calc(0.6rem - 0.14em) 0.2rem 0.6rem;
+  }
 `;

@@ -25,6 +25,8 @@ function Experience() {
           const gsap = gsapModule.default;
           const ScrollTrigger = ScrollTriggerModule.default;
           gsap.registerPlugin(ScrollTrigger);
+          // Phone URL bar show/hide must not refresh the triggers mid-scroll (jump).
+          ScrollTrigger.config({ ignoreMobileResize: true });
 
           const tl = gsap.timeline({
             id: 'horizontal-scroll', // ID for containerAnimation

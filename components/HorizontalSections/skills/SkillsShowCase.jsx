@@ -9,6 +9,7 @@ import {
   animateShowTitle,
 } from './animations';
 import gsap from 'gsap';
+import MobileSkills from './MobileSkills';
 
 const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
   const [selectedCards, setSelectedCards] = useState([]);
@@ -59,7 +60,7 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
   }, []);
 
   useEffect(() => {
-    if (isClient && containerRef.current) {
+    if (isClient && isDesktop && containerRef.current) {
       const observer = new IntersectionObserver(
         entries => {
           entries.forEach(entry => {
@@ -98,6 +99,10 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
     }
   }, [isAnimationComplete]);
 
+  if (isClient && !isDesktop) {
+    return <MobileSkills />;
+  }
+
   return (
     <Container ref={containerRef}>
       <CardsStack ref={stackRefRef}>
@@ -108,7 +113,9 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
             title={skill.title}
             isSelected={selectedCards.includes(i)}
             zIndex={
-              selectedCards.includes(i) ? 1000 + selectedCards.indexOf(i) : i
+              selectedCards.includes(i)
+                ? 1000 + selectedCards.indexOf(i)
+                : skillCards.length - i
             }
             onClick={event => handleCardClick(i, selectedCards.length, event)}
             onTouchEnd={event =>

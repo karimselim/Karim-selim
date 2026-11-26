@@ -11,7 +11,6 @@ import AppBar from '../components/AppBar';
 import Cursor from '../components/Cursor';
 import Menu from '../components/Menu';
 import { Loader } from '../components/Loader';
-import HorrorToggle from '../components/Horror/HorrorToggle';
 import Atmosphere from '../components/Horror/Atmosphere';
 
 const themes = {
@@ -39,13 +38,14 @@ const App = ({ Component, pageProps }) => {
 
   useEffect(() => {
     let stopPreload = () => {};
+    let endTimer;
     const initialTimer = setTimeout(() => {
       // Warm the browser cache with the heavy assets while the intro animation plays.
       // Loader timing/animation is unchanged; nothing keeps loading once it ends.
       const isMobile = window.matchMedia('(max-width: 768px)').matches;
       // Mobile: only the hero video (saves data). Desktop: hero + project videos.
       const assets = isMobile
-        ? ['/videos/hero-ide.mp4']
+        ? ['/imgs/hero-mobile.jpg']
         : [
             '/videos/hero-ide.mp4',
             '/videos/home.mp4',
@@ -75,15 +75,26 @@ const App = ({ Component, pageProps }) => {
 
       preloadResources();
 
-      setTimeout(() => {
-        stopPreload();
-        setLoading(false);
-      }, 7000);
+      // Count only the time the tab is visible: the intro animation pauses in a
+      // hidden tab, so a wall-clock timer would remove the loader mid-animation.
+      let visibleMs = 0;
+      let last = Date.now();
+      endTimer = setInterval(() => {
+        const now = Date.now();
+        if (!document.hidden) visibleMs += Math.min(now - last, 250);
+        last = now;
+        if (visibleMs >= 7000) {
+          clearInterval(endTimer);
+          stopPreload();
+          setLoading(false);
+        }
+      }, 100);
     }, 1000);
 
     // Cleanup on component unmount
     return () => {
       clearTimeout(initialTimer);
+      clearInterval(endTimer);
       stopPreload();
     };
   }, []);
@@ -172,7 +183,6 @@ const App = ({ Component, pageProps }) => {
                   <Menu />
                   <Component {...pageProps} />
                   <Atmosphere />
-                  <HorrorToggle />
                 </>
               )}
               <Cursor />

@@ -18,9 +18,10 @@ export const animateDesktop = (
 
   const { innerWidth: w, innerHeight: h } = window;
 
-  const offset = 220;
-  const extendedOffset = 500;
-  const stepSize = 70;
+  // cards are 128x192; keep the four groups on screen on smaller desktops
+  const offset = Math.min(265, h / 2 - 140);
+  const extendedOffset = Math.min(540, w / 2 - 100);
+  const stepSize = 75;
 
   const tl = gsap.timeline({
     delay: 0.5,

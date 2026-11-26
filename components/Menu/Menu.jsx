@@ -153,14 +153,14 @@ const Menu = () => {
                         }}
                         onHoverStart={handleHoverStart}
                         onHoverEnd={handleHoverEnd}
-                        custom={{ isMobile, color: '#d4af37' }}
+                        custom={{ isMobile, color: theme.menuGold }}
                         initial="initial"
                         whileHover="hover"
                         variants={linkVariants}
                         transition={transition}
                       >
                         <ArrowContainer>
-                          <Arrow fillColor="#f1e6c8" />
+                          <Arrow fillColor={theme.menuInk} />
                         </ArrowContainer>
                         {route.title}
                         {route.tag && <Tag>{route.tag}</Tag>}

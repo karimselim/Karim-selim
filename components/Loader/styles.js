@@ -177,6 +177,11 @@ export const Whispers = styled.div`
   color: #b0141e;
   font-size: clamp(0.8rem, 1.6vw, 1.3rem);
   pointer-events: none;
+  @media (max-width: 767px) {
+    font-size: 1.2rem;
+    letter-spacing: 0.2em;
+    top: 60%;
+  }
   span {
     position: absolute;
     left: 0;

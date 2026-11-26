@@ -26,8 +26,17 @@ export const VideoContainer = styled.div`
   height: 100%;
   width: 100%;
 
+  & img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
+  }
+
   & video {
     object-fit: cover;
+
     &::-webkit-media-controls {
       display: none !important;
     }
@@ -68,5 +77,13 @@ export const BannerTitle = styled(motion.h1)`
     font-size: 160px;
     font-size: 10rem;
     line-height: .68125;
+  `};
+
+  /* light mode on a phone: the dark hero video is always visible behind it */
+  ${({ theme }) =>
+    theme.mode === 'dark'
+      ? ''
+      : theme.breakpoints.tablet`
+    color: #fff;
   `};
 `;
