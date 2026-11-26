@@ -13,7 +13,7 @@ export default [
     title: 'MOSDEV',
     path: '/case-studies/mosdev',
     internal: true,
-    video: 'hero-ide.mp4',
+    video: 'qa-workspace.mp4',
   },
   {
     id: 'again-please',
@@ -21,7 +21,7 @@ export default [
     title: 'Again Please',
     path: '/case-studies/again-please',
     internal: true,
-    video: 'hero-ide.mp4',
+    video: 'typing-desk.mp4',
   },
   {
     id: 'coffee-nation',
