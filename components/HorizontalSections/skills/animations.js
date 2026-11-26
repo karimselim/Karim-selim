@@ -257,7 +257,8 @@ export const animateShowTitle = titleRef => {
                 scale: 1,
                 duration: 0.6,
                 ease: 'power3.out',
-                clearProps: 'scale',
+                // clear the colour too, so the letters follow the theme (light/dark)
+                clearProps: 'scale,color',
               }
             );
           } else if (c._tick !== tick) {
