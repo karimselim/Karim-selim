@@ -27,7 +27,7 @@ export default [
     id: 'coffee-nation',
     tag: 'Frontend',
     title: 'Coffee Nation',
-    path: 'https://musical-genie-14ef50.netlify.app/',
+    path: 'https://cofee-nation.vercel.app/',
     video: 'coffee.mp4',
   },
 ];

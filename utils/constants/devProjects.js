@@ -6,7 +6,7 @@ export default [
     title: 'Coffee Nation',
     line: 'Coffee shop web app.',
     stack: ['React', 'Redux Toolkit', 'Firebase', 'Axios', 'React Router'],
-    live: 'https://musical-genie-14ef50.netlify.app/',
+    live: 'https://cofee-nation.vercel.app/',
     repo: 'https://github.com/karimselim/Cofee-Nation',
   },
 ];
