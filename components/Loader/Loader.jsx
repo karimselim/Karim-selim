@@ -18,6 +18,10 @@ import {
   Whispers,
 } from './styles';
 
+// Intro plays this much faster than the original 7.2s version
+const SPEED = 1.4;
+const t = seconds => Math.round((seconds / SPEED) * 1000) / 1000;
+
 function Loader() {
   const loading = useRef(null);
   const counter = useRef(null);
@@ -25,44 +29,44 @@ function Loader() {
   useEffect(() => {
     const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } });
 
-    tl.to('.counter3', { y: -2600, duration: 5 })
+    tl.to('.counter3', { y: -2600, duration: t(5) })
       .to(
         '.counter2',
-        { y: -1300, duration: 3, delay: 2 },
+        { y: -1300, duration: t(3), delay: t(2) },
         '<' // Position argument
       )
-      .to('.counter1', { y: -130, duration: 1 }, '-=1');
+      .to('.counter1', { y: -130, duration: t(1) }, `-=${t(1)}`);
 
-    gsap.from('.loader1', { width: 0, duration: 6 });
-    gsap.from('.loader2', { width: 0, ease: 'power2.inOut', duration: 7 }, '<');
+    gsap.from('.loader1', { width: 0, duration: t(6) });
+    gsap.from('.loader2', { width: 0, ease: 'power2.inOut', duration: t(7) }, '<');
 
     gsap.to('.digit', {
       top: -150,
-      duration: 1,
-      stagger: 0.15,
-      delay: 5,
+      duration: t(1),
+      stagger: t(0.15),
+      delay: t(5),
       ease: 'expo.inOut',
     });
     gsap.to('.loader', {
       background: 'none',
-      delay: 6,
-      duration: 0.1,
+      delay: t(6),
+      duration: t(0.1),
     });
     gsap.to('.loader1', {
       rotate: 90,
       y: -50,
-      duration: 0.5,
-      delay: 6,
+      duration: t(0.5),
+      delay: t(6),
     });
-    gsap.to('.loader2', { x: -68, y: 53, duration: 0.5 }, '<');
-    gsap.to('.loader', { scale: 50, duration: 1, ease: 'power3.inOut' }, '>');
+    gsap.to('.loader2', { x: -68, y: 53, duration: t(0.5) }, '<');
+    gsap.to('.loader', { scale: 50, duration: t(1), ease: 'power3.inOut' }, '>');
     gsap.to(
       '.loader',
       {
         rotate: 45,
         y: 500,
         x: 2000,
-        duration: 1,
+        duration: t(1),
         ease: 'power2.inOut',
       },
       '<'
@@ -72,8 +76,8 @@ function Loader() {
   useEffect(() => {
     gsap.to('.loadings', {
       opacity: 0,
-      delay: 7,
-      duration: 0.2,
+      delay: t(7),
+      duration: t(0.2),
       ease: 'power3.inOut',
     });
   }, []);

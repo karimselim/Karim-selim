@@ -152,7 +152,7 @@ export const Haze = styled.div`
   inset: 0;
   pointer-events: none;
   background: radial-gradient(ellipse at center, rgba(120, 0, 10, 0.25) 0, rgba(0, 0, 0, 0.85) 85%);
-  animation: loaderFlicker 3.3s steps(1) infinite;
+  animation: loaderFlicker 2.36s steps(1) infinite;
   @keyframes loaderFlicker {
     0%, 100% { opacity: 1; }
     41% { opacity: 0.55; }
@@ -187,12 +187,12 @@ export const Whispers = styled.div`
     left: 0;
     right: 0;
     opacity: 0;
-    animation: whisperIn 1.9s ease-in-out forwards;
+    animation: whisperIn 1.36s ease-in-out forwards;
     text-shadow: 0 0 14px rgba(176, 20, 30, 0.7);
   }
-  span:nth-child(1) { animation-delay: 0.3s; }
-  span:nth-child(2) { animation-delay: 2s; }
-  span:nth-child(3) { animation-delay: 3.7s; animation-duration: 1.2s; }
+  span:nth-child(1) { animation-delay: 0.21s; }
+  span:nth-child(2) { animation-delay: 1.43s; }
+  span:nth-child(3) { animation-delay: 2.64s; animation-duration: 0.86s; }
   @keyframes whisperIn {
     0% { opacity: 0; filter: blur(6px); }
     30%, 70% { opacity: 1; filter: blur(0); }
