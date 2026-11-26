@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from 'styled-components';
 
 export const Cards = styled.div`
@@ -13,7 +14,7 @@ export const Cards = styled.div`
   }
 `;
 
-export const Card = styled.article`
+const CardBase = styled.article`
   display: grid;
   align-content: start;
   height: 100%;
@@ -29,7 +30,33 @@ export const Card = styled.article`
     transform: translateY(-6px);
     border-color: #d4af37;
   }
+
+  /* desktop: tilt toward the pointer, same feel as the CV card */
+  @media (min-width: 768px) {
+    will-change: transform;
+    &:hover {
+      transform: perspective(900px) translateY(-6px) rotateX(var(--rx, 0deg))
+        rotateY(var(--ry, 0deg));
+      transition: transform 0.25s ease-out, border-color 0.4s ease;
+    }
+  }
 `;
+
+export const Card = props => {
+  const move = e => {
+    if (window.innerWidth <= 768) return;
+    const r = e.currentTarget.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    e.currentTarget.style.setProperty('--ry', `${x * 36}deg`);
+    e.currentTarget.style.setProperty('--rx', `${-y * 28}deg`);
+  };
+  const leave = e => {
+    e.currentTarget.style.setProperty('--ry', '0deg');
+    e.currentTarget.style.setProperty('--rx', '0deg');
+  };
+  return <CardBase onMouseMove={move} onMouseLeave={leave} {...props} />;
+};
 
 export const CardTitle = styled.h2`
   font-size: 1.8rem;
