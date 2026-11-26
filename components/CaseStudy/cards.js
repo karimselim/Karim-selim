@@ -52,5 +52,5 @@ export const Tag = styled.span`
   text-transform: uppercase;
   color: #d4af37;
   border: 1px solid #d4af37;
-  padding: 0.2rem 0.6rem;
+  padding: 0.36rem calc(0.6rem - 0.14em) 0.04rem 0.6rem;
 `;

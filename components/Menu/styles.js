@@ -255,7 +255,7 @@ export const Tag = styled.span`
   @media (max-width: 767px) {
     margin-left: 0;
   }
-  padding: 4px 12px;
+  padding: 6.5px calc(12px - 0.18em) 1.5px 12px;
   border: 1px solid #d4af37;
   border-radius: 999px;
   color: #d4af37;
