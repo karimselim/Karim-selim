@@ -34,7 +34,6 @@ const Header = () => <AppBar direction="down" renderAs="header" />;
 
 const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
-  const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {
     let stopPreload = () => {};
@@ -67,13 +66,6 @@ const App = ({ Component, pageProps }) => {
         }
       })();
       stopPreload = () => controller.abort();
-
-      const preloadResources = async () => {
-        await new Promise(resolve => setTimeout(resolve, 4000));
-        setIsLoaded(true);
-      };
-
-      preloadResources();
 
       // Count only the time the tab is visible: the intro animation pauses in a
       // hidden tab, so a wall-clock timer would remove the loader mid-animation.
