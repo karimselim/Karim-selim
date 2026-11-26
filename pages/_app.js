@@ -38,6 +38,7 @@ const App = ({ Component, pageProps }) => {
 
   useEffect(() => {
     let stopPreload = () => {};
+    let endTimer;
     const initialTimer = setTimeout(() => {
       // Warm the browser cache with the heavy assets while the intro animation plays.
       // Loader timing/animation is unchanged; nothing keeps loading once it ends.
@@ -74,15 +75,26 @@ const App = ({ Component, pageProps }) => {
 
       preloadResources();
 
-      setTimeout(() => {
-        stopPreload();
-        setLoading(false);
-      }, 7000);
+      // Count only the time the tab is visible: the intro animation pauses in a
+      // hidden tab, so a wall-clock timer would remove the loader mid-animation.
+      let visibleMs = 0;
+      let last = Date.now();
+      endTimer = setInterval(() => {
+        const now = Date.now();
+        if (!document.hidden) visibleMs += Math.min(now - last, 250);
+        last = now;
+        if (visibleMs >= 7000) {
+          clearInterval(endTimer);
+          stopPreload();
+          setLoading(false);
+        }
+      }, 100);
     }, 1000);
 
     // Cleanup on component unmount
     return () => {
       clearTimeout(initialTimer);
+      clearInterval(endTimer);
       stopPreload();
     };
   }, []);
