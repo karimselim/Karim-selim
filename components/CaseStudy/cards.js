@@ -54,4 +54,7 @@ export const Tag = styled.span`
   color: #d4af37;
   border: 1px solid #d4af37;
   padding: 0.3rem calc(0.6rem - 0.14em) 0.1rem 0.6rem;
+  @media (min-width: 768px) {
+    padding: 0.2rem calc(0.6rem - 0.14em) 0.2rem 0.6rem;
+  }
 `;
