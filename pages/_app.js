@@ -48,6 +48,8 @@ const App = ({ Component, pageProps }) => {
         : [
             '/videos/hero-ide.mp4',
             '/videos/coffee.mp4',
+            '/videos/qa-workspace.mp4',
+            '/videos/typing-desk.mp4',
           ];
       const controller = new AbortController();
       // One at a time, hero first, so the hero video gets the whole connection
