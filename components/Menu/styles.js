@@ -121,8 +121,11 @@ export const Navigation = styled.nav`
   height: 462px;
 
   ${({ theme }) => theme.breakpoints.small`
-    position: absolute;
-    top: 94px;
+    position: static;
+    height: auto;
+    flex: 1;
+    display: flex;
+    align-items: center;
   `};
 `;
 
@@ -148,8 +151,11 @@ export const Link = styled(motion.a)`
   will-change: transform;
 
   ${({ theme }) => theme.breakpoints.tablet`
-    font-size: 1.75rem;
-    line-height: 1.7857142857;
+    font-size: 2.1rem;
+    line-height: 1.25;
+    flex-wrap: wrap;
+    padding: 0.85rem 0;
+    gap: 0.4rem 14px;
   `};
 `;
 
@@ -244,6 +250,9 @@ export const CloseButton = styled(MenuButton)`
 export const Tag = styled.span`
   display: inline-block;
   margin-left: 18px;
+  @media (max-width: 767px) {
+    margin-left: 0;
+  }
   padding: 4px 12px;
   border: 1px solid #d4af37;
   border-radius: 999px;
