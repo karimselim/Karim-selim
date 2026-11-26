@@ -148,6 +148,7 @@ export const Links = styled.ul`
 `;
 
 export const BugList = styled.ul`
+  margin-top: 1.2rem;
   display: grid;
   gap: 1.1rem;
 
