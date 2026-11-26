@@ -183,11 +183,14 @@ export const BugList = styled.ul`
 
 export const Chip = styled.em`
   justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
   font-style: normal;
   font-size: 0.72rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
-  padding: 0.15rem 0.55rem;
+  padding: 0.36rem calc(0.55rem - 0.14em) 0.04rem 0.55rem;
   border: 1px solid ${({ level }) => ((level === 'High' || level === 'Critical') ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'rgba(128,128,128,0.7)')};
   color: ${({ level }) => ((level === 'High' || level === 'Critical') ? '#ea281e' : level === 'Medium' ? '#d4af37' : 'inherit')};
   opacity: ${({ level }) => (level === 'Low' ? 0.8 : 1)};
