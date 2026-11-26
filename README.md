@@ -54,8 +54,8 @@ karim-selim/
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/karimselim/Phoenix-Nation.git
-cd Phoenix-Nation
+git clone https://github.com/karimselim/Karim-selim.git
+cd Karim-selim
 ```
 
 ### 2. Install Dependencies
