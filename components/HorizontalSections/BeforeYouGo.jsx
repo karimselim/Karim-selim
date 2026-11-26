@@ -67,8 +67,15 @@ const BeforeYouGo = () => {
         };
       });
 
+      // Motion is per second, not per frame, so 90/120Hz phones are not faster,
+      // and on touch screens the stars drift at half speed.
+      const slow = window.matchMedia('(pointer: coarse)').matches ? 0.5 : 1;
+      let lastT = performance.now();
       const animateStars = () => {
         if (!ctx2d) return;
+        const now = performance.now();
+        const k = Math.min((now - lastT) / 16.67, 3) * slow;
+        lastT = now;
         if (!visible) {
           frameId = requestAnimationFrame(animateStars);
           return;
@@ -91,8 +98,8 @@ const BeforeYouGo = () => {
           );
           ctx2d.fill();
 
-          star.y += star.speed + star.vy;
-          star.x += star.vx;
+          star.y += (star.speed + star.vy) * k;
+          star.x += star.vx * k;
           star.pulse *= 0.9;
 
           if (star.orbitRadius > 0) {
@@ -151,7 +158,10 @@ const BeforeYouGo = () => {
     });
     if (canvasRef.current) io.observe(canvasRef.current);
 
-    window.addEventListener('mousemove', handleMouseMove);
+    // touch scrolling can fire synthetic mouse moves that fling the stars
+    if (!window.matchMedia('(pointer: coarse)').matches) {
+      window.addEventListener('mousemove', handleMouseMove);
+    }
     const onResize = () => {
       const canvas = canvasRef.current;
       if (canvas) {
