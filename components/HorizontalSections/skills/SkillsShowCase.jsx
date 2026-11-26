@@ -113,7 +113,9 @@ const SkillsShowcase = ({ cardRefsRef, stackRefRef }) => {
             title={skill.title}
             isSelected={selectedCards.includes(i)}
             zIndex={
-              selectedCards.includes(i) ? 1000 + selectedCards.indexOf(i) : i
+              selectedCards.includes(i)
+                ? 1000 + selectedCards.indexOf(i)
+                : skillCards.length - i
             }
             onClick={event => handleCardClick(i, selectedCards.length, event)}
             onTouchEnd={event =>
