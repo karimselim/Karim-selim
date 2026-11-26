@@ -44,6 +44,9 @@ export const CardLine = styled.p`
 
 export const Tag = styled.span`
   justify-self: start;
+  display: inline-flex;
+  align-items: center;
+  line-height: 1;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;

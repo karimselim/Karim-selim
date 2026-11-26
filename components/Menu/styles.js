@@ -248,7 +248,9 @@ export const CloseButton = styled(MenuButton)`
 `;
 
 export const Tag = styled.span`
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
   margin-left: 18px;
   @media (max-width: 767px) {
     margin-left: 0;
