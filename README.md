@@ -71,9 +71,6 @@ npm i
 
 npm run dev
 
-( If you face a Node.js error, this project use:- )
-NODE_OPTIONS=--openssl-legacy-provider
-
 ```
 
 ### ✅ Linting & Formatting
