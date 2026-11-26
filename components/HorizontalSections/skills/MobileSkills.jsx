@@ -180,7 +180,9 @@ const MobileSkills = () => {
             scale: 0.9,
           });
         });
+        // everything about 1.5x slower
         const tl = gsap.timeline({
+          timeScale: 1 / 1.5,
           onComplete: () => {
             readyRef.current = true;
           },
