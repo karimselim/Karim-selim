@@ -250,12 +250,13 @@ export const CloseButton = styled(MenuButton)`
 export const Tag = styled.span`
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   vertical-align: middle;
   margin-left: 18px;
   @media (max-width: 767px) {
     margin-left: 0;
   }
-  padding: 6.5px calc(12px - 0.18em) 1.5px 12px;
+  padding: 5.5px calc(12px - 0.18em) 2.5px 12px;
   border: 1px solid #d4af37;
   border-radius: 999px;
   color: #d4af37;

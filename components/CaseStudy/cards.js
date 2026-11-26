@@ -46,11 +46,12 @@ export const Tag = styled.span`
   justify-self: start;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   line-height: 1;
   font-size: 0.8rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: #d4af37;
   border: 1px solid #d4af37;
-  padding: 0.36rem calc(0.6rem - 0.14em) 0.04rem 0.6rem;
+  padding: 0.3rem calc(0.6rem - 0.14em) 0.1rem 0.6rem;
 `;
