@@ -1,6 +1,12 @@
+import Head from 'next/head';
 import Link from 'next/link';
 
 const NotFound = () => (
+  <>
+    <Head>
+      <title>Page not found - Karim Selim</title>
+      <meta name="robots" content="noindex" />
+    </Head>
   <main
     style={{
       minHeight: '100vh',
@@ -19,6 +25,7 @@ const NotFound = () => (
     </p>
     <Link href="/">Back to the site</Link>
   </main>
+  </>
 );
 
 export default NotFound;
