@@ -18,8 +18,8 @@ export const CardsStack = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 120px;
-  height: 180px;
+  width: 150px;
+  height: 225px;
   z-index: 1;
   opacity: 0;
 
@@ -42,8 +42,8 @@ export const CardsStack = styled.div`
 `;
 
 export const CardContainer = styled.div`
-  width: 120px;
-  height: 180px;
+  width: 150px;
+  height: 225px;
   perspective: 800px;
   position: absolute;
   top: 0;
