@@ -25,16 +25,18 @@ export const BannerSection = styled.section`
 export const VideoContainer = styled.div`
   height: 100%;
   width: 100%;
-  @media (max-width: 767px) {
-    background: #000;
+
+  & img {
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center top;
   }
 
   & video {
     object-fit: cover;
-    /* phones: the IDE video is landscape, so show all of it instead of a cropped slice */
-    @media (max-width: 767px) {
-      object-fit: contain;
-    }
+
     &::-webkit-media-controls {
       display: none !important;
     }

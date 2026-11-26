@@ -29,6 +29,15 @@ const Banner = () => {
   const canvasRef = React.useRef(null);
   const videoRef = React.useRef(null);
   const windowSize = useWindowSize();
+  // Phones get a tall still of the IDE instead of the landscape video
+  const [isPhone, setIsPhone] = React.useState(
+    () => typeof window !== 'undefined' && window.innerWidth <= 767
+  );
+  React.useEffect(() => {
+    const onResize = () => setIsPhone(window.innerWidth <= 767);
+    window.addEventListener('resize', onResize);
+    return () => window.removeEventListener('resize', onResize);
+  }, []);
   const theme = useStyledTheme();
   const { addCursorBorder, removeCursorBorder } = useCursorStyle();
   // Wait for web fonts (Typekit) so the title is not re-laid-out after it appears
@@ -103,7 +112,16 @@ const Banner = () => {
   return (
     <BannerSection style={{ height: windowSize.height }}>
       <VideoContainer>
-        <video
+        {isPhone ? (
+          <img
+            src="/imgs/hero-mobile.jpg"
+            alt=""
+            aria-hidden="true"
+            width="780"
+            height="1688"
+          />
+        ) : (
+          <video
           ref={videoRef}
           src="/videos/hero-ide.mp4"
           height="100%"
@@ -117,6 +135,7 @@ const Banner = () => {
           disablePictureInPicture
           disableRemotePlayback
         />
+        )}
       </VideoContainer>
       <CanvasEraser
         ref={canvasRef}
