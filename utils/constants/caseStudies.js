@@ -26,9 +26,9 @@ export default [
       'GitHub Actions',
     ],
     result: [
-      { value: '14', label: 'spec files: 8 UI, 6 API' },
-      { value: '6', label: 'page objects' },
-      { value: '5', label: 'typed API clients' },
+      { value: '19', label: 'spec files: 10 UI, 9 API' },
+      { value: '7', label: 'page objects' },
+      { value: '9', label: 'typed API clients' },
       { value: '68', label: 'tests in the latest CI run, all passing' },
       { value: '15', label: 'bugs logged in the shop' },
     ],
