@@ -8,6 +8,22 @@ export default [
     video: 'hero-ide.mp4',
   },
   {
+    id: 'mosdev',
+    tag: 'Testing',
+    title: 'MOSDEV',
+    path: '/case-studies/mosdev',
+    internal: true,
+    video: 'qa-workspace.mp4',
+  },
+  {
+    id: 'again-please',
+    tag: 'Testing',
+    title: 'Again Please',
+    path: '/case-studies/again-please',
+    internal: true,
+    video: 'typing-desk.mp4',
+  },
+  {
     id: 'coffee-nation',
     tag: 'Frontend',
     title: 'Coffee Nation',
