@@ -6,7 +6,7 @@ export default [
     slug: 'vendure',
     title: 'Vendure storefront',
     kind: 'QA automation',
-    highlights: ['26 tests passing in CI', '15 bugs logged'],
+    highlights: ['68 tests passing in CI', '15 bugs logged'],
     summary: 'UI and API test suite for an e-commerce storefront.',
     problem:
       'An online store has to keep working while it changes: browsing, sorting, product pages, accounts and the cart. Checking that by hand after every change is slow, so I built an automated suite that covers each flow at the UI level and at the API level.',
@@ -29,11 +29,11 @@ export default [
       { value: '14', label: 'spec files: 8 UI, 6 API' },
       { value: '6', label: 'page objects' },
       { value: '5', label: 'typed API clients' },
-      { value: '26', label: 'tests in the latest CI run, all passing' },
+      { value: '68', label: 'tests in the latest CI run, all passing' },
       { value: '15', label: 'bugs logged in the shop' },
     ],
     resultNote:
-      'The CI workflow starts a fresh Vendure shop with my storefront, seeds a test user and runs the whole suite in a real browser. The latest run on main passed all 26 tests. Along the way I also logged 15 bugs in the shop: 1 Critical, 4 High, 4 Medium and 6 Low.',
+      'The CI workflow starts a fresh Vendure shop with my storefront, seeds a test user and runs the whole suite in a real browser. The latest run on main passed all 68 tests. Along the way I also logged 15 bugs in the shop: 1 Critical, 4 High, 4 Medium and 6 Low.',
     // Bugs found while testing. Filled from the author's own list, never guessed.
     bugs: [
       { severity: 'High', priority: 'P1', area: 'Validation', title: 'Same email can sign up many times', detail: 'Signup accepts the same email address repeatedly.' },
