@@ -1,94 +1,65 @@
-# 🔥 Karim-selim — Cinematic Developer Portfolio
+# Karim-selim
 
-A visually rich, animation-driven developer portfolio built with **Next.js**, **GSAP**, **Framer Motion**, and **Styled Components**.  
-This project is focused on high-end frontend development, bringing together advanced motion, interactivity, and performance optimization.
+My personal portfolio site. I am a QA engineer (manual and Playwright automation) with a frontend background, and the site is how I show that work: case studies of the projects I tested, the bugs I found, and a downloadable CV.
 
----
+Live site: https://karim-selim.vercel.app
 
-## 🚀 Tech Stack
+## What is on the site
 
-- **Next.js v12**
-- **React v17**
-- **GSAP** — scroll-based & timeline animations
-- **Framer Motion** — UI transitions & motion
-- **Styled Components** — scoped component styling
-- **Hover Effect.js** — image distortion/hover effects
-- **React Intersection Observer** — triggers on screen entry
+- Home page with an animated intro, hero, about, experience (horizontal scroll), skills and a closing section. The theme is dark horror/tarot.
+- Case studies at `/case-studies`: Vendure (my Playwright test suite), this website, MOSDEV and Again Please.
+- A button to download my CV as a PDF (`public/Karim_Selim_QA_Resume.pdf`).
+- Mobile layout, light and dark mode, and its own 404 page.
 
----
+## Tech stack
 
-## 📁 Project Structure
-karim-selim/
-├── components/ # Reusable UI and animation components
-│ ├── AnimateOnScreen.jsx
-│ ├── AppBar.jsx
-│ ├── CanvasEraser.jsx
-│ ├── HorizontalSections/
-│ ├── Menu/
-│ ├── SocialMedia.jsx
-│ ├── TextReveal.jsx
-│ └── ...
-├── context/ # React context for global state
-├── hooks/ # Custom React hooks
-├── pages/ # Next.js routing pages
-├── public/ # Static assets (images, icons, etc.)
-├── utils/constants/ # Shared constants or config
-├── styles/ # Global styles if needed
-├── .babelrc
-├── .eslintrc.js
-├── .prettierrc
-└── ...
+Versions from `package-lock.json`:
 
-## 💡 Key Features
+- Next.js 12.3.4 (pages router) and React 17.0.2
+- GSAP 3.12.5 and Framer Motion 6.5.1 for animation
+- Styled Components 5.3.11
+- hover-effect (WebGL image distortion) and react-intersection-observer
+- ESLint 7, Prettier 2, Husky and lint-staged
+- Hosted on Vercel
 
-- 🎬 **Cinematic entrance animations** using GSAP
-- 🎥 **Scroll-based transitions** and hover effects
-- 🧠 **Text reveal animations** and custom interaction layers
-- 📱 **Responsive mobile experience**
-- ⚙️ **Performance-aware**, optimized for heavy animation
+## Requirements
 
----
+Node.js 22 (`engines` in `package.json` is `22.x`; newer Node versions broke the Vercel build) and npm.
 
-## 🛠️ Getting Started
-
-### 1. Clone the Repository
+## Run it locally
 
 ```bash
 git clone https://github.com/karimselim/Karim-selim.git
 cd Karim-selim
+npm install
+npm run dev      # http://localhost:3000
 ```
 
-### 2. Install Dependencies
+Production build: `npm run build`, then `npm start`.
 
-```bash
+## Environment variables
 
-npm i
-```
+None. The site does not call any API and needs no secrets.
 
-### 3. Run The Server
+## Project structure
 
-```bash
+- `pages/` Next.js routes: home, `case-studies/` and the 404 page
+- `components/` UI and animation components
+- `context/`, `hooks/`, `utils/` shared state, hooks and constants
+- `styles/` global styles
+- `public/` images, fonts, videos, the CV PDF, `robots.txt` and `sitemap.xml`
 
-npm run dev
+## Code style
 
-```
+ESLint and Prettier. Husky and lint-staged run `eslint --fix` on staged `.js` and `.jsx` files before each commit.
 
-### ✅ Linting & Formatting
-This project uses:
+## Tests
 
-```
+This repo has no automated tests. My test work is in separate repos:
 
-ESLint for code linting
+- [Vendure-Testing](https://github.com/karimselim/Vendure-Testing): Playwright + TypeScript, UI and API
+- [Cofee-Nation](https://github.com/karimselim/Cofee-Nation): Playwright end to end tests with CI
 
-Prettier for consistent formatting
+## License
 
-Husky and lint-staged to auto-fix staged files on commit
-```
-### 📱 Performance Tips (Used in Project)
-✨ Used will-change only on key elements
-✨ All animations use transform / opacity (GPU accelerated)
-✨ ScrollTrigger / requestAnimationFrame usage optimized
-✨ Disabled some 3D/hover effects on mobile devices
-✨ Lazy-loaded heavy components and assets
-✨ Compressed textures and images for faster loading
-
+MIT, see `LICENSE`.
