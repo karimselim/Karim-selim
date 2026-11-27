@@ -107,7 +107,7 @@ const TextReveal = () => {
     init();
   }, []);
 
-  const aboutText = `I started out writing frontend, so I know exactly which div is lying to you. I built this whole site, animations and all, and then tested it until it stopped laughing at me. Now I turn vague requirements and a lot of coffee into Playwright suites and Jira tickets nobody has to ask a follow-up question about. 300+ bugs found, 85% fewer production incidents, and yes, I will check that the button works one more time.`;
+  const aboutText = `I started out writing frontend, so I know exactly which div is lying to you. I built this whole site, animations and all, and then tested it until it stopped laughing at me. Now I turn vague requirements and a lot of coffee into Playwright suites and Jira tickets nobody has to ask a follow-up question about. 300+ bugs found, and yes, I will check that the button works one more time.`;
 
   return (
     <section ref={sectionRef} className="reveal">
