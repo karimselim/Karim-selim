@@ -12,6 +12,7 @@ import {
   Testimonial,
   Testimonials,
   Text,
+  ContactLinks,
   ContentContainer,
   Section,
   StarCanvas,
@@ -339,6 +340,23 @@ const BeforeYouGo = () => {
             </WordWrap>
           ))}
         </Text>
+        <ContactLinks data-testid="contact-links">
+          <a href="mailto:kareemsleem7@gmail.com">kareemsleem7@gmail.com</a>
+          <a
+            href="https://github.com/karimselim"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            GitHub
+          </a>
+          <a
+            href="https://www.linkedin.com/in/karim-selim-qa"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            LinkedIn
+          </a>
+        </ContactLinks>
         <BeforeH3
           className="reveal-heading"
           data-testid="before-h3"
