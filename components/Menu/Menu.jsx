@@ -62,18 +62,13 @@ const Menu = () => {
     resetCursorColor();
   }, [resetCursorColor]);
 
-  const handleHoverStart = React.useCallback(
-    event => {
-      addCursorBorder();
-      setRevealVideo(event.target.name);
-    },
-    [addCursorBorder]
-  );
+  const handleHoverStart = React.useCallback(event => {
+    setRevealVideo(event.target.name);
+  }, []);
 
   const handleHoverEnd = React.useCallback(() => {
-    removeCursorBorder();
     setRevealVideo(null);
-  }, [removeCursorBorder]);
+  }, []);
 
   // The menu can close while a link is hovered (click on an internal project),
   // so no hover end event fires. Reset the hover state whenever it closes.
@@ -114,8 +109,7 @@ const Menu = () => {
                 <NextLink href="/case-studies" passHref>
                   <AllProjects
                     onClick={() => dispatchMenu({ type: 'TOGGLE_MENU' })}
-                    onMouseEnter={addCursorBorder}
-                    onMouseLeave={removeCursorBorder}
+                    data-cursor-no-magnet
                   >
                     All projects
                   </AllProjects>
@@ -123,7 +117,7 @@ const Menu = () => {
               </h3>
               <CloseButton title="Close" />
             </Header>
-            <Navigation>
+            <Navigation data-cursor-no-magnet>
               <List
                 variants={listVariants}
                 initial="hidden"
