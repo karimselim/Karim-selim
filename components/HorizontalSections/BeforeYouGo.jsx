@@ -19,8 +19,10 @@ import {
 } from './styles';
 import { gsap } from 'gsap';
 import { useThemeContext } from '../../context/theme';
+import useCursorStyle from '../../hooks/useCursorStyle';
 
 const BeforeYouGo = () => {
+  const { addCursorBorder, removeCursorBorder } = useCursorStyle();
   const [{ theme: mode }] = useThemeContext();
   const starRgb = mode === 'light' ? '70, 48, 12' : '255, 255, 255';
   const starRgbRef = useRef(starRgb);
@@ -341,11 +343,21 @@ const BeforeYouGo = () => {
           ))}
         </Text>
         <ContactLinks data-testid="contact-links">
-          <a href="mailto:kareemsleem7@gmail.com">kareemsleem7@gmail.com</a>
+          <a
+            href="mailto:kareemsleem7@gmail.com"
+            data-cursor-ring
+            onMouseEnter={addCursorBorder}
+            onMouseLeave={removeCursorBorder}
+          >
+            kareemsleem7@gmail.com
+          </a>
           <a
             href="https://github.com/karimselim"
             target="_blank"
             rel="noopener noreferrer"
+            data-cursor-ring
+            onMouseEnter={addCursorBorder}
+            onMouseLeave={removeCursorBorder}
           >
             GitHub
           </a>
@@ -353,6 +365,9 @@ const BeforeYouGo = () => {
             href="https://www.linkedin.com/in/karim-selim-qa"
             target="_blank"
             rel="noopener noreferrer"
+            data-cursor-ring
+            onMouseEnter={addCursorBorder}
+            onMouseLeave={removeCursorBorder}
           >
             LinkedIn
           </a>
