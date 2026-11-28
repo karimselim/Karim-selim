@@ -187,12 +187,12 @@ export const Whispers = styled.div`
     left: 0;
     right: 0;
     opacity: 0;
-    animation: whisperIn 1.36s ease-in-out forwards;
+    animation: whisperIn 1.85s ease-in-out forwards;
     text-shadow: 0 0 14px rgba(176, 20, 30, 0.7);
   }
-  span:nth-child(1) { animation-delay: 0.21s; }
-  span:nth-child(2) { animation-delay: 1.43s; }
-  span:nth-child(3) { animation-delay: 2.64s; }
+  span:nth-child(1) { animation-delay: 0.15s; }
+  span:nth-child(2) { animation-delay: 1.75s; }
+  span:nth-child(3) { animation-delay: 3.35s; }
   @keyframes whisperIn {
     0% { opacity: 0; filter: blur(6px); }
     30%, 70% { opacity: 1; filter: blur(0); }
