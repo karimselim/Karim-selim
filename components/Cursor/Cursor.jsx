@@ -78,8 +78,21 @@ const Cursor = () => {
   // anchor locks the cursor to its centre until the pointer leaves the link.
   React.useEffect(() => {
     const onOver = event => {
-      const a =
-        event.target && event.target.closest && event.target.closest('a');
+      // Self-heal the ring/big look from the data attributes. React's
+      // mouseenter simulation misses the first hover after the intro loader
+      // unmounts under a resting pointer (the previous target is detached),
+      // and mount-time settle checks can strip the ring in that window.
+      // Add-only here: removal still comes from the elements' own handlers.
+      const t = event.target;
+      if (t && t.closest) {
+        if (!borderedRef.current && t.closest('[data-cursor-ring]')) {
+          dispatch({ type: 'ADD_CURSOR_BORDER' });
+        }
+        if (!bigRef.current && t.closest('[data-cursor-big]')) {
+          dispatch({ type: 'ADD_CURSOR_BIG' });
+        }
+      }
+      const a = t && t.closest && t.closest('a');
       if (!a || a.closest('[data-cursor-no-magnet]')) return;
       const r = a.getBoundingClientRect();
       dispatch({
@@ -109,8 +122,29 @@ const Cursor = () => {
   }, [dispatch]);
 
   React.useEffect(() => {
+    let lastProbe = 0;
     const onMouseMove = event => {
       lastPoint.current = { x: event.clientX, y: event.clientY };
+      // The browser fires no mouseover/mouseenter at all for the first hover
+      // after the intro loader unmounts under a resting pointer, so the ring
+      // never turns on there. While the ring or big look is missing, re-check
+      // what is under the pointer (throttled) and switch it on. Add-only:
+      // removal stays with the elements' own mouseleave handlers.
+      if (!borderedRef.current || !bigRef.current) {
+        const now = performance.now();
+        if (now - lastProbe > 150) {
+          lastProbe = now;
+          const el = document.elementFromPoint(event.clientX, event.clientY);
+          if (el && el.closest) {
+            if (!borderedRef.current && el.closest('[data-cursor-ring]')) {
+              dispatch({ type: 'ADD_CURSOR_BORDER' });
+            }
+            if (!bigRef.current && el.closest('[data-cursor-big]')) {
+              dispatch({ type: 'ADD_CURSOR_BIG' });
+            }
+          }
+        }
+      }
       // The sticky lock is normally released by mouseleave. If the locked button
       // is removed while hovered (menu open/close), that never fires and the
       // cursor stays frozen. A pointer well away from the lock releases it.
