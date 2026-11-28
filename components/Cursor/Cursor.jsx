@@ -62,6 +62,40 @@ const Cursor = () => {
     };
   }, [dispatch]);
 
+  // Every link gets the same magnetic pull the menu items have: hovering an
+  // anchor locks the cursor to its centre until the pointer leaves the link.
+  React.useEffect(() => {
+    const onOver = event => {
+      const a =
+        event.target && event.target.closest && event.target.closest('a');
+      if (!a) return;
+      const r = a.getBoundingClientRect();
+      dispatch({
+        type: 'LOCK_CURSOR_POSITION',
+        payload: {
+          x: r.left + r.width / 2,
+          y: r.top + r.height / 2,
+          // Capped so a very large link can never freeze the cursor over a
+          // huge area; oversized targets simply release instead.
+          r: Math.min(Math.max(r.width, r.height) / 2 + 24, 140),
+        },
+      });
+    };
+    const onOut = event => {
+      const a =
+        event.target && event.target.closest && event.target.closest('a');
+      if (!a) return;
+      if (event.relatedTarget && a.contains(event.relatedTarget)) return;
+      dispatch({ type: 'LOCK_CURSOR_POSITION', payload: null });
+    };
+    document.addEventListener('mouseover', onOver);
+    document.addEventListener('mouseout', onOut);
+    return () => {
+      document.removeEventListener('mouseover', onOver);
+      document.removeEventListener('mouseout', onOut);
+    };
+  }, [dispatch]);
+
   React.useEffect(() => {
     const onMouseMove = event => {
       lastPoint.current = { x: event.clientX, y: event.clientY };
@@ -71,7 +105,8 @@ const Cursor = () => {
       let locked = position;
       if (
         locked &&
-        Math.hypot(event.clientX - locked.x, event.clientY - locked.y) > 90
+        Math.hypot(event.clientX - locked.x, event.clientY - locked.y) >
+          (locked.r || 90)
       ) {
         locked = null;
         dispatch({ type: 'LOCK_CURSOR_POSITION', payload: null });

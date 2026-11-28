@@ -22,7 +22,7 @@ import {
 const SPEED = 1.4;
 const t = seconds => Math.round((seconds / SPEED) * 1000) / 1000;
 
-function Loader() {
+function Loader({ onFinish }) {
   const loading = useRef(null);
   const counter = useRef(null);
 
@@ -74,12 +74,18 @@ function Loader() {
   }, []);
 
   useEffect(() => {
+    // Tell the app when the exit animation has really finished, so a stalled
+    // timeline (busy main thread, hidden tab) never gets cut off mid-load.
     gsap.to('.loadings', {
       opacity: 0,
       delay: t(7),
       duration: t(0.2),
       ease: 'power3.inOut',
+      onComplete: () => {
+        if (onFinish) onFinish();
+      },
     });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
@@ -88,9 +94,9 @@ function Loader() {
         <Loadings className={`loadings`} ref={loading}>
           <Haze />
           <Whispers aria-hidden="true">
-            <span>Something is waiting</span>
-            <span>Do not look away</span>
-            <span>Enter</span>
+            <span>Every click is a test</span>
+            <span>Expect the unexpected input</span>
+            <span>It never works on my machine</span>
           </Whispers>
           <LoaderWrapper className={`loader`}>
             <Loader1 className={`bar loader1`}></Loader1>
