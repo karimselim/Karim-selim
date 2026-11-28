@@ -68,7 +68,7 @@ const Cursor = () => {
     const onOver = event => {
       const a =
         event.target && event.target.closest && event.target.closest('a');
-      if (!a) return;
+      if (!a || a.closest('[data-cursor-no-magnet]')) return;
       const r = a.getBoundingClientRect();
       dispatch({
         type: 'LOCK_CURSOR_POSITION',

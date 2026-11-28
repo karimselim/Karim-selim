@@ -6,7 +6,7 @@ import { Button } from './styles';
 
 const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
   const [{ isMenuOpen }, dispatch] = useMenuContext();
-  const { addCursorBorder, removeCursorBorder, lockCursorPosition } = useCursorStyle();
+  const { removeCursorBorder, lockCursorPosition } = useCursorStyle();
   const btnRef = React.useRef(null);
   const pointer = React.useRef(null);
 
@@ -48,8 +48,6 @@ const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
   return (
     <StickyCursor sticky={sticky}>
       <Button
-        onMouseEnter={addCursorBorder}
-        onMouseLeave={removeCursorBorder}
         onClick={handleOnToggle}
         aria-label={title || 'Menu'}
         ref={node => {
