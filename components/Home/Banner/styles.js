@@ -68,6 +68,7 @@ export const BannerTitle = styled(motion.h1)`
     font-weight: 400;
     font-size: 1em;
     line-height: 0.9;
+    margin-bottom: 0.45em;
   }
 
   ${({ theme }) => theme.breakpoints.small`
