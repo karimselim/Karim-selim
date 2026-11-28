@@ -102,7 +102,7 @@ const AppBar = props => {
     >
       <Container>
         <Link href="/" passHref>
-          <StyledLink title="Karim" data-cursor-no-magnet>
+          <StyledLink title="Karim">
             <Logo {...logoProps} />
           </StyledLink>
         </Link>

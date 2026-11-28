@@ -10,7 +10,12 @@ const Logo = props => {
   const router = useRouter();
   const theme = useStyledTheme();
   const [, dispatch] = useThemeContext();
-  const { addCursorColor, resetCursorColor } = useCursorStyle();
+  const {
+    addCursorBorder,
+    removeCursorBorder,
+    addCursorColor,
+    resetCursorColor,
+  } = useCursorStyle();
 
   const handleToggleTheme = React.useCallback(
     event => {
@@ -32,9 +37,11 @@ const Logo = props => {
   return (
     <p
       onMouseEnter={() => {
+        addCursorBorder();
         addCursorColor(theme.text);
       }}
       onMouseLeave={() => {
+        removeCursorBorder();
         resetCursorColor();
       }}
       onClick={handleToggleTheme}
