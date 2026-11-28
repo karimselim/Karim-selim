@@ -6,7 +6,7 @@ import { Button } from './styles';
 
 const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
   const [{ isMenuOpen }, dispatch] = useMenuContext();
-  const { removeCursorBorder, lockCursorPosition } = useCursorStyle();
+  const { addCursorBorder, removeCursorBorder, lockCursorPosition } = useCursorStyle();
   const btnRef = React.useRef(null);
   const pointer = React.useRef(null);
 
@@ -18,28 +18,31 @@ const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
     return () => document.removeEventListener('mousemove', onMove);
   }, []);
 
-  // When the menu opens or closes the button can move or hide under a still
-  // pointer, so no mouseleave fires and the cursor stays stuck on the icon.
-  // Re-check a few times while the layout settles: if the pointer is not really
-  // on the button any more, release the lock and the ring right away.
-  const firstRun = React.useRef(true);
+  // When the menu opens or closes the button can move, hide or swap (hamburger
+  // to X and back) under a still pointer, so no mouseenter/mouseleave fires and
+  // the cursor gets stuck with the wrong look. Re-check a few times while the
+  // layout settles and make the cursor match what is really under the pointer:
+  // the big ring and the magnetic lock while it is on the button, normal again
+  // as soon as it is not.
   React.useEffect(() => {
-    if (firstRun.current) {
-      firstRun.current = false;
-      return undefined;
-    }
     const check = () => {
       const p = pointer.current;
       const btn = btnRef.current;
       const el = p && document.elementFromPoint(p.x, p.y);
-      if (!btn || !el || !btn.contains(el)) {
+      if (btn && el && btn.contains(el)) {
+        const r = btn.getBoundingClientRect();
+        lockCursorPosition({ x: r.left + r.width / 2, y: r.top + r.height / 2 });
+        addCursorBorder();
+      } else if (!(el && el.closest && el.closest('[data-menu-button]'))) {
+        // Pointer is on the other menu button (hamburger/X swap): that
+        // instance's own check sets the look, so leave the cursor alone here.
         lockCursorPosition(null);
         removeCursorBorder();
       }
     };
     const timers = [50, 250, 600, 1200].map(t => setTimeout(check, t));
     return () => timers.forEach(clearTimeout);
-  }, [isMenuOpen, lockCursorPosition, removeCursorBorder]);
+  }, [isMenuOpen, lockCursorPosition, addCursorBorder, removeCursorBorder]);
 
   const handleOnToggle = React.useCallback(() => {
     dispatch({ type: 'TOGGLE_MENU' });
@@ -48,6 +51,9 @@ const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
   return (
     <StickyCursor sticky={sticky}>
       <Button
+        data-menu-button
+        onMouseEnter={addCursorBorder}
+        onMouseLeave={removeCursorBorder}
         onClick={handleOnToggle}
         aria-label={title || 'Menu'}
         ref={node => {
