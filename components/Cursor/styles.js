@@ -53,9 +53,12 @@ export const StyledCursor = styled.div`
     );
   }};
 
-  /* hero scratch phase: ring stays on at the standard hover-ring size */
-  ${({ big }) =>
+  /* hero scratch phase: ring stays on at the standard hover-ring size.
+     Big only ever refines the ring; on its own it must not style anything
+     (a big-without-ring state would render as a thick-bordered disc). */
+  ${({ big, bordered }) =>
     big &&
+    bordered &&
     css`
       width: 54px;
       height: 54px;
