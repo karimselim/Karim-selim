@@ -48,12 +48,13 @@ export const VideoContainer = styled.div`
 
 export const BannerTitle = styled(motion.h1)`
   position: absolute;
-  bottom: -93px;
-  left: -20px;
-  font-size: 420px;
-  font-size: 26.25rem;
+  bottom: -0.06em;
+  left: 0;
+  font-family: calibre, sans-serif;
+  font-weight: 900;
+  font-size: 13vw;
   pointer-events: none;
-  line-height: 0.6714285714;
+  line-height: 0.8;
   z-index: 10;
 
   & span {
@@ -62,21 +63,26 @@ export const BannerTitle = styled(motion.h1)`
     backface-visibility: hidden;
   }
 
+  & span:first-child {
+    font-family: 'Rouge Script', cursive;
+    font-weight: 400;
+    font-size: 1.5em;
+    line-height: 0.9;
+    padding-right: 0.12em;
+  }
+
   ${({ theme }) => theme.breakpoints.small`
-    left: -10px;
-    bottom: -63px;
-    font-size: 280px;
-    font-size: 17.5rem;
-    line-height: .6821428571;
+    left: 0;
+    bottom: -0.01em;
+    font-size: 15vw;
+    line-height: 0.8;
   `};
 
   ${({ theme }) => theme.breakpoints.tablet`
-    left: -6px;
-    bottom: -36px;
-    max-width: calc(100% + 6px);
-    font-size: 160px;
-    font-size: 10rem;
-    line-height: .68125;
+    left: 0;
+    bottom: -0.02em;
+    font-size: 14vw;
+    line-height: 0.8;
   `};
 
   /* light mode on a phone: the dark hero video is always visible behind it */

@@ -153,9 +153,9 @@ const Banner = () => {
         animate={titleReady ? 'animate' : 'initial'}
       >
         <motion.span variants={itemTitleAnimation} className="view">
-          kA
+          QA
         </motion.span>
-        <motion.span variants={itemTitleAnimation}>RIM</motion.span>
+        <motion.span variants={itemTitleAnimation}>ENGINEER</motion.span>
       </BannerTitle>
     </BannerSection>
   );

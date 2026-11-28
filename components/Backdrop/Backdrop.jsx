@@ -17,11 +17,43 @@ const variants = {
 
 const Backdrop = props => {
   React.useEffect(() => {
-    const overflowY = window.getComputedStyle(document.body).overflowY;
-    document.body.style.overflowY = 'hidden';
+    const html = document.documentElement;
+    const body = document.body;
+    const prev = {
+      bodyOverflow: body.style.overflowY,
+      htmlOverflow: html.style.overflow,
+      bodyOverscroll: body.style.overscrollBehavior,
+      htmlOverscroll: html.style.overscrollBehavior,
+    };
+    body.style.overflowY = 'hidden';
+    html.style.overflow = 'hidden';
+    body.style.overscrollBehavior = 'none';
+    html.style.overscrollBehavior = 'none';
+
+    // iOS Safari ignores overflow:hidden on the body, so block page scroll gestures too.
+    const canScroll = el => {
+      while (el && el !== document.body) {
+        if (el.scrollHeight > el.clientHeight) {
+          const oy = window.getComputedStyle(el).overflowY;
+          if (oy === 'auto' || oy === 'scroll') return true;
+        }
+        el = el.parentElement;
+      }
+      return false;
+    };
+    const block = e => {
+      if (!canScroll(e.target)) e.preventDefault();
+    };
+    document.addEventListener('touchmove', block, { passive: false });
+    document.addEventListener('wheel', block, { passive: false });
 
     return () => {
-      document.body.style.overflowY = overflowY;
+      document.removeEventListener('touchmove', block);
+      document.removeEventListener('wheel', block);
+      body.style.overflowY = prev.bodyOverflow;
+      html.style.overflow = prev.htmlOverflow;
+      body.style.overscrollBehavior = prev.bodyOverscroll;
+      html.style.overscrollBehavior = prev.htmlOverscroll;
     };
   }, []);
 

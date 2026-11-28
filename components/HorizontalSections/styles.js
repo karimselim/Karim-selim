@@ -192,6 +192,36 @@ export const Text = styled.p`
   }
 `;
 
+export const ContactLinks = styled.nav`
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  margin: 0 auto 2rem;
+  flex-wrap: wrap;
+
+  & a {
+    color: ${({ theme }) => theme.menuGold};
+    text-decoration: none;
+    font-size: 1rem;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-bottom: 1px solid transparent;
+  }
+
+  & a:hover {
+    border-bottom-color: currentColor;
+  }
+
+  @media (max-width: 768px) {
+    gap: 1.2rem;
+    margin-bottom: 0.9rem;
+
+    & a {
+      font-size: 0.8rem;
+    }
+  }
+`;
+
 export const Testimonials = styled.div`
   display: flex;
   justify-content: center;

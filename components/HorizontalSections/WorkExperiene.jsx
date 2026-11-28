@@ -70,8 +70,7 @@ const WorkExperiene = () => {
             ran test plans and managed the full testware cycle for backend APIs
             and web frontends using Playwright, with Jira as the test management
             system. I found and documented 300+ bugs with clear severity, repro
-            steps, and expected-vs-actual results, which helped reduce
-            production incidents by 85%. I also built and maintained React
+            steps, and expected-vs-actual results. I also built and maintained React
             Native features, which sharpened my root-cause analysis, and worked
             with cross-functional teams to add automated test runs to release
             pipelines.
