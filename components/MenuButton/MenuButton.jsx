@@ -37,7 +37,12 @@ const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
         // Pointer is on the other menu button (hamburger/X swap): that
         // instance's own check sets the look, so leave the cursor alone here.
         lockCursorPosition(null);
-        removeCursorBorder();
+        // Only strip the ring when the pointer is not on another ring
+        // target (e.g. the hero erase canvas right after the loader ends):
+        // those elements own their ring state.
+        if (!(el && el.closest && el.closest('[data-cursor-ring]'))) {
+          removeCursorBorder();
+        }
       }
     };
     const timers = [50, 250, 600, 1200].map(t => setTimeout(check, t));
