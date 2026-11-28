@@ -88,9 +88,9 @@ function Loader() {
         <Loadings className={`loadings`} ref={loading}>
           <Haze />
           <Whispers aria-hidden="true">
-            <span>Something is waiting</span>
-            <span>Do not look away</span>
-            <span>Enter</span>
+            <span>Every click is a test</span>
+            <span>Expect the unexpected input</span>
+            <span>It never works on my machine</span>
           </Whispers>
           <LoaderWrapper className={`loader`}>
             <Loader1 className={`bar loader1`}></Loader1>
