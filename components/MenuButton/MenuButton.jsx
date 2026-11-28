@@ -27,8 +27,11 @@ const MenuButton = ({ sticky = true, title = '', ...props }, ref) => {
   React.useEffect(() => {
     const check = () => {
       const p = pointer.current;
+      // Never seen the pointer yet (fresh load, no mouse move since mount):
+      // there is nothing to settle, so leave the cursor state alone.
+      if (!p) return;
       const btn = btnRef.current;
-      const el = p && document.elementFromPoint(p.x, p.y);
+      const el = document.elementFromPoint(p.x, p.y);
       if (btn && el && btn.contains(el)) {
         const r = btn.getBoundingClientRect();
         lockCursorPosition({ x: r.left + r.width / 2, y: r.top + r.height / 2 });

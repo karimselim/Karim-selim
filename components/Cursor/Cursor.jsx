@@ -64,11 +64,8 @@ const Cursor = () => {
       passive: true,
       capture: true,
     });
-    // Banner fires this once the loader is gone and the hero is on screen
-    window.addEventListener('cursor-sync', onScroll);
     return () => {
       window.removeEventListener('scroll', onScroll, { capture: true });
-      window.removeEventListener('cursor-sync', onScroll);
       clearTimeout(timer);
       if (raf !== null) cancelAnimationFrame(raf);
     };
@@ -78,21 +75,8 @@ const Cursor = () => {
   // anchor locks the cursor to its centre until the pointer leaves the link.
   React.useEffect(() => {
     const onOver = event => {
-      // Self-heal the ring/big look from the data attributes. React's
-      // mouseenter simulation misses the first hover after the intro loader
-      // unmounts under a resting pointer (the previous target is detached),
-      // and mount-time settle checks can strip the ring in that window.
-      // Add-only here: removal still comes from the elements' own handlers.
-      const t = event.target;
-      if (t && t.closest) {
-        if (!borderedRef.current && t.closest('[data-cursor-ring]')) {
-          dispatch({ type: 'ADD_CURSOR_BORDER' });
-        }
-        if (!bigRef.current && t.closest('[data-cursor-big]')) {
-          dispatch({ type: 'ADD_CURSOR_BIG' });
-        }
-      }
-      const a = t && t.closest && t.closest('a');
+      const a =
+        event.target && event.target.closest && event.target.closest('a');
       if (!a || a.closest('[data-cursor-no-magnet]')) return;
       const r = a.getBoundingClientRect();
       dispatch({
