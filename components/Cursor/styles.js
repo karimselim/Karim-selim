@@ -53,6 +53,15 @@ export const StyledCursor = styled.div`
     );
   }};
 
+  /* hero scratch phase: the ring matches the erase brush so it reads big */
+  ${({ big }) =>
+    big &&
+    css`
+      width: 120px;
+      height: 120px;
+      margin: -60px 0 0 -60px;
+    `};
+
   @media (hover: none) and (pointer: coarse) {
     display: none;
   }
