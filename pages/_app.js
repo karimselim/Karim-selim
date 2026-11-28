@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import Head from 'next/head';
 import { ThemeProvider } from 'styled-components';
 import { ThemeContextProvider, useThemeContext } from '../context/theme';
@@ -34,6 +34,7 @@ const Header = () => <AppBar direction="down" renderAs="header" />;
 
 const App = ({ Component, pageProps }) => {
   const [loading, setLoading] = useState(true);
+  const loaderFinished = useRef(false);
 
   useEffect(() => {
     let stopPreload = () => {};
@@ -75,7 +76,14 @@ const App = ({ Component, pageProps }) => {
         const now = Date.now();
         if (!document.hidden) visibleMs += Math.min(now - last, 250);
         last = now;
-        if (visibleMs >= 4300) {
+        // Normal case: unmount once the intro has had its usual 4.3s of
+        // visible time AND the exit animation reported done. If the timeline
+        // stalls (jank, throttling), wait for it - but never trap the user:
+        // after 8s of visible time the loader goes away regardless.
+        if (
+          (visibleMs >= 4300 && loaderFinished.current) ||
+          visibleMs >= 8000
+        ) {
           clearInterval(endTimer);
           stopPreload();
           setLoading(false);
@@ -162,7 +170,11 @@ const App = ({ Component, pageProps }) => {
             <ThemedApp>
               {loading ? (
                 <>
-                  <Loader />
+                  <Loader
+                    onFinish={() => {
+                      loaderFinished.current = true;
+                    }}
+                  />
                   {/* Warm the title web font while the loader plays so the hero
                       does not wait for it afterwards */}
                   <span
