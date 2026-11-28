@@ -64,11 +64,10 @@ export const BannerTitle = styled(motion.h1)`
   }
 
   & span:first-child {
-    font-family: 'Rouge Script', cursive;
+    font-family: 'Michroma', sans-serif;
     font-weight: 400;
-    font-size: 1.5em;
+    font-size: 1em;
     line-height: 0.9;
-    padding-right: 0.12em;
   }
 
   ${({ theme }) => theme.breakpoints.small`

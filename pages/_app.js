@@ -130,6 +130,14 @@ const App = ({ Component, pageProps }) => {
         }
 
         @font-face {
+          font-family: 'Michroma';
+          src: url('/fonts/Michroma-Regular.woff2') format('woff2');
+          font-weight: 400;
+          font-style: normal;
+          font-display: swap;
+        }
+
+        @font-face {
           font-family: calibre;
           font-weight: 400;
           font-style: normal;
@@ -167,6 +175,17 @@ const App = ({ Component, pageProps }) => {
                     }}
                   >
                     kARIM
+                  </span>
+                  <span
+                    aria-hidden="true"
+                    style={{
+                      position: 'absolute',
+                      opacity: 0,
+                      pointerEvents: 'none',
+                      fontFamily: 'Michroma, sans-serif',
+                    }}
+                  >
+                    QA
                   </span>
                 </>
               ) : (
