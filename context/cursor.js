@@ -5,6 +5,7 @@ import colors from '../styles/colors';
 const INITIAL_STATE = {
   cursorStyle: {
     bordered: false,
+    big: false,
     color: colors.red,
   },
   position: null,
@@ -36,6 +37,24 @@ const rootReducer = (state, action) => {
         cursorStyle: {
           ...state.cursorStyle,
           bordered: false,
+        },
+      };
+    }
+    case 'ADD_CURSOR_BIG': {
+      return {
+        ...state,
+        cursorStyle: {
+          ...state.cursorStyle,
+          big: true,
+        },
+      };
+    }
+    case 'REMOVE_CURSOR_BIG': {
+      return {
+        ...state,
+        cursorStyle: {
+          ...state.cursorStyle,
+          big: false,
         },
       };
     }

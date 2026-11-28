@@ -39,7 +39,8 @@ const Banner = () => {
     return () => window.removeEventListener('resize', onResize);
   }, []);
   const theme = useStyledTheme();
-  const { addCursorBorder, removeCursorBorder } = useCursorStyle();
+  const { addCursorBorder, removeCursorBorder, addCursorBig, removeCursorBig } =
+    useCursorStyle();
   // Wait for web fonts (Typekit) so the title is not re-laid-out after it appears
   React.useEffect(() => {
     // let the cursor re-check what is under it now that the loader is gone
@@ -143,9 +144,16 @@ const Banner = () => {
         height={windowSize.height}
         size={120}
         data-cursor-ring
+        data-cursor-big
         background={theme.background}
-        onMouseEnter={addCursorBorder}
-        onMouseLeave={removeCursorBorder}
+        onMouseEnter={() => {
+          addCursorBorder();
+          addCursorBig();
+        }}
+        onMouseLeave={() => {
+          removeCursorBorder();
+          removeCursorBig();
+        }}
       />
       <BannerTitle
         variants={titleAnimation}

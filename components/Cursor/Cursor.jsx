@@ -8,6 +8,8 @@ const Cursor = () => {
   const lastPoint = React.useRef(null);
   const borderedRef = React.useRef(cursorStyle.bordered);
   borderedRef.current = cursorStyle.bordered;
+  const bigRef = React.useRef(cursorStyle.big);
+  bigRef.current = cursorStyle.big;
 
   // Keep the ring/closed look in sync with what is under the pointer even when the
   // mouse is not moving (loader ends, page scrolls under a still cursor).
@@ -24,6 +26,16 @@ const Cursor = () => {
       if (shouldRing !== borderedRef.current) {
         dispatch({
           type: shouldRing ? 'ADD_CURSOR_BORDER' : 'REMOVE_CURSOR_BORDER',
+        });
+      }
+      const shouldBig = !!(
+        el &&
+        el.closest &&
+        el.closest('[data-cursor-big]')
+      );
+      if (shouldBig !== bigRef.current) {
+        dispatch({
+          type: shouldBig ? 'ADD_CURSOR_BIG' : 'REMOVE_CURSOR_BIG',
         });
       }
     };
@@ -128,6 +140,7 @@ const Cursor = () => {
       ref={cursorRef}
       color={cursorStyle.color}
       bordered={cursorStyle.bordered}
+      big={cursorStyle.big}
     />
   );
 };
